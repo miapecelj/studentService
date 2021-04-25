@@ -12,22 +12,31 @@ public class SubjectDto implements MyDto{
 	private long id;
 	private String name;
 	private String description;
-	private int noOfESP;
+	private int noOfEspb;
 	private int yearOfStudy;
 	private Semester semester;
 	public SubjectDto() {
 		// TODO Auto-generated constructor stub
 	}
-	public SubjectDto(long id, String name, String description, int noOfESP, int yearOfStudy, Semester semester) {
+	public SubjectDto(long id, String name, String description, int noOfEspb, int yearOfStudy, Semester semester) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
-		this.noOfESP = noOfESP;
+		this.noOfEspb = noOfEspb;
 		this.yearOfStudy = yearOfStudy;
 		this.semester = semester;
 	}
 	
+	
+	public SubjectDto(String name, String description, int noOfEspb, int yearOfStudy, Semester semester) {
+		super();
+		this.name = name;
+		this.description = description;
+		this.noOfEspb = noOfEspb;
+		this.yearOfStudy = yearOfStudy;
+		this.semester = semester;
+	}
 	public long getId() {
 		return id;
 	}
@@ -46,11 +55,11 @@ public class SubjectDto implements MyDto{
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public int getNoOfESP() {
-		return noOfESP;
+	public int getnoOfEspb() {
+		return noOfEspb;
 	}
-	public void setNoOfESP(int noOfESP) {
-		this.noOfESP = noOfESP;
+	public void setnoOfEspb(int noOfEspb) {
+		this.noOfEspb = noOfEspb;
 	}
 	public int getYearOfStudy() {
 		return yearOfStudy;
@@ -66,7 +75,7 @@ public class SubjectDto implements MyDto{
 	}
 	@Override
 	public String toString() {
-		return "Subject [id=" + id + ", name=" + name + ", description=" + description + ", noOfESP=" + noOfESP
+		return "Subject [id=" + id + ", name=" + name + ", description=" + description + ", noOfESPB=" + noOfEspb
 				+ ", yearOfStudy=" + yearOfStudy + ", semester=" + semester + "]";
 	}
 	@Override

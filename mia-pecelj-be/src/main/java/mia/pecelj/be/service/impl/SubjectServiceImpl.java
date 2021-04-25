@@ -16,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 import mia.pecelj.be.dto.MyDto;
 import mia.pecelj.be.dto.SubjectDto;
 import mia.pecelj.be.entity.SubjectEntity;
+import mia.pecelj.be.exception.MyEntityExistException;
+import mia.pecelj.be.exception.MyEntityNotPresentedException;
 import mia.pecelj.be.mapper.SubjectEntityDtoMapper;
 import mia.pecelj.be.repository.SubjectRepository;
 import mia.pecelj.be.service.SubjectService;
@@ -51,10 +53,10 @@ public class SubjectServiceImpl implements SubjectService{
 	}
 
 	@Override
-	public SubjectDto save(SubjectDto dto) throws Exception {
+	public SubjectDto save(SubjectDto dto) throws MyEntityExistException {
 		Optional<SubjectEntity> entity = subjectRepository.findById(dto.getId());
 		if (entity.isPresent()) {
-			throw new Exception("Subject already exists!");
+			throw new MyEntityExistException("Subject already exists!",dto);
 		}
 
 		SubjectEntity subject = subjectRepository.save(subjectMapper.toEntity(dto));
@@ -72,10 +74,10 @@ public class SubjectServiceImpl implements SubjectService{
 	}
 
 	@Override
-	public void delete(Long id) throws Exception {
+	public void delete(Long id) throws MyEntityNotPresentedException {
 		Optional<SubjectEntity> entity = subjectRepository.findById(id);
 		if (!entity.isPresent()) {
-			throw new Exception("City with code " + id + " does not exist!");
+			throw new MyEntityNotPresentedException("City with code " + id + " does not exist!");
 		}
 		subjectRepository.delete(entity.get());
 		
