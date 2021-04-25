@@ -1,2 +1,25 @@
-<p>subject-list works!</p>
-{{ subjects | json }}
+<h2>Subject list</h2>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Name</th>
+    <th scope="col">Description</th>
+    <th scope="col">Number of espb</th>
+    <th scope="col">Year of study</th>
+    <th scope="col">Semester</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let subject of subjects; let i=index">
+    <!-- <th scope="row">{{ i + (currentPage - 1) * pageSize + 1 }}</th> -->
+    <td>{{i+1}}.</td>
+    <td>{{ subject.name }}</td>
+    <td>{{ subject.description }}</td>
+    <td>{{ subject.noOfEspb }}</td>
+    <td>{{ subject.yearOfStudy }}</td>
+    <td>{{ subject.semester }}</td>
+  </tr>
+  </tbody>
+</table>
+<!-- <ngb-pagination [collectionSize]="totalItems" (pageChange)="onPageChange($event)" [(page)]="currentPage" [pageSize]="pageSize" [boundaryLinks]="true"></ngb-pagination> -->

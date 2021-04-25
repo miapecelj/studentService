@@ -1,3 +1,5 @@
+import { Semester } from "./semester.model";
+
 export interface Subject{
   id:number;
   name:string;
@@ -6,7 +8,4 @@ export interface Subject{
   yearOfStudy:number;
   semester:Semester;
 
-}
-export enum Semester{
-  WINTER,SUMMER
 }
