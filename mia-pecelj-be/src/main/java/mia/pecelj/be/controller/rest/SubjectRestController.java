@@ -6,6 +6,8 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -89,11 +91,9 @@ public class SubjectRestController {
 		}
 	}
 
-	@GetMapping("/filter")
-	public ResponseEntity<List<SubjectDto>> getAll(@RequestParam(defaultValue = "0") int pageNo,
-			@RequestParam(defaultValue = "10") int pageSize, @RequestParam(defaultValue = "name") String sortBy) {
-		List<SubjectDto> list = subjectService.getAll(pageNo, pageSize, sortBy);
-		return ResponseEntity.status(HttpStatus.OK).body(list);
+	@GetMapping("/page")
+	public @ResponseBody ResponseEntity<Page<SubjectDto>> getByPage(Pageable pageable) {
+		return ResponseEntity.status(HttpStatus.OK).body(subjectService.getAll(pageable));
 	}
 
 }

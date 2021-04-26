@@ -55,10 +55,10 @@ public class SubjectDto implements MyDto{
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public int getnoOfEspb() {
+	public int getNoOfEspb() {
 		return noOfEspb;
 	}
-	public void setnoOfEspb(int noOfEspb) {
+	public void setNoOfEspb(int noOfEspb) {
 		this.noOfEspb = noOfEspb;
 	}
 	public int getYearOfStudy() {
