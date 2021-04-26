@@ -1,7 +1,10 @@
 
-<form [formGroup]="subjectForm" (ngSubmit)="addSubject()">
+<div *ngIf="addedSubject" class="alert alert-success" role="alert" >
+  Subject saved!
+</div>
+<form *ngIf="subjectForm" [formGroup]="subjectForm" (ngSubmit)="onSubmit()">
   <div class="m-auto w-25 p-4 border border-primary rounded">
-  <h3>Insert new subject</h3>
+    <h3>Subject</h3>
   <a routerLink="/subject">Back to list</a>
     <div class="mb-3 d-flex flex-column">
       <label for="name" class="form-label">Name</label>
@@ -57,11 +60,8 @@
 
     <hr />
 
-
-    {{ subjectForm.value | json}}
-
     <div class="d-flex flex-row mt-2">
-      <button class="btn btn-outline-primary" [disabled]="!subjectForm.valid" type="submit">
+      <button class="btn btn-outline-success" [disabled]="!subjectForm.valid" type="submit">
         Save subject
       </button>
     </div>

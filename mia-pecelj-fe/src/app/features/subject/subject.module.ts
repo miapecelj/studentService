@@ -6,15 +6,18 @@ import { SharedModule } from 'src/app/shared';
 import { SubjectAddComponent } from './pages/subject-add/subject-add.component';
 
 
+
 @NgModule({
   declarations: [
     SubjectListComponent,
-    SubjectAddComponent
+    SubjectAddComponent,
+
   ],
   imports: [
     CommonModule,
     SubjectRoutingModule,
-    SharedModule
+    SharedModule,
+
   ]
 })
 export class SubjectModule { }

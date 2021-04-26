@@ -4,7 +4,7 @@ import { SubjectAddComponent } from './features/subject/pages/subject-add/subjec
 
 const routes: Routes = [
   {path:'subject', loadChildren: () => import('./features/subject/subject.module').then(m => m.SubjectModule)},
-  {path:'subject-add', component: SubjectAddComponent}
+  {path:'subject-add', component: SubjectAddComponent},
 ];
 
 @NgModule({

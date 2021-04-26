@@ -7,6 +7,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FooterComponent, HeaderComponent } from './components';
 import { ObjectInfoPipe } from './pipes';
 import { SortableHeaderDirective } from './directives/sortable-header.directive';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { GlobalToastComponent } from './components/global-toast/global-toast.component';
 
 
 
@@ -14,7 +16,9 @@ import { SortableHeaderDirective } from './directives/sortable-header.directive'
   declarations: [
     HeaderComponent,
     FooterComponent,
-    ObjectInfoPipe
+    ObjectInfoPipe,
+    ConfirmDialogComponent,
+    GlobalToastComponent
   ],
   imports: [
     CommonModule,
@@ -34,7 +38,9 @@ import { SortableHeaderDirective } from './directives/sortable-header.directive'
 
     HeaderComponent,
     FooterComponent,
-    ObjectInfoPipe
+    ObjectInfoPipe,
+    ConfirmDialogComponent,
+    GlobalToastComponent
   ]
 })
 export class SharedModule { }
