@@ -1,14 +1,12 @@
 package mia.pecelj.be.dto;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
-import org.hibernate.annotations.NaturalId;
-
-import mia.pecelj.be.entity.CityEntity;
-import mia.pecelj.be.entity.StudentEntity;
 
 public class StudentDto implements MyDto{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private long id;
 	private int indexNumber;
 	private int indexYear;
@@ -16,12 +14,24 @@ public class StudentDto implements MyDto{
 	private String lastname;
 	private String email;
 	private String address;
-	@ManyToOne
-	@JoinColumn(name = "city_code")
 	private CityDto city;
 	public StudentDto() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	public StudentDto(long id, int indexNumber, int indexYear, String firstname, String lastname, String email,
+			String address, CityDto city) {
+		super();
+		this.id = id;
+		this.indexNumber = indexNumber;
+		this.indexYear = indexYear;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.email = email;
+		this.address = address;
+		this.city = city;
+	}
+
 	public StudentDto(int indexNumber, int indexYear, String firstname, String lastname, String email, String address,
 			CityDto city) {
 		super();
