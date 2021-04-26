@@ -1,0 +1,3 @@
+INSERT INTO subject(name,description,no_of_espb,year_of_study, semester) VALUES("Matematika1","Math introducition",6,1,"WINTER");
+INSERT INTO subject(name,description,no_of_espb,year_of_study, semester) VALUES("Osnove kvaliteta","Quality management introducition",5,4,"SUMMER");
+INSERT INTO subject(name,description,no_of_espb,year_of_study, semester) VALUES("Engleski2","English introducition",4,2,"WINTER");

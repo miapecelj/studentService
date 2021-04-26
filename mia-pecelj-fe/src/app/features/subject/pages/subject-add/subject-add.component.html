@@ -1,0 +1,70 @@
+
+<div *ngIf="addedSubject" class="alert alert-success" role="alert" >
+  Subject saved!
+</div>
+<form *ngIf="subjectForm" [formGroup]="subjectForm" (ngSubmit)="onSubmit()">
+  <div class="m-auto w-25 p-4 border border-primary rounded">
+    <h3>Subject</h3>
+  <a routerLink="/subject">Back to list</a>
+    <div class="mb-3 d-flex flex-column">
+      <label for="name" class="form-label">Name</label>
+      <input id="name" class="form-control" formControlName="name" />
+      <p class="alert alert-danger" *ngIf="subjectForm.get('name').hasError('minlength')">
+        Length is ({{subjectForm.get('name').errors.minlength.actualLength}}) less than required length ({{subjectForm.get('name').errors.minlength.requiredLength}})
+      </p>
+      <p class="alert alert-danger" *ngIf="subjectForm.get('name').hasError('required') && subjectForm.get('name').touched">
+        Name is required
+      </p>
+
+    </div>
+
+    <div class="mb-3 d-flex flex-column">
+      <label for="description" class="form-label">Description</label>
+      <textarea id="description" class="form-control" formControlName="description"></textarea>
+      <p class="alert alert-danger" *ngIf="subjectForm.get('description').hasError('maxlength')">
+        Length is ({{subjectForm.get('description').errors.maxlength.actualLength}}) higher than max length ({{subjectForm.get('description').errors.maxlength.requiredLength}})
+      </p>
+    </div>
+    <div class="mb-3 d-flex flex-column">
+      <label for="noOfEspb" class="form-label">Number of espb</label>
+      <textarea id="noOfEspb" class="form-control" formControlName="noOfEspb"></textarea>
+      <p class="alert alert-danger" *ngIf="subjectForm.get('noOfEspb').hasError('reqired')">
+        Number of espb is required
+      </p>
+    </div>
+    <div class="mb-3 d-flex flex-column">
+      <label for="yearOfStudy" class="form-label">Year of study</label>
+      <textarea id="yearOfStudy" class="form-control" formControlName="yearOfStudy"></textarea>
+      <p class="alert alert-danger" *ngIf="subjectForm.get('yearOfStudy').hasError('reqired')">
+        Year of study
+      </p>
+      <p class="alert alert-danger" *ngIf="subjectForm.get('yearOfStudy').hasError('max')">
+        Year of study must be les then 5
+      </p>
+      <p class="alert alert-danger" *ngIf="subjectForm.get('yearOfStudy').hasError('min')">
+        Year of study must be les then 0
+      </p>
+    </div>
+
+
+
+     <div class="mb-3 d-flex flex-column">
+      <label for="semester" class="form-label">Semester</label>
+      <select id="semester" class="form-select" formControlName="semester">
+        <option>Please select semester</option>
+        <option *ngFor="let val of getEnumKeys()" [ngValue]="val">
+          {{ val }}
+        </option>
+      </select>
+    </div>
+
+    <hr />
+
+    <div class="d-flex flex-row mt-2">
+      <button class="btn btn-outline-success" [disabled]="!subjectForm.valid" type="submit">
+        Save subject
+      </button>
+    </div>
+  </div>
+</form>
+

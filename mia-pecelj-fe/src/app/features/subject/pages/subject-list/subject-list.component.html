@@ -1,0 +1,27 @@
+<h2>Subject list</h2>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Name</th>
+    <th scope="col">Description</th>
+    <th scope="col">Number of espb</th>
+    <th scope="col">Year of study</th>
+    <th scope="col">Semester</th>
+    <th scope="col">Action</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let subject of subjects; let i=index">
+    <th scope="row">{{ i + (currentPage - 1) * pageSize + 1 }}</th>
+    <td>{{ subject.name }}</td>
+    <td>{{ subject.description }}</td>
+    <td>{{ subject.noOfEspb }}</td>
+    <td>{{ subject.yearOfStudy }}</td>
+    <td>{{ subject.semester }}</td>
+    <td><button type="button" class="btn btn-primary" [routerLink]="['../subject-add', subject.id]" >Edit</button><button (click)="deleteSubject(subject)"  type="button" class="btn btn-danger">Delete</button></td>
+  </tr>
+  </tbody>
+</table>
+<ngb-pagination [collectionSize]="totalItems" (pageChange)="onPageChange($event)" [(page)]="currentPage" [pageSize]="pageSize" [boundaryLinks]="true"></ngb-pagination>
+<button type="button" class="btn btn-primary" [routerLink]="['../subject-add']" >Add subject</button>
