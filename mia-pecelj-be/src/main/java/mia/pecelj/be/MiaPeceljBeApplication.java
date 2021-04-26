@@ -14,7 +14,6 @@ import mia.pecelj.be.mapper.StudentEntityDtoMapper;
 public class MiaPeceljBeApplication {
 
 	public static void main(String[] args) {
-		//int indexNumber, int indexYear, String firstname, String lastname, String email, String address,CityEntity city
 		SpringApplication.run(MiaPeceljBeApplication.class, args);
 
 	}
