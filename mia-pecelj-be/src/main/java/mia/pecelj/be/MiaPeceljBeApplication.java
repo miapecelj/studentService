@@ -9,9 +9,6 @@ import mia.pecelj.be.entity.StudentEntity;
 import mia.pecelj.be.entity.SubjectEntity;
 import mia.pecelj.be.mapper.CityEntityDtoMapper;
 import mia.pecelj.be.mapper.StudentEntityDtoMapper;
-import mia.pecelj.be.mapper.StudentEntityDtoMapperImpl;
-import mia.pecelj.be.mapper.SubjectEntityDtoMapper;
-import mia.pecelj.be.mapper.SubjectEntityDtoMapperImpl;
 
 @SpringBootApplication
 public class MiaPeceljBeApplication {

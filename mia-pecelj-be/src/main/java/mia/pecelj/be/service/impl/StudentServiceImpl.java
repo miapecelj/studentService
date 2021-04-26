@@ -51,6 +51,8 @@ public class StudentServiceImpl implements StudentService{
 		if(studentEntity.isPresent()) {
 			throw new MyEntityExistException("student already exist", studentMapper.toDto(studentEntity.get()));
 		}
+		System.out.println(dto);
+		System.out.println(studentEntity);
 		StudentEntity student = studentRepository.save(studentMapper.toEntity(dto));
 		return studentMapper.toDto(student);
 	}

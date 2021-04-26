@@ -1,12 +1,6 @@
 package mia.pecelj.be.dto;
 
-
-
 public class StudentDto implements MyDto{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private long id;
 	private int indexNumber;
 	private int indexYear;
@@ -18,23 +12,10 @@ public class StudentDto implements MyDto{
 	public StudentDto() {
 		// TODO Auto-generated constructor stub
 	}
-	
 	public StudentDto(long id, int indexNumber, int indexYear, String firstname, String lastname, String email,
 			String address, CityDto city) {
 		super();
 		this.id = id;
-		this.indexNumber = indexNumber;
-		this.indexYear = indexYear;
-		this.firstname = firstname;
-		this.lastname = lastname;
-		this.email = email;
-		this.address = address;
-		this.city = city;
-	}
-
-	public StudentDto(int indexNumber, int indexYear, String firstname, String lastname, String email, String address,
-			CityDto city) {
-		super();
 		this.indexNumber = indexNumber;
 		this.indexYear = indexYear;
 		this.firstname = firstname;
@@ -79,10 +60,10 @@ public class StudentDto implements MyDto{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getAdress() {
+	public String getAddress() {
 		return address;
 	}
-	public void setAdress(String address) {
+	public void setAddress(String address) {
 		this.address = address;
 	}
 	public CityDto getCity() {
@@ -93,35 +74,9 @@ public class StudentDto implements MyDto{
 	}
 	@Override
 	public String toString() {
-		return "StudentEntity [id=" + id + ", indexNumber=" + indexNumber + ", indexYear=" + indexYear + ", firstname="
-				+ firstname + ", lastname=" + lastname + ", email=" + email + ", adress=" + address + ", city=" + city
+		return "StudentDto [id=" + id + ", indexNumber=" + indexNumber + ", indexYear=" + indexYear + ", firstname="
+				+ firstname + ", lastname=" + lastname + ", email=" + email + ", address=" + address + ", city=" + city
 				+ "]";
-	}
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (int) (id ^ (id >>> 32));
-		result = prime * result + indexNumber;
-		result = prime * result + indexYear;
-		return result;
-	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		StudentDto other = (StudentDto) obj;
-		if (id != other.id)
-			return false;
-		if (indexNumber != other.indexNumber)
-			return false;
-		if (indexYear != other.indexYear)
-			return false;
-		return true;
 	}
 	
 

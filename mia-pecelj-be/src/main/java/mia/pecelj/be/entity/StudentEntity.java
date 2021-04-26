@@ -33,6 +33,20 @@ public class StudentEntity implements Serializable,MyEntity{
 	public StudentEntity() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	public StudentEntity(long id, int indexNumber, int indexYear, String firstname, String lastname, String email,
+			String address, CityEntity city) {
+		super();
+		this.id = id;
+		this.indexNumber = indexNumber;
+		this.indexYear = indexYear;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.email = email;
+		this.address = address;
+		this.city = city;
+	}
+
 	public StudentEntity(int indexNumber, int indexYear, String firstname, String lastname, String email, String address,
 			CityEntity city) {
 		super();
