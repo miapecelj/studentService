@@ -9,6 +9,6 @@ import mia.pecelj.be.entity.TitleEntity;
 public interface TitleEntityDtoMapper {
 	
 	TitleDto toDto(TitleEntity entity);
-	TitleEntity toEntity(TitleEntity entity);
+	TitleEntity toEntity(TitleDto dto);
 
 }

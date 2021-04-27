@@ -1,7 +1,12 @@
 package mia.pecelj.be.dto;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+
+import mia.pecelj.be.entity.ProfessorSubjectEntity;
+import mia.pecelj.be.entity.SubjectEntity;
 
 public class ProfessorDto implements MyDto{
 	/**
@@ -17,7 +22,7 @@ public class ProfessorDto implements MyDto{
 	private CityDto city;
 	private TitleDto title;
 	private LocalDate reelectionDate;
-	private List<ProfessorSubjectDto> subjects;
+	private List<ProfessorSubjectDto> subjects=new ArrayList<ProfessorSubjectDto>();
 	public ProfessorDto() {
 		// TODO Auto-generated constructor stub
 	}
@@ -35,20 +40,7 @@ public class ProfessorDto implements MyDto{
 		this.reelectionDate = reelectionDate;
 	}
 	
-	public ProfessorDto(long id, String firstname, String lastname, String email, String phone, String address,
-			CityDto city, TitleDto title, LocalDate reelectionDate, List<ProfessorSubjectDto> subjects) {
-		super();
-		this.id = id;
-		this.firstname = firstname;
-		this.lastname = lastname;
-		this.email = email;
-		this.phone = phone;
-		this.address = address;
-		this.city = city;
-		this.title = title;
-		this.reelectionDate = reelectionDate;
-		this.subjects = subjects;
-	}
+	
 	
 	public List<ProfessorSubjectDto> getSubjects() {
 		return subjects;
@@ -110,12 +102,33 @@ public class ProfessorDto implements MyDto{
 	public void setReelectionDate(LocalDate reelectionDate) {
 		this.reelectionDate = reelectionDate;
 	}
+	public void addSubject(SubjectDto subject) {
+		ProfessorSubjectDto professorSubject = new ProfessorSubjectDto(this,subject);
+		subjects.add(professorSubject);
+		subject.getProfessors().add(professorSubject);
+	}
+	public void removeSubject(SubjectDto subject) {
+		for (Iterator<ProfessorSubjectDto> iterator = subjects.iterator();
+	             iterator.hasNext(); ) {
+	            ProfessorSubjectDto professorSubject = iterator.next();
+	 
+	            if (professorSubject.getProfessor().equals(this) &&
+	                    professorSubject.getSubject().equals(subject)) {
+	                iterator.remove();
+	                professorSubject.getSubject().getProfessors().remove(professorSubject);
+	                professorSubject.setProfessor(null);
+	                professorSubject.setSubject(null);
+	            }
+	        }
+	}
 	@Override
 	public String toString() {
 		return "ProfessorDto [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email
 				+ ", phone=" + phone + ", address=" + address + ", city=" + city + ", title=" + title
-				+ ", reelectionDate=" + reelectionDate  ;
+				+ ", reelectionDate=" + reelectionDate + ", subjects=" + subjects + "]";
 	}
+	
+	
 	
 	
 	

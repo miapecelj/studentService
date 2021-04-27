@@ -17,13 +17,13 @@ public class ProfessorSubjectDto implements MyDto {
 	private static final long serialVersionUID = 1L;
 	private ProfessorSubjectId id;
 	@JsonBackReference
-	private ProfessorEntity professor;
-	private SubjectEntity subject;
+	private ProfessorDto professor;
+	private SubjectDto subject;
 	private LocalDate assignDate = LocalDate.now();
 	public ProfessorSubjectDto() {
 		// TODO Auto-generated constructor stub
 	}
-	public ProfessorSubjectDto(ProfessorEntity professor, SubjectEntity subject) {
+	public ProfessorSubjectDto(ProfessorDto professor, SubjectDto subject) {
 		super();
 		this.professor = professor;
 		this.subject = subject;
@@ -35,16 +35,16 @@ public class ProfessorSubjectDto implements MyDto {
 	public void setId(ProfessorSubjectId id) {
 		this.id = id;
 	}
-	public ProfessorEntity getProfessor() {
+	public ProfessorDto getProfessor() {
 		return professor;
 	}
-	public void setProfessor(ProfessorEntity professor) {
+	public void setProfessor(ProfessorDto professor) {
 		this.professor = professor;
 	}
-	public SubjectEntity getSubject() {
+	public SubjectDto getSubject() {
 		return subject;
 	}
-	public void setSubject(SubjectEntity subject) {
+	public void setSubject(SubjectDto subject) {
 		this.subject = subject;
 	}
 	public LocalDate getAssignDate() {
@@ -55,8 +55,9 @@ public class ProfessorSubjectDto implements MyDto {
 	}
 	@Override
 	public String toString() {
-		return  "subject=" + subject + ", assignDate=" + assignDate;
+		return "ProfessorSubjectDto [id=" + id + ", subject=" + subject + ", assignDate=" + assignDate + "]";
 	}
+	
 	
 	
 	

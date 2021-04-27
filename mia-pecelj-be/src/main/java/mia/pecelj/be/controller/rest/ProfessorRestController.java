@@ -33,6 +33,7 @@ public class ProfessorRestController {
 	public @ResponseBody ResponseEntity<Object> findById(@PathVariable Long id) {
 		Optional<ProfessorDto> professorDto=professorService.findById(id);
 		if(professorDto.isPresent()) {
+			System.out.println(professorDto.get());
 			return ResponseEntity.status(HttpStatus.OK).body(professorDto.get());
 		}else {
 			return ResponseEntity

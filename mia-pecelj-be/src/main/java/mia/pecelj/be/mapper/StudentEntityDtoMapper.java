@@ -2,7 +2,6 @@ package mia.pecelj.be.mapper;
 
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
 
 import mia.pecelj.be.dto.StudentDto;
 import mia.pecelj.be.entity.StudentEntity;

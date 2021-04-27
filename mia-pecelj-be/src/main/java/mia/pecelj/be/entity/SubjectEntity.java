@@ -111,11 +111,7 @@ public class SubjectEntity implements MyEntity{
 	public void setSemester(Semester semester) {
 		this.semester = semester;
 	}
-	@Override
-	public String toString() {
-		return "Subject [id=" + id + ", name=" + name + ", description=" + description + ", noOfESPB=" + noOfEspb
-				+ ", yearOfStudy=" + yearOfStudy + ", semester=" + semester + "]";
-	}
+	
 	@Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -131,6 +127,14 @@ public class SubjectEntity implements MyEntity{
     public int hashCode() {
         return Objects.hash(id);
     }
+
+
+	@Override
+	public String toString() {
+		return "SubjectEntity [id=" + id + ", name=" + name + ", description=" + description + ", noOfEspb=" + noOfEspb
+				+ ", yearOfStudy=" + yearOfStudy + ", semester=" + semester + "]";
+	}
+    
 	
 	
 	

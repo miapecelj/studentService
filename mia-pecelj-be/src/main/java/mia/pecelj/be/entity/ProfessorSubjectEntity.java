@@ -76,9 +76,9 @@ public class ProfessorSubjectEntity {
     }
 	@Override
 	public String toString() {
-		return "subject=" + subject
-				+ ", assignDate=" + assignDate + "]";
+		return "ProfessorSubjectEntity [id=" + id + ", subject=" + subject + ", assignDate=" + assignDate + "]";
 	}
+	
     
 
 }

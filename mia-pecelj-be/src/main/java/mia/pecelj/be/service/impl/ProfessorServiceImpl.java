@@ -12,22 +12,24 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import mia.pecelj.be.dto.ProfessorDto;
-import mia.pecelj.be.dto.StudentDto;
 import mia.pecelj.be.entity.ProfessorEntity;
-import mia.pecelj.be.entity.StudentEntity;
 import mia.pecelj.be.exception.MyEntityExistException;
 import mia.pecelj.be.exception.MyEntityNotPresentedException;
-import mia.pecelj.be.mapper.ProfessorEntityDtoMapper;
+import mia.pecelj.be.mapper.ProfessorEntityDtoMyMapper;
 import mia.pecelj.be.repository.ProfessorRepository;
 import mia.pecelj.be.service.ProfessorService;
+
+
+
+
 
 @Service
 @Transactional
 public class ProfessorServiceImpl implements ProfessorService{
 	ProfessorRepository professorRepository;
-	ProfessorEntityDtoMapper professorMapper;
+	ProfessorEntityDtoMyMapper professorMapper;
 	@Autowired
-	public ProfessorServiceImpl(ProfessorEntityDtoMapper professorMapper,ProfessorRepository professorRepository) {
+	public ProfessorServiceImpl(ProfessorEntityDtoMyMapper professorMapper,ProfessorRepository professorRepository) {
 		this.professorMapper=professorMapper;
 		this.professorRepository=professorRepository;
 	}

@@ -72,22 +72,7 @@ public class ProfessorEntity implements MyEntity{
 	
 	
 
-	public ProfessorEntity(long id, @NotNull @Size(min = 3) String firstName, @NotNull @Size(min = 3) String lastName,
-			@Pattern(regexp = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$") String email, @Size(min = 3) String address,
-			CityEntity city, @Size(min = 9) String phone, LocalDate reelectionDate, TitleEntity title,
-			List<ProfessorSubjectEntity> subjects) {
-		super();
-		this.id = id;
-		this.firstname = firstName;
-		this.lastname = lastName;
-		this.email = email;
-		this.address = address;
-		this.city = city;
-		this.phone = phone;
-		this.reelectionDate = reelectionDate;
-		this.title = title;
-		this.subjects = subjects;
-	}
+	
 	public void addSubject(SubjectEntity subject) {
 		ProfessorSubjectEntity professorSubject = new ProfessorSubjectEntity(this,subject);
 		subjects.add(professorSubject);
@@ -183,13 +168,6 @@ public class ProfessorEntity implements MyEntity{
 	
 
 	@Override
-	public String toString() {
-		return "ProfessorEntity [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email
-				+ ", address=" + address + ", city=" + city + ", phone=" + phone + ", reelectionDate=" + reelectionDate
-				+ ", title=" + title +"]";
-	}
-
-	@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -201,6 +179,14 @@ public class ProfessorEntity implements MyEntity{
     public int hashCode() {
         return Objects.hash(id);
     }
+
+	@Override
+	public String toString() {
+		return "ProfessorEntity [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email
+				+ ", address=" + address + ", city=" + city + ", phone=" + phone + ", reelectionDate=" + reelectionDate
+				+ ", title=" + title + ", subjects=" + subjects + "]";
+	}
+    
 	
 	
 
