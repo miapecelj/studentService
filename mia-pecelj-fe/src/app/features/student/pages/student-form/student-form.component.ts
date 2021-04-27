@@ -50,7 +50,8 @@ export class StudentFormComponent implements OnInit {
         email:[student? student.email:null,[Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]],
         address:[student? student.address:null,[Validators.minLength(3)]],
         currentYearOfStudy:[student? student.currentYearOfStudy:null,[Validators.required]],
-        city:[student? student.city:null,[]]
+        city:[student? student.city:null,[]],
+        id:[+this.route.snapshot.paramMap.get('id')]
 
       }
     );

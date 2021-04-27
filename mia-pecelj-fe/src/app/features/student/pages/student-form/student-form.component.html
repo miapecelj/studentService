@@ -85,7 +85,7 @@
       <label for="city" class="form-label">City</label>
       <select id="city" class="form-select" formControlName="city">
         <option>Please select city</option>
-        <option *ngFor="let city of cities" [ngValue]="city.postalCode">
+        <option *ngFor="let city of cities" [ngValue]="city">
           {{ city.name }}
         </option>
       </select>
