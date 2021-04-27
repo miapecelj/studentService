@@ -1,5 +1,9 @@
 package mia.pecelj.be.entity;
 
+import java.util.List;
+import java.util.Objects;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -7,6 +11,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -37,10 +42,22 @@ public class SubjectEntity implements MyEntity{
 	private int yearOfStudy;
 	@Enumerated(EnumType.STRING)
 	private Semester semester;
+	 @OneToMany(
+		        mappedBy = "subject",
+		        cascade = CascadeType.ALL,
+		        orphanRemoval = true
+		    )
+	private List<ProfessorSubjectEntity> professors;
 	public SubjectEntity() {
 		// TODO Auto-generated constructor stub
 	}
-	public SubjectEntity(long id, String name, String description, int noOfEspb, int yearOfStudy, Semester semester) {
+	
+	
+	public SubjectEntity(long id,
+			@NotNull @Size(min = 3, message = "Name should have atleast 2 characters") String name,
+			@Size(max = 200, message = "Description must have less then 200 characters") String description,
+			@NotNull @Positive int noOfEspb, @NotNull @Max(4) @Min(1) int yearOfStudy, Semester semester,
+			List<ProfessorSubjectEntity> professors) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -48,16 +65,15 @@ public class SubjectEntity implements MyEntity{
 		this.noOfEspb = noOfEspb;
 		this.yearOfStudy = yearOfStudy;
 		this.semester = semester;
+		this.professors = professors;
 	}
-	
-	
-	public SubjectEntity(String name, String description, int noOfEspb, int yearOfStudy, Semester semester) {
-		super();
-		this.name = name;
-		this.description = description;
-		this.noOfEspb = noOfEspb;
-		this.yearOfStudy = yearOfStudy;
-		this.semester = semester;
+
+
+	public List<ProfessorSubjectEntity> getProfessors() {
+		return professors;
+	}
+	public void setProfessors(List<ProfessorSubjectEntity> professors) {
+		this.professors = professors;
 	}
 	public long getId() {
 		return id;
@@ -101,31 +117,20 @@ public class SubjectEntity implements MyEntity{
 				+ ", yearOfStudy=" + yearOfStudy + ", semester=" + semester + "]";
 	}
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (int) (id ^ (id >>> 32));
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		return result;
-	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		SubjectEntity other = (SubjectEntity) obj;
-		if (id != other.id)
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		return true;
-	}
+    public boolean equals(Object o) {
+        if (this == o) return true;
+ 
+        if (o == null || getClass() != o.getClass())
+            return false;
+ 
+        SubjectEntity subject = (SubjectEntity) o;
+        return Objects.equals(id, subject.id);
+    }
+ 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 	
 	
 	

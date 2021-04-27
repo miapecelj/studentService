@@ -11,6 +11,7 @@ import mia.pecelj.be.entity.SubjectEntity;
 @Mapper(componentModel = "spring")
 public interface SubjectEntityDtoMapper {
 	SubjectDto toDto(SubjectEntity entity);
+	@Mapping(target="professors",ignore=true)
 	SubjectEntity toEntity(SubjectDto dto);
 
 }

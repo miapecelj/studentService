@@ -67,10 +67,14 @@ public class StudentRestController {
 		if (bindingResult.hasErrors()) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(studentDto);
 		} else {
+			try {
 			Optional<StudentDto> student = studentService.update(studentDto);
 			if (student.isPresent()) {
 				return ResponseEntity.status(HttpStatus.OK).body(student.get());
 			} else {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(studentDto);
+			}
+			}catch (Exception e) {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(studentDto);
 			}
 		}

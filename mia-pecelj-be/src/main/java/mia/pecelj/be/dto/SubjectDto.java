@@ -29,14 +29,6 @@ public class SubjectDto implements MyDto{
 	}
 	
 	
-	public SubjectDto(String name, String description, int noOfEspb, int yearOfStudy, Semester semester) {
-		super();
-		this.name = name;
-		this.description = description;
-		this.noOfEspb = noOfEspb;
-		this.yearOfStudy = yearOfStudy;
-		this.semester = semester;
-	}
 	public long getId() {
 		return id;
 	}
