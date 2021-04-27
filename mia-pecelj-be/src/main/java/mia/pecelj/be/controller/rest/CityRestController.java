@@ -11,11 +11,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import mia.pecelj.be.dto.CityDto;
+import mia.pecelj.be.dto.MyDto;
 import mia.pecelj.be.service.CityService;
 
 @RestController
 @RequestMapping(path = "/api/city")
-public class CityRestController {
+public class CityRestController implements MyDto {
 	CityService cityService;
 	@Autowired
 	public CityRestController(CityService cityService) {

@@ -1,6 +1,10 @@
 package mia.pecelj.be.dto;
 
 public class StudentDto implements MyDto{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private long id;
 	private int indexNumber;
 	private int indexYear;
@@ -29,61 +33,78 @@ public class StudentDto implements MyDto{
 	}
 	
 
+	
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public int getIndexNumber() {
+		return indexNumber;
+	}
+
+	public void setIndexNumber(int indexNumber) {
+		this.indexNumber = indexNumber;
+	}
+
+	public int getIndexYear() {
+		return indexYear;
+	}
+
+	public void setIndexYear(int indexYear) {
+		this.indexYear = indexYear;
+	}
+
+	public String getFirstname() {
+		return firstname;
+	}
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+	public String getLastname() {
+		return lastname;
+	}
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public CityDto getCity() {
+		return city;
+	}
+
+	public void setCity(CityDto city) {
+		this.city = city;
+	}
+
 	public int getCurrentYearOfStudy() {
 		return currentYearOfStudy;
 	}
 
 	public void setCurrentYearOfStudy(int currentYearOfStudy) {
 		this.currentYearOfStudy = currentYearOfStudy;
-	}
-
-	public long getId() {
-		return id;
-	}
-	public void setId(long id) {
-		this.id = id;
-	}
-	public int getIndexNumber() {
-		return indexNumber;
-	}
-	public void setIndexNumber(int indexNumber) {
-		this.indexNumber = indexNumber;
-	}
-	public int getIndexYear() {
-		return indexYear;
-	}
-	public void setIndexYear(int indexYear) {
-		this.indexYear = indexYear;
-	}
-	public String getFirstname() {
-		return firstname;
-	}
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
-	}
-	public String getLastname() {
-		return lastname;
-	}
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
-	}
-	public CityDto getCity() {
-		return city;
-	}
-	public void setCity(CityDto city) {
-		this.city = city;
 	}
 
 	@Override
