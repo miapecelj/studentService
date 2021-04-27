@@ -1,0 +1,58 @@
+
+<a routerLink="/student">Back to list</a>
+<div class="d-flex flex-column mt-3">
+
+    <div class="col-lg-6 col-md-8 border border-primary p-2 rounded">
+      <h4>First name:</h4>
+      <div>
+        <span class="col-lg-8 col-md-6">
+          {{student?.firstname}}
+        </span>
+      </div>
+      <h4>Last name:</h4>
+      <div class="row">
+        <span class="col-lg-8 col-md-6">
+          {{student?.lastname}}
+        </span>
+      </div>
+      <h4>Cty:</h4>
+      <div class="row">
+        <span class="col-lg-8 col-md-6">
+          {{student?.city.name}}
+        </span>
+      </div>
+      <h4>Address:</h4>
+      <div class="row">
+        <span class="col-lg-8 col-md-6">
+          {{student?.address}}
+        </span>
+      </div>
+      <h4>Email:</h4>
+      <div class="row">
+        <span class="col-lg-8 col-md-6">
+          {{student?.email}}
+        </span>
+      </div>
+      <h4>Index number:</h4>
+      <div class="row">
+        <span class="col-lg-8 col-md-6">
+          {{student?.indexNumber}}
+        </span>
+      </div>
+      <h4>Index Year:</h4>
+      <div class="row">
+        <span class="col-lg-8 col-md-6">
+          {{student?.indexYear}}
+        </span>
+      </div>
+      <h4>Current year of study:</h4>
+      <div class="row">
+        <span class="col-lg-8 col-md-6">
+          {{student?.currentYearOfStudy}}
+        </span>
+      </div>
+
+
+
+    </div>
+</div>

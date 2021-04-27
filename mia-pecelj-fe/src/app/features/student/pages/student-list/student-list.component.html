@@ -1,0 +1,30 @@
+<h2>Subject list</h2>
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Index</th>
+    <th scope="col">Firstname</th>
+    <th scope="col">Lastname</th>
+    <th scope="col">Email</th>
+    <th scope="col">Current Year Of Study</th>
+    <th scope="col">Action</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let student of students; let i=index">
+    <th scope="row">{{ i + (currentPage - 1) * pageSize + 1 }}</th>
+    <td>{{ student.indexNumber }}/{{student.indexYear}}</td>
+    <td>{{ student.firstname }}</td>
+    <td>{{ student.lastname }}</td>
+    <td>{{ student.email }}</td>
+    <td>{{ student.currentYearOfStudy }}</td>
+    <td><button type="button" class="btn btn-primary" [routerLink]="['../student-details', student.id]" >Details</button>
+      <button type="button" class="btn btn-primary" [routerLink]="['../student-form', student.id]" >Edit</button>
+      <button (click)="deleteStudent(student)"type="button" class="btn btn-danger">Delete</button></td>
+  </tr>
+  </tbody>
+</table>
+<ngb-pagination [collectionSize]="totalItems" (pageChange)="onPageChange($event)" [(page)]="currentPage" [pageSize]="pageSize" [boundaryLinks]="true"></ngb-pagination>
+<button type="button" class="btn btn-primary" [routerLink]="['../student-form']" >Add student</button>
