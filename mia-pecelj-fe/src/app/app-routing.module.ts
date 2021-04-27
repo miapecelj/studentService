@@ -4,6 +4,7 @@ import { SubjectAddComponent } from './features/subject/pages/subject-add/subjec
 
 const routes: Routes = [
   {path:'subject', loadChildren: () => import('./features/subject/subject.module').then(m => m.SubjectModule)},
+  {path:'student', loadChildren: () => import('./features/student/student.module').then(m => m.StudentModule)},
   {path:'subject-add', component: SubjectAddComponent},
 ];
 
