@@ -1,2 +1,2 @@
-INSERT INTO student(index_number,index_year,firstname,lastname,email,address,city_code) VALUES(0203,2017,"Mia","Pecelj","miapecelj@gmail.com","Krajiskih Brigada 25",11300);
-INSERT INTO student(index_number,index_year,firstname,lastname,email,address,city_code) VALUES(0278,2017,"Djordje","Starcevic","djstarcevic@gmail.com","Nehruova 66",11000);;
+INSERT INTO student(current_year_of_study,index_number,index_year,firstname,lastname,email,address,city_code) VALUES(4,0203,2017,"Mia","Pecelj","miapecelj@gmail.com","Krajiskih Brigada 25",11300);
+INSERT INTO student(current_year_of_study,index_number,index_year,firstname,lastname,email,address,city_code) VALUES(3,0278,2017,"Djordje","Starcevic","djstarcevic@gmail.com","Nehruova 66",11000);;

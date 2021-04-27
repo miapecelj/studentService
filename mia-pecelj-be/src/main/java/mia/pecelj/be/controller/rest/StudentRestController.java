@@ -5,8 +5,11 @@ import java.util.Optional;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -62,8 +65,20 @@ public class StudentRestController {
 			} else {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(studentDto);
 			}
-		
 
+	}
+	@DeleteMapping("/{id}")
+	public @ResponseBody ResponseEntity<String> delete(@PathVariable(name = "id") Long id) {
+		try {
+			studentService.delete(id);
+			return ResponseEntity.status(HttpStatus.OK).body("Deleted student with id:" + id);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+	}
+	@GetMapping("/page")
+	public @ResponseBody ResponseEntity<Page<StudentDto>> getByPage(Pageable pageable) {
+		return ResponseEntity.status(HttpStatus.OK).body(studentService.getAll(pageable));
 	}
 	
 	

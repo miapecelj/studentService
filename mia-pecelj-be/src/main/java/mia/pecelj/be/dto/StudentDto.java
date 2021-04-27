@@ -9,11 +9,13 @@ public class StudentDto implements MyDto{
 	private String email;
 	private String address;
 	private CityDto city;
+	private int currentYearOfStudy;
 	public StudentDto() {
 		// TODO Auto-generated constructor stub
 	}
+	
 	public StudentDto(long id, int indexNumber, int indexYear, String firstname, String lastname, String email,
-			String address, CityDto city) {
+			String address, CityDto city, int currentYearOfStudy) {
 		super();
 		this.id = id;
 		this.indexNumber = indexNumber;
@@ -23,7 +25,18 @@ public class StudentDto implements MyDto{
 		this.email = email;
 		this.address = address;
 		this.city = city;
+		this.currentYearOfStudy = currentYearOfStudy;
 	}
+	
+
+	public int getCurrentYearOfStudy() {
+		return currentYearOfStudy;
+	}
+
+	public void setCurrentYearOfStudy(int currentYearOfStudy) {
+		this.currentYearOfStudy = currentYearOfStudy;
+	}
+
 	public long getId() {
 		return id;
 	}
@@ -72,12 +85,14 @@ public class StudentDto implements MyDto{
 	public void setCity(CityDto city) {
 		this.city = city;
 	}
+
 	@Override
 	public String toString() {
 		return "StudentDto [id=" + id + ", indexNumber=" + indexNumber + ", indexYear=" + indexYear + ", firstname="
 				+ firstname + ", lastname=" + lastname + ", email=" + email + ", address=" + address + ", city=" + city
-				+ "]";
+				+ ", currentYearOfStudy=" + currentYearOfStudy + "]";
 	}
+	
 	
 
 }
