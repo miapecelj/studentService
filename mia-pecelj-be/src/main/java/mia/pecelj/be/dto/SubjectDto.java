@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import mia.pecelj.be.entity.Semester;
 
@@ -20,7 +21,7 @@ public class SubjectDto implements MyDto{
 	private int noOfEspb;
 	private int yearOfStudy;
 	private Semester semester;
-	@JsonBackReference
+	@JsonIgnore
 	private List<ProfessorSubjectDto> professors=new ArrayList<ProfessorSubjectDto>();
 	public SubjectDto() {
 		// TODO Auto-generated constructor stub

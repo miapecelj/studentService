@@ -1,6 +1,7 @@
 package mia.pecelj.be.entity;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
@@ -50,7 +51,7 @@ public class ProfessorEntity implements MyEntity{
 	        cascade = CascadeType.ALL,
 	        orphanRemoval = true
 	    )
-	private List<ProfessorSubjectEntity> subjects;
+	private List<ProfessorSubjectEntity> subjects=new ArrayList<ProfessorSubjectEntity>();
 	public ProfessorEntity() {
 		// TODO Auto-generated constructor stub
 	}

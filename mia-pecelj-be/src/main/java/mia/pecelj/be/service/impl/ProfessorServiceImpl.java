@@ -12,27 +12,44 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import mia.pecelj.be.dto.ProfessorDto;
+import mia.pecelj.be.dto.StudentDto;
+import mia.pecelj.be.dto.SubjectDto;
+import mia.pecelj.be.entity.CityEntity;
 import mia.pecelj.be.entity.ProfessorEntity;
+import mia.pecelj.be.entity.StudentEntity;
+import mia.pecelj.be.entity.SubjectEntity;
+import mia.pecelj.be.entity.TitleEntity;
 import mia.pecelj.be.exception.MyEntityExistException;
 import mia.pecelj.be.exception.MyEntityNotPresentedException;
 import mia.pecelj.be.mapper.ProfessorEntityDtoMyMapper;
+import mia.pecelj.be.mapper.SubjectEntityDtoMapper;
+import mia.pecelj.be.repository.CityRepository;
 import mia.pecelj.be.repository.ProfessorRepository;
+import mia.pecelj.be.repository.SubjectRepository;
+import mia.pecelj.be.repository.TitleRepository;
 import mia.pecelj.be.service.ProfessorService;
-
-
-
-
 
 @Service
 @Transactional
-public class ProfessorServiceImpl implements ProfessorService{
+public class ProfessorServiceImpl implements ProfessorService {
 	ProfessorRepository professorRepository;
 	ProfessorEntityDtoMyMapper professorMapper;
+	CityRepository cityRepository;
+	TitleRepository titleRepository;
+	SubjectEntityDtoMapper subjectMapper;
+	SubjectRepository subjectRepository;
+
 	@Autowired
-	public ProfessorServiceImpl(ProfessorEntityDtoMyMapper professorMapper,ProfessorRepository professorRepository) {
-		this.professorMapper=professorMapper;
-		this.professorRepository=professorRepository;
+	public ProfessorServiceImpl(ProfessorEntityDtoMyMapper professorMapper, ProfessorRepository professorRepository,
+			CityRepository cityRepository,TitleRepository titleRepository,SubjectEntityDtoMapper subjectMapper,SubjectRepository subjectRepository) {
+		this.professorMapper = professorMapper;
+		this.professorRepository = professorRepository;
+		this.cityRepository = cityRepository;
+		this.titleRepository=titleRepository;
+		this.subjectMapper=subjectMapper;
+		this.subjectRepository=subjectRepository;
 	}
+
 	@Override
 	public Optional<ProfessorDto> findById(Long id) {
 		Optional<ProfessorEntity> professor = professorRepository.findById(id);
@@ -41,32 +58,94 @@ public class ProfessorServiceImpl implements ProfessorService{
 		}
 		return Optional.empty();
 	}
+
 	@Override
 	public List<ProfessorDto> getAll() {
 		List<ProfessorEntity> entities = professorRepository.findAll();
-		 return entities.stream().map(entity->{
-			 return professorMapper.toDto(entity);
-		 }).collect(Collectors.toList());
+		return entities.stream().map(entity -> {
+			return professorMapper.toDto(entity);
+		}).collect(Collectors.toList());
 	}
+
 	@Override
-	public ProfessorDto save(ProfessorDto dto) throws MyEntityExistException {
-		// TODO Auto-generated method stub
-		return null;
+	public ProfessorDto save(ProfessorDto dto) throws MyEntityExistException, MyEntityNotPresentedException {
+		Optional<CityEntity> cityEntity = cityRepository.findById(dto.getCity().getPostalCode());
+		if (!cityEntity.isPresent()) {
+			throw new MyEntityNotPresentedException("city does not exist");
+		}
+		Optional<TitleEntity> titleEntity = titleRepository.findById(dto.getTitle().getId());
+		if(!titleEntity.isPresent()) {
+			throw new MyEntityNotPresentedException("title does not exist");
+		}
+		Optional<ProfessorEntity> professorEntity = professorRepository.findById(dto.getId());
+		if (professorEntity.isPresent()) {
+			throw new MyEntityExistException("professor already exist", professorMapper.toDto(professorEntity.get()));
+		}
+		
+		ProfessorEntity professor = professorRepository.save(professorMapper.toEntity(dto));
+		return professorMapper.toDto(professor);
 	}
+
 	@Override
-	public Optional<ProfessorDto> update(ProfessorDto dto) {
-		// TODO Auto-generated method stub
-		return null;
+	public Optional<ProfessorDto> update(ProfessorDto dto) throws MyEntityNotPresentedException {
+		Optional<CityEntity> cityEntity= cityRepository.findById(dto.getCity().getPostalCode());
+		if(!cityEntity.isPresent()) {
+			throw new MyEntityNotPresentedException("City with code "+ dto.getCity().getPostalCode()+" does not exist!");
+		}
+		Optional<TitleEntity> titleEntity= titleRepository.findById(dto.getTitle().getId());
+		if(!titleEntity.isPresent()) {
+			throw new MyEntityNotPresentedException("Title with code "+ dto.getTitle().getId()+" does not exist!");
+		}
+		Optional<ProfessorEntity> professorEntity = professorRepository.findById(dto.getId());
+		if(!professorEntity.isPresent()) {
+			return Optional.empty();
+		}
+		ProfessorEntity professor = professorRepository.save(professorMapper.toEntity(dto));
+		return Optional.of(professorMapper.toDto(professor));
 	}
+
 	@Override
 	public void delete(Long id) throws MyEntityNotPresentedException {
-		// TODO Auto-generated method stub
-		
+		Optional<ProfessorEntity> professorEntity = professorRepository.findById(id);
+		if(professorEntity.isPresent()) {
+			professorRepository.delete(professorEntity.get());
+		}else {
+			throw new MyEntityNotPresentedException("Professor with id "+id+" does not exist");
+		}
+
 	}
+
 	@Override
 	public Page<ProfessorDto> getAll(Pageable pageable) {
-		// TODO Auto-generated method stub
-		return null;
+		Page<ProfessorDto> entites = professorRepository.findAll(pageable).map(professorMapper::toDto);
+		return entites;
+	}
+
+	@Override
+	public ProfessorDto addSubject(SubjectDto subject,Long id) throws MyEntityNotPresentedException {
+		Optional<ProfessorEntity> professorEntity = professorRepository.findById(id);
+		if(!professorEntity.isPresent()) {
+			throw new MyEntityNotPresentedException("professor does not exist");
+		}
+		ProfessorEntity professor = professorEntity.get();
+		professor.addSubject(subjectMapper.toEntity(subject));
+		professorRepository.save(professor);
+		return professorMapper.toDto(professor);
+	}
+
+	@Override
+	public void removeSubject(Long professorId, Long subjectId) throws MyEntityNotPresentedException {
+		Optional<ProfessorEntity> professorEntity = professorRepository.findById(professorId);
+		if(!professorEntity.isPresent()) {
+			throw new MyEntityNotPresentedException("professor does not exist");
+		}
+		Optional<SubjectEntity> subjectEntity = subjectRepository.findById(subjectId);
+		if(!subjectEntity.isPresent()) {
+			throw new MyEntityNotPresentedException("subject does not exist");
+		}
+		SubjectEntity subject = subjectEntity.get();
+		ProfessorEntity professor = professorEntity.get();
+		professor.removeSubject(subject);
 	}
 
 }

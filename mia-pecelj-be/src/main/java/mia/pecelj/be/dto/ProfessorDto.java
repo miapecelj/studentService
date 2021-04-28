@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import mia.pecelj.be.entity.ProfessorSubjectEntity;
 import mia.pecelj.be.entity.SubjectEntity;
 
@@ -22,6 +24,7 @@ public class ProfessorDto implements MyDto{
 	private CityDto city;
 	private TitleDto title;
 	private LocalDate reelectionDate;
+	@JsonIgnore
 	private List<ProfessorSubjectDto> subjects=new ArrayList<ProfessorSubjectDto>();
 	public ProfessorDto() {
 		// TODO Auto-generated constructor stub

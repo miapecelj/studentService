@@ -16,7 +16,6 @@ public class ProfessorSubjectDto implements MyDto {
 	 */
 	private static final long serialVersionUID = 1L;
 	private ProfessorSubjectId id;
-	@JsonBackReference
 	private ProfessorDto professor;
 	private SubjectDto subject;
 	private LocalDate assignDate = LocalDate.now();
