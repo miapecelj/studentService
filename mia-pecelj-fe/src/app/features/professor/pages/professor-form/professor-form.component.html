@@ -1,0 +1,105 @@
+
+<div *ngIf="addedProfessor" class="alert alert-success" role="alert" >
+  Subject saved!
+</div>
+<!-- <div *ngIf="edit"class="mb-3 d-flex flex-column" class="m-auto w-25 p-4 border border-primary rounded">
+  <label for="subjects" class="form-label">Subjects</label>
+  <select id="subjects" [(ngModel)]="selectedSubject" class="form-select" >
+      <option value="">Please select subject</option>
+      <option *ngFor="let subject of subjects" [ngValue]="subject" >
+          {{ subject.name }}
+      </option>
+  </select>
+  <button class="btn btn-outline-secondary" (click)="addSelectedSubject()" >Add subject</button>
+</div> -->
+<form *ngIf="professorForm" [formGroup]="professorForm" (ngSubmit)="onSubmit()">
+  <div class="m-auto w-25 p-4 border border-primary rounded">
+    <h3>Professor:</h3>
+  <a routerLink="/student">Back to list</a>
+    <div class="mb-3 d-flex flex-column">
+      <label for="firstname" class="form-label">Firstname</label>
+      <input id="firstname" class="form-control" formControlName="firstname" />
+      <p class="alert alert-danger" *ngIf="professorForm.get('firstname').hasError('required') && professorForm.get('firstname').touched">
+        Firstname is required
+      </p>
+      <p class="alert alert-danger" *ngIf="professorForm.get('firstname').hasError('minlength')">
+        Length is ({{professorForm.get('firstname').errors.minlength.actualLength}}) less than required length ({{professorForm.get('firstname').errors.minlength.requiredLength}})
+      </p>
+
+    </div>
+
+    <div class="mb-3 d-flex flex-column">
+      <label for="lastname" class="form-label">Lastname</label>
+      <input id="lastname" class="form-control" formControlName="lastname"/>
+      <p class="alert alert-danger" *ngIf="professorForm.get('lastname').hasError('required') && professorForm.get('lastname').touched">
+        Lastname is required
+      </p>
+      <p class="alert alert-danger" *ngIf="professorForm.get('lastname').hasError('minlength')">
+        Length is ({{professorForm.get('lastname').errors.minlength.actualLength}}) less than min length ({{professorForm.get('lastname').errors.minlength.requiredLength}})
+      </p>
+
+    </div>
+    <div class="mb-3 d-flex flex-column">
+      <label for="phone" class="form-label">Phone:</label>
+      <input id="phone" class="form-control" formControlName="phone"/>
+      <p class="alert alert-danger" *ngIf="professorForm.get('phone').hasError('minlength')">
+        Length is ({{professorForm.get('phone').errors.minlength.actualLength}}) less than min length ({{professorForm.get('phone').errors.minlength.requiredLength}})
+      </p>
+    </div>
+
+    <div class="mb-3 d-flex flex-column">
+      <label for="email" class="form-label">Email</label>
+      <input id="email" class="form-control" formControlName="email"/>
+      <p class="alert alert-danger" *ngIf="professorForm.get('email').hasError('pattern')">
+        Format is not valid
+      </p>
+    </div>
+    <div class="mb-3 d-flex flex-column">
+      <label for="address" class="form-label">Address</label>
+      <input id="address" class="form-control" formControlName="address"/>
+      <p class="alert alert-danger" *ngIf="professorForm.get('address').hasError('minlength')">
+        Length is ({{professorForm.get('address').errors.minlength.actualLength}}) less than min length ({{professorForm.get('address').errors.minlength.requiredLength}})
+      </p>
+    </div>
+    <div class="mb-3 d-flex flex-column">
+      <label for="reelectionDate" class="form-label">Reelection date</label>
+      <input id="reelectionDate" class="form-control" formControlName="reelectionDate"/>
+
+      <p class="alert alert-danger" *ngIf="professorForm.get('reelectionDate').hasError('required') && professorForm.get('reelectionDate').touched">
+       Reelection date of study is required
+      </p>
+
+    </div>
+
+
+
+     <div class="mb-3 d-flex flex-column">
+      <label for="city" class="form-label">City</label>
+      <select id="city" class="form-select" formControlName="city">
+        <option>Please select city</option>
+        <option *ngFor="let city of cities" [ngValue]="city">
+          {{ city.name }}
+        </option>
+      </select>
+    </div>
+    <div class="mb-3 d-flex flex-column">
+      <label for="title" class="form-label">Title</label>
+      <select id="title" class="form-select" formControlName="title">
+        <option>Please select title</option>
+        <option *ngFor="let title of titles" [ngValue]="title">
+          {{ title.name }}
+        </option>
+      </select>
+    </div>
+
+    <hr />
+    <div class="d-flex flex-row mt-2">
+      <button class="btn btn-outline-success" [disabled]="!professorForm.valid" type="submit">
+        Save professor
+      </button>
+    </div>
+  </div>
+</form>
+
+
+
