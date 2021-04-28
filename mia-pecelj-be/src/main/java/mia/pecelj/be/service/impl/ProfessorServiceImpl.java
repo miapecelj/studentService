@@ -88,13 +88,10 @@ public class ProfessorServiceImpl implements ProfessorService {
 		dto.setSubjects(new ArrayList<ProfessorSubjectDto>());
 		ProfessorEntity professor = professorRepository.save(professorMapper.toEntity(dto));
 		for(ProfessorSubjectDto professorSubject:subjects) {
-//			professorSubject.setProfessor(dto);
-//			professorSubject.setId(new ProfessorSubjectId(dto.getId(),professorSubject.getSubject().getId()));
 			dto.setId(professor.getId());
 			dto.addSubject(professorSubject.getSubject());
 			
 		}
-		professorEntity = professorRepository.findById(dto.getId());
 		professor = professorRepository.save(professorMapper.toEntity(dto));
 		return professorMapper.toDto(professor);
 	}
