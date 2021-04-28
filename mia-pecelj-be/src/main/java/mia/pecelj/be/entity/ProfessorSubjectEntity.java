@@ -14,6 +14,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="professor_subject")
 public class ProfessorSubjectEntity {
+	
 	@EmbeddedId
 	private ProfessorSubjectId id;
 	@ManyToOne(fetch = FetchType.LAZY)

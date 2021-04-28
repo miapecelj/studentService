@@ -1,5 +1,6 @@
 package mia.pecelj.be.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -12,10 +13,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import mia.pecelj.be.dto.ProfessorDto;
+import mia.pecelj.be.dto.ProfessorSubjectDto;
 import mia.pecelj.be.dto.StudentDto;
 import mia.pecelj.be.dto.SubjectDto;
 import mia.pecelj.be.entity.CityEntity;
 import mia.pecelj.be.entity.ProfessorEntity;
+import mia.pecelj.be.entity.ProfessorSubjectId;
 import mia.pecelj.be.entity.StudentEntity;
 import mia.pecelj.be.entity.SubjectEntity;
 import mia.pecelj.be.entity.TitleEntity;
@@ -81,8 +84,18 @@ public class ProfessorServiceImpl implements ProfessorService {
 		if (professorEntity.isPresent()) {
 			throw new MyEntityExistException("professor already exist", professorMapper.toDto(professorEntity.get()));
 		}
-		
+		List<ProfessorSubjectDto> subjects= dto.getSubjects();
+		dto.setSubjects(new ArrayList<ProfessorSubjectDto>());
 		ProfessorEntity professor = professorRepository.save(professorMapper.toEntity(dto));
+		for(ProfessorSubjectDto professorSubject:subjects) {
+//			professorSubject.setProfessor(dto);
+//			professorSubject.setId(new ProfessorSubjectId(dto.getId(),professorSubject.getSubject().getId()));
+			dto.setId(professor.getId());
+			dto.addSubject(professorSubject.getSubject());
+			
+		}
+		professorEntity = professorRepository.findById(dto.getId());
+		professor = professorRepository.save(professorMapper.toEntity(dto));
 		return professorMapper.toDto(professor);
 	}
 
