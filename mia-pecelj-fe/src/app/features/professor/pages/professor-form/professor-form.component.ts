@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject as SubjectObservable} from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -21,6 +21,8 @@ import { ToastService } from 'src/app/core/service/toast.service';
 })
 export class ProfessorFormComponent implements OnInit {
   professorForm:FormGroup;
+  subjectForm:FormGroup;
+  addSubject:boolean=false;
   edit:false;
   addedProfessor:Professor;
   destroy$: SubjectObservable<boolean> = new SubjectObservable();
@@ -28,12 +30,17 @@ export class ProfessorFormComponent implements OnInit {
   titles:Title[];
   selectedSubject:Subject;
   subjects:Subject[];
-  chosenSubjects:professorSubject[]=[];
+  selectedSubjectProfessors:professorSubject[]=[];
+  asignDate:Date;
+
 
   constructor(private httpCityService:HttpCityService,private HttpTitleService:HttpTitleService,
      private httpProfessorService:HttpProfessorService,
      private fb: FormBuilder,private route:ActivatedRoute,private router:Router, private toastService: ToastService,
-     private httpSubjectService:HttpSubjectService) { }
+     private httpSubjectService:HttpSubjectService) {
+
+
+     }
 
   ngOnInit(): void {
     this.prepareData();
@@ -49,8 +56,10 @@ export class ProfessorFormComponent implements OnInit {
     if (this.edit) {
       const id = +this.route.snapshot.paramMap.get('id');
       this.loadProfessor(id);
+      this.selectedSubjectProfessors=this.professorForm?.value.subjects;
     } else {
       this.buildForm();
+
     }
   }
   buildForm(professor?:Professor){
@@ -62,13 +71,15 @@ export class ProfessorFormComponent implements OnInit {
         lastname:[professor? professor.lastname:null, [Validators.minLength(3),Validators.required]],
         email:[professor? professor.email:null,[Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]],
         address:[professor? professor.address:null,[Validators.minLength(3)]],
-        reelectionDate:[professor? professor.reelectionDate:null,[Validators.required]],
+        reelectionDate:[professor? professor.reelectionDate:null],
         city:[professor? professor.city:null,[]],
         id:[+this.route.snapshot.paramMap.get('id')],
-        subjects:[this.chosenSubjects]
+        subjects:[professor? professor.subjects:this.selectedSubjectProfessors]
       }
     );
   }
+
+
 
   onSubmit() {
     this.saveProfessor()
@@ -111,16 +122,24 @@ export class ProfessorFormComponent implements OnInit {
     return  (this.professorForm.get(componentName).dirty || this.professorForm.get(componentName).touched) && this.professorForm.get(componentName).hasError(errorCode);
   }
 
-  // addSelectedSubject(){
-  //   console.log(this.chosenSubjects)
-  //   const idProfessor = +this.route.snapshot.paramMap.get('id');
-  //   const professorSubject: professorSubject={subject:this.selectedSubject}
-  //   this.chosenSubjects.push(professorSubject);
+  addSelectedSubject(){
+    console.log(this.selectedSubject);
+    console.log(this.asignDate);
+    this.addSubject=false;
+    const professorSubject: professorSubject={subject:this.selectedSubject,assignDate:this.asignDate}
+    if (this.selectedSubjectProfessors?.findIndex(subject => subject.subject.id===this.selectedSubject.id) < 0){
+    this.selectedSubjectProfessors.push(professorSubject);
+    }
+  }
+  removeSubjectAtIndex(i:number){
+    if (this.selectedSubjectProfessors) {
+      this.selectedSubjectProfessors.splice(i,1);
+    }
+  }
+  onAddSubject(){
+    this.addSubject=true;
 
-  // }
-  // removeSubjectAtIndex(){
-
-  // }
+  }
 
 
 }

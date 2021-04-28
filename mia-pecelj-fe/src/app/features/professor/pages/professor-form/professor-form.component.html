@@ -93,7 +93,32 @@
     </div>
 
     <hr />
-    <div class="d-flex flex-row mt-2">
+    <div class="mb-3 d-flex flex-column">
+      <button type="button" class="btn btn-outline-success" (click)="onAddSubject()">
+        Add subject
+      </button>
+    </div>
+    <div *ngIf="addSubject"class="mb-3 d-flex flex-column">
+      <label for="subject" class="form-label">Subject:</label>
+      <select id="subject" class="form-select" [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedSubject">
+        <option>Please select subject</option>
+        <option *ngFor="let subject of subjects" [ngValue]="subject">
+          {{ subject.name }}
+        </option>
+      </select>
+      <label for="assignDate" class="form-label">Assign date</label>
+      <input id="assignDate" class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="asignDate" />
+      <button class="btn btn-outline-primary" (click)="addSelectedSubject()">
+        Add
+      </button>
+    </div>
+    <div *ngIf="!edit">
+      <span class="subject-chip" *ngFor="let subjectProfessor of selectedSubjectProfessors;let i=index" (click)="removeSubjectAtIndex(i)">{{ subjectProfessor.subject.name}}</span>
+    </div>
+    <div *ngIf="edit">
+      <span class="subject-chip" *ngFor="let subjectProfessor of professorForm.value.subjects;let i=index" (click)="removeSubjectAtIndex(i)">{{ subjectProfessor.subject.name}}</span>
+    </div>
+    <div *ngIf="!edit" class="d-flex flex-row mt-2">
       <button class="btn btn-outline-success" [disabled]="!professorForm.valid" type="submit">
         Save professor
       </button>
