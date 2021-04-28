@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import mia.pecelj.be.dto.CityDto;
 import mia.pecelj.be.entity.CityEntity;
-import mia.pecelj.be.entity.SubjectEntity;
 import mia.pecelj.be.mapper.CityEntityDtoMapper;
 import mia.pecelj.be.repository.CityRepository;
 import mia.pecelj.be.service.CityService;
@@ -20,11 +19,13 @@ import mia.pecelj.be.service.CityService;
 public class CityServiceImpl implements CityService {
 	CityRepository cityRepository;
 	CityEntityDtoMapper cityMapper;
+
 	@Autowired
-	public CityServiceImpl(CityRepository cityRepository,CityEntityDtoMapper cityMapper) {
-		this.cityRepository=cityRepository;
-		this.cityMapper= cityMapper;
+	public CityServiceImpl(CityRepository cityRepository, CityEntityDtoMapper cityMapper) {
+		this.cityRepository = cityRepository;
+		this.cityMapper = cityMapper;
 	}
+
 	@Override
 	public List<CityDto> getAll() {
 		List<CityEntity> entities = cityRepository.findAll();

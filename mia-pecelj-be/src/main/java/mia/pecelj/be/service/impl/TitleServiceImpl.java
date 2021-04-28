@@ -16,14 +16,16 @@ import mia.pecelj.be.service.TitleService;
 
 @Transactional
 @Service
-public class TitleServiceImpl implements TitleService{
+public class TitleServiceImpl implements TitleService {
 	TitleEntityDtoMapper titleMapper;
 	TitleRepository titleRepository;
+
 	@Autowired
-	public TitleServiceImpl(TitleEntityDtoMapper titleMapper,TitleRepository titleRepository) {
-		this.titleMapper=titleMapper;
-		this.titleRepository=titleRepository;
+	public TitleServiceImpl(TitleEntityDtoMapper titleMapper, TitleRepository titleRepository) {
+		this.titleMapper = titleMapper;
+		this.titleRepository = titleRepository;
 	}
+
 	@Override
 	public List<TitleDto> getAll() {
 		List<TitleEntity> entities = titleRepository.findAll();

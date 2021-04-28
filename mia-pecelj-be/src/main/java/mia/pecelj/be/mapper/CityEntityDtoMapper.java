@@ -8,6 +8,7 @@ import mia.pecelj.be.entity.CityEntity;
 @Mapper(componentModel = "spring")
 public interface CityEntityDtoMapper {
 	CityDto toDto(CityEntity city);
+
 	CityEntity toEntity(CityDto city);
 
 }

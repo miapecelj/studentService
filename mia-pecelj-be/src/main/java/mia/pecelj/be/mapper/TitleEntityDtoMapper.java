@@ -5,10 +5,11 @@ import org.mapstruct.Mapper;
 import mia.pecelj.be.dto.TitleDto;
 import mia.pecelj.be.entity.TitleEntity;
 
-@Mapper(componentModel ="spring")
+@Mapper(componentModel = "spring")
 public interface TitleEntityDtoMapper {
-	
+
 	TitleDto toDto(TitleEntity entity);
+
 	TitleEntity toEntity(TitleDto dto);
 
 }

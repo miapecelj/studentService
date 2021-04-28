@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import mia.pecelj.be.dto.CityDto;
 import mia.pecelj.be.dto.TitleDto;
-import mia.pecelj.be.service.CityService;
 import mia.pecelj.be.service.impl.TitleServiceImpl;
 
 @RestController
@@ -20,10 +18,12 @@ import mia.pecelj.be.service.impl.TitleServiceImpl;
 public class TitleRestController {
 
 	TitleServiceImpl titleService;
+
 	@Autowired
-	public TitleRestController( TitleServiceImpl titleService) {
-		this.titleService= titleService;
+	public TitleRestController(TitleServiceImpl titleService) {
+		this.titleService = titleService;
 	}
+
 	@GetMapping
 	public @ResponseBody ResponseEntity<List<TitleDto>> getAll() throws Exception {
 		return ResponseEntity.status(HttpStatus.OK).body(titleService.getAll());

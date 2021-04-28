@@ -21,41 +21,38 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name="professor")
-public class ProfessorEntity implements MyEntity{
+@Table(name = "professor")
+public class ProfessorEntity implements MyEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	@NotNull
-	@Size(min=3)
+	@Size(min = 3)
 	private String firstname;
 	@NotNull
-	@Size(min=3)
+	@Size(min = 3)
 	private String lastname;
-	@Pattern(regexp="^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
+	@Pattern(regexp = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
 	private String email;
-	@Size(min=3)
+	@Size(min = 3)
 	private String address;
 	@ManyToOne
 	@JoinColumn(name = "city_code")
 	private CityEntity city;
-	@Size(min=9)
+	@Size(min = 9)
 	private String phone;
-	@Column(name="reelection_date")
+	@Column(name = "reelection_date")
 	private LocalDate reelectionDate;
 	@ManyToOne
 	@JoinColumn(name = "title")
 	private TitleEntity title;
-	@OneToMany(
-	        mappedBy = "professor",
-	        cascade = CascadeType.ALL,
-	        orphanRemoval = true
-	    )
-	private List<ProfessorSubjectEntity> subjects=new ArrayList<ProfessorSubjectEntity>();
+	@OneToMany(mappedBy = "professor", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<ProfessorSubjectEntity> subjects = new ArrayList<ProfessorSubjectEntity>();
+
 	public ProfessorEntity() {
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	public ProfessorEntity(long id, @NotNull @Size(min = 3) String firstName, @NotNull @Size(min = 3) String lastName,
 			@Pattern(regexp = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$") String email, @Size(min = 3) String address,
 			CityEntity city, @Size(min = 9) String phone, LocalDate reelectionDate, TitleEntity title) {
@@ -70,28 +67,24 @@ public class ProfessorEntity implements MyEntity{
 		this.reelectionDate = reelectionDate;
 		this.title = title;
 	}
-	
-	
 
-	
 	public void addSubject(SubjectEntity subject) {
-		ProfessorSubjectEntity professorSubject = new ProfessorSubjectEntity(this,subject);
+		ProfessorSubjectEntity professorSubject = new ProfessorSubjectEntity(this, subject);
 		subjects.add(professorSubject);
 		subject.getProfessors().add(professorSubject);
 	}
+
 	public void removeSubject(SubjectEntity subject) {
-		for (Iterator<ProfessorSubjectEntity> iterator = subjects.iterator();
-	             iterator.hasNext(); ) {
-	            ProfessorSubjectEntity professorSubject = iterator.next();
-	 
-	            if (professorSubject.getProfessor().equals(this) &&
-	                    professorSubject.getSubject().equals(subject)) {
-	                iterator.remove();
-	                professorSubject.getSubject().getProfessors().remove(professorSubject);
-	                professorSubject.setProfessor(null);
-	                professorSubject.setSubject(null);
-	            }
-	        }
+		for (Iterator<ProfessorSubjectEntity> iterator = subjects.iterator(); iterator.hasNext();) {
+			ProfessorSubjectEntity professorSubject = iterator.next();
+
+			if (professorSubject.getProfessor().equals(this) && professorSubject.getSubject().equals(subject)) {
+				iterator.remove();
+				professorSubject.getSubject().getProfessors().remove(professorSubject);
+				professorSubject.setProfessor(null);
+				professorSubject.setSubject(null);
+			}
+		}
 	}
 
 	public long getId() {
@@ -110,7 +103,6 @@ public class ProfessorEntity implements MyEntity{
 		this.city = city;
 	}
 
-	
 	public String getFirstname() {
 		return firstname;
 	}
@@ -138,48 +130,57 @@ public class ProfessorEntity implements MyEntity{
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 	public String getAddress() {
 		return address;
 	}
+
 	public void setAddress(String address) {
 		this.address = address;
 	}
+
 	public String getPhone() {
 		return phone;
 	}
+
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+
 	public LocalDate getReelectionDate() {
 		return reelectionDate;
 	}
+
 	public void setReelectionDate(LocalDate reelectionDate) {
 		this.reelectionDate = reelectionDate;
 	}
+
 	public TitleEntity getTitle() {
 		return title;
 	}
+
 	public void setTitle(TitleEntity title) {
 		this.title = title;
 	}
 
-	
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		ProfessorEntity professor = (ProfessorEntity) o;
+		return Objects.equals(id, professor.id);
+	}
 
 	@Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ProfessorEntity professor = (ProfessorEntity) o;
-        return Objects.equals(id, professor.id);
-    }
- 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
+	public int hashCode() {
+		return Objects.hash(id);
+	}
 
 	@Override
 	public String toString() {
@@ -187,8 +188,5 @@ public class ProfessorEntity implements MyEntity{
 				+ ", address=" + address + ", city=" + city + ", phone=" + phone + ", reelectionDate=" + reelectionDate
 				+ ", title=" + title + ", subjects=" + subjects + "]";
 	}
-    
-	
-	
 
 }

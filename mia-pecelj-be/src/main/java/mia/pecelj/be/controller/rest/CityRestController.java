@@ -17,11 +17,17 @@ import mia.pecelj.be.service.CityService;
 @RestController
 @RequestMapping(path = "/api/city")
 public class CityRestController implements MyDto {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	CityService cityService;
+
 	@Autowired
 	public CityRestController(CityService cityService) {
 		this.cityService = cityService;
 	}
+
 	@GetMapping
 	public @ResponseBody ResponseEntity<List<CityDto>> getAll() throws Exception {
 		return ResponseEntity.status(HttpStatus.OK).body(cityService.getAll());

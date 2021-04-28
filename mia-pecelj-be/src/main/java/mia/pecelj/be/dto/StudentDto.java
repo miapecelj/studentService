@@ -1,6 +1,6 @@
 package mia.pecelj.be.dto;
 
-public class StudentDto implements MyDto{
+public class StudentDto implements MyDto {
 	/**
 	 * 
 	 */
@@ -14,10 +14,11 @@ public class StudentDto implements MyDto{
 	private String address;
 	private CityDto city;
 	private int currentYearOfStudy;
+
 	public StudentDto() {
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	public StudentDto(long id, int indexNumber, int indexYear, String firstname, String lastname, String email,
 			String address, CityDto city, int currentYearOfStudy) {
 		super();
@@ -31,9 +32,6 @@ public class StudentDto implements MyDto{
 		this.city = city;
 		this.currentYearOfStudy = currentYearOfStudy;
 	}
-	
-
-	
 
 	public long getId() {
 		return id;
@@ -113,7 +111,5 @@ public class StudentDto implements MyDto{
 				+ firstname + ", lastname=" + lastname + ", email=" + email + ", address=" + address + ", city=" + city
 				+ ", currentYearOfStudy=" + currentYearOfStudy + "]";
 	}
-	
-	
 
 }

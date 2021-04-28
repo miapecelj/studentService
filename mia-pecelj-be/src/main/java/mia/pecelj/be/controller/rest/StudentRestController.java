@@ -21,32 +21,33 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import mia.pecelj.be.dto.StudentDto;
-import mia.pecelj.be.dto.SubjectDto;
 import mia.pecelj.be.service.StudentService;
 
 @RestController
 @RequestMapping(path = "/api/student")
 public class StudentRestController {
 	private final StudentService studentService;
+
 	@Autowired
 	public StudentRestController(StudentService studentService) {
-		this.studentService=studentService;
+		this.studentService = studentService;
 	}
+
 	@GetMapping("/{id}")
 	public @ResponseBody ResponseEntity<Object> findById(@PathVariable Long id) {
-		Optional<StudentDto> studentDto=studentService.findById(id);
-		if(studentDto.isPresent()) {
+		Optional<StudentDto> studentDto = studentService.findById(id);
+		if (studentDto.isPresent()) {
 			return ResponseEntity.status(HttpStatus.OK).body(studentDto.get());
-		}else {
-			return ResponseEntity
-					.status(HttpStatus.NOT_FOUND)
-					.body("Student with id " + id+" does not exist!");
+		} else {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Student with id " + id + " does not exist!");
 		}
 	}
+
 	@GetMapping
 	public @ResponseBody ResponseEntity<List<StudentDto>> getAll() {
 		return ResponseEntity.status(HttpStatus.OK).body(studentService.getAll());
 	}
+
 	@PostMapping
 	public @ResponseBody ResponseEntity<Object> save(@RequestBody StudentDto studentDto, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
@@ -68,13 +69,13 @@ public class StudentRestController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(studentDto);
 		} else {
 			try {
-			Optional<StudentDto> student = studentService.update(studentDto);
-			if (student.isPresent()) {
-				return ResponseEntity.status(HttpStatus.OK).body(student.get());
-			} else {
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(studentDto);
-			}
-			}catch (Exception e) {
+				Optional<StudentDto> student = studentService.update(studentDto);
+				if (student.isPresent()) {
+					return ResponseEntity.status(HttpStatus.OK).body(student.get());
+				} else {
+					return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(studentDto);
+				}
+			} catch (Exception e) {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(studentDto);
 			}
 		}
@@ -90,11 +91,10 @@ public class StudentRestController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
 	}
+
 	@GetMapping("/page")
 	public @ResponseBody ResponseEntity<Page<StudentDto>> getByPage(Pageable pageable) {
 		return ResponseEntity.status(HttpStatus.OK).body(studentService.getAll(pageable));
 	}
-	
-	
 
 }

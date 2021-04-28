@@ -5,8 +5,6 @@ import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
-import mia.pecelj.be.dto.MyDto;
 import mia.pecelj.be.dto.SubjectDto;
 import mia.pecelj.be.exception.MyEntityExistException;
 import mia.pecelj.be.exception.MyEntityNotPresentedException;

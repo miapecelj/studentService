@@ -9,37 +9,45 @@ import javax.persistence.Table;
 import org.hibernate.annotations.NaturalId;
 
 @Entity
-@Table(name="title")
+@Table(name = "title")
 public class TitleEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@NaturalId
 	private String name;
+
 	public TitleEntity() {
 		// TODO Auto-generated constructor stub
 	}
+
 	public TitleEntity(Long id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
 	}
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	@Override
 	public String toString() {
 		return "TitleEntity [id=" + id + ", name=" + name + "]";
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -48,6 +56,7 @@ public class TitleEntity {
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -69,7 +78,5 @@ public class TitleEntity {
 			return false;
 		return true;
 	}
-	
-	
 
 }

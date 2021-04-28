@@ -18,20 +18,24 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.NaturalIdCache;
-import org.hibernate.validator.constraints.Length;
+
 @Entity
-@Table(name="student")
+@Table(name = "student")
 @NaturalIdCache
-public class StudentEntity implements Serializable,MyEntity{
+public class StudentEntity implements Serializable, MyEntity {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	@NaturalId
-	@Column(name="index_number",length=4)
+	@Column(name = "index_number", length = 4)
 	@NotNull
 	private int indexNumber;
 	@NaturalId
-	@Column(name="index_year")
+	@Column(name = "index_year")
 	@NotNull
 	@Min(2000)
 	@Max(2100)
@@ -42,21 +46,21 @@ public class StudentEntity implements Serializable,MyEntity{
 	@NotNull
 	@Size(min = 3)
 	private String lastname;
-	@Pattern(regexp="^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
+	@Pattern(regexp = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
 	private String email;
 	@Size(min = 3)
 	private String address;
-	@Column(name="current_year_of_study")
+	@Column(name = "current_year_of_study")
 	@NotNull
 	private int currentYearOfStudy;
 	@ManyToOne
 	@JoinColumn(name = "city_code")
 	private CityEntity city;
+
 	public StudentEntity() {
 		// TODO Auto-generated constructor stub
 	}
-	
-	
+
 	public StudentEntity(long id, int indexNumber, int indexYear, String firstname, String lastname, String email,
 			String address, int currentYearOfStudy, CityEntity city) {
 		super();
@@ -71,83 +75,92 @@ public class StudentEntity implements Serializable,MyEntity{
 		this.city = city;
 	}
 
-
 	public String getAddress() {
 		return address;
 	}
-
 
 	public void setAddress(String address) {
 		this.address = address;
 	}
 
-
 	public int getCurrentYearOfStudy() {
 		return currentYearOfStudy;
 	}
-
 
 	public void setCurrentYearOfStudy(int currentYearOfStudy) {
 		this.currentYearOfStudy = currentYearOfStudy;
 	}
 
-
 	public long getId() {
 		return id;
 	}
+
 	public void setId(long id) {
 		this.id = id;
 	}
+
 	public int getIndexNumber() {
 		return indexNumber;
 	}
+
 	public void setIndexNumber(int indexNumber) {
 		this.indexNumber = indexNumber;
 	}
+
 	public int getIndexYear() {
 		return indexYear;
 	}
+
 	public void setIndexYear(int indexYear) {
 		this.indexYear = indexYear;
 	}
+
 	public String getFirstname() {
 		return firstname;
 	}
+
 	public void setFirstname(String firstname) {
 		this.firstname = firstname;
 	}
+
 	public String getLastname() {
 		return lastname;
 	}
+
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}
+
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 	public String getAdress() {
 		return address;
 	}
+
 	public void setAdress(String address) {
 		this.address = address;
 	}
+
 	public CityEntity getCity() {
 		return city;
 	}
+
 	public void setCity(CityEntity city) {
 		this.city = city;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "StudentEntity [id=" + id + ", indexNumber=" + indexNumber + ", indexYear=" + indexYear + ", firstname="
 				+ firstname + ", lastname=" + lastname + ", email=" + email + ", address=" + address
 				+ ", currentYearOfStudy=" + currentYearOfStudy + ", city=" + city + "]";
 	}
-
 
 	@Override
 	public int hashCode() {
@@ -158,6 +171,7 @@ public class StudentEntity implements Serializable,MyEntity{
 		result = prime * result + indexYear;
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -175,6 +189,5 @@ public class StudentEntity implements Serializable,MyEntity{
 			return false;
 		return true;
 	}
-	
 
 }

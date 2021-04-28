@@ -7,17 +7,21 @@ import mia.pecelj.be.dto.ProfessorDto;
 import mia.pecelj.be.dto.ProfessorSubjectDto;
 import mia.pecelj.be.entity.ProfessorEntity;
 import mia.pecelj.be.entity.ProfessorSubjectEntity;
+
 @Component
 public class ProfessorEntityDtoMyMapper {
 	CityEntityDtoMapper cityMapper;
 	TitleEntityDtoMapper titleMapper;
 	SubjectEntityDtoMapper subjectMapper;
+
 	@Autowired
-	public ProfessorEntityDtoMyMapper(CityEntityDtoMapper cityMapper,TitleEntityDtoMapper titleMapper,SubjectEntityDtoMapper subjectMapper) {
-		this.cityMapper=cityMapper;
-		this.titleMapper=titleMapper;
-		this.subjectMapper=subjectMapper;
+	public ProfessorEntityDtoMyMapper(CityEntityDtoMapper cityMapper, TitleEntityDtoMapper titleMapper,
+			SubjectEntityDtoMapper subjectMapper) {
+		this.cityMapper = cityMapper;
+		this.titleMapper = titleMapper;
+		this.subjectMapper = subjectMapper;
 	}
+
 	public ProfessorDto toDto(ProfessorEntity entity) {
 		ProfessorDto dto = new ProfessorDto();
 		dto.setAddress(entity.getAddress());
@@ -29,11 +33,12 @@ public class ProfessorEntityDtoMyMapper {
 		dto.setReelectionDate(entity.getReelectionDate());
 		dto.setCity(cityMapper.toDto(entity.getCity()));
 		dto.setTitle(titleMapper.toDto(entity.getTitle()));
-		for(ProfessorSubjectEntity professorStudent: entity.getSubjects()) {
+		for (ProfessorSubjectEntity professorStudent : entity.getSubjects()) {
 			dto.addSubject(subjectMapper.toDto(professorStudent.getSubject()));
 		}
 		return dto;
 	}
+
 	public ProfessorEntity toEntity(ProfessorDto dto) {
 		ProfessorEntity entity = new ProfessorEntity();
 		entity.setAddress(dto.getAddress());
@@ -45,11 +50,11 @@ public class ProfessorEntityDtoMyMapper {
 		entity.setReelectionDate(dto.getReelectionDate());
 		entity.setCity(cityMapper.toEntity(dto.getCity()));
 		entity.setTitle(titleMapper.toEntity(dto.getTitle()));
-		for(ProfessorSubjectDto professorSubject:dto.getSubjects()) {
+		for (ProfessorSubjectDto professorSubject : dto.getSubjects()) {
 			entity.addSubject(subjectMapper.toEntity(professorSubject.getSubject()));
 		}
 		return entity;
-		
+
 	}
 
 }

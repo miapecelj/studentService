@@ -3,12 +3,7 @@ package mia.pecelj.be.dto;
 import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
-import mia.pecelj.be.entity.ProfessorEntity;
 import mia.pecelj.be.entity.ProfessorSubjectId;
-import mia.pecelj.be.entity.SubjectEntity;
 
 public class ProfessorSubjectDto implements MyDto {
 
