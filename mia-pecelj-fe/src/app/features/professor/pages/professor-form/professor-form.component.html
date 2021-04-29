@@ -9,7 +9,7 @@
     <div class="mb-3 d-flex flex-column">
       <label for="firstname" class="form-label">Firstname</label>
       <input id="firstname" class="form-control" formControlName="firstname" />
-      <p class="alert alert-danger" *ngIf="professorForm.get('firstname').hasError('required') && professorForm.get('firstname').touched">
+      <p class="alert alert-danger" *ngIf="professorForm.get('firstname').hasError('required') ">
         Firstname is required
       </p>
       <p class="alert alert-danger" *ngIf="professorForm.get('firstname').hasError('minlength')">
@@ -21,7 +21,7 @@
     <div class="mb-3 d-flex flex-column">
       <label for="lastname" class="form-label">Lastname</label>
       <input id="lastname" class="form-control" formControlName="lastname"/>
-      <p class="alert alert-danger" *ngIf="professorForm.get('lastname').hasError('required') && professorForm.get('lastname').touched">
+      <p class="alert alert-danger" *ngIf="professorForm.get('lastname').hasError('required')">
         Lastname is required
       </p>
       <p class="alert alert-danger" *ngIf="professorForm.get('lastname').hasError('minlength')">

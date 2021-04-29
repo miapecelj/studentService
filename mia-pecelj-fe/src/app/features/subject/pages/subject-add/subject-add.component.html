@@ -9,10 +9,10 @@
     <div class="mb-3 d-flex flex-column">
       <label for="name" class="form-label">Name</label>
       <input id="name" class="form-control" formControlName="name" />
-      <p class="alert alert-danger" *ngIf="subjectForm.get('name').hasError('minlength')">
+      <p class="alert alert-danger" *ngIf="subjectForm.get('name').hasError('minlength')&& subjectForm.get('name').touched">
         Length is ({{subjectForm.get('name').errors.minlength.actualLength}}) less than required length ({{subjectForm.get('name').errors.minlength.requiredLength}})
       </p>
-      <p class="alert alert-danger" *ngIf="subjectForm.get('name').hasError('required') && subjectForm.get('name').touched">
+      <p class="alert alert-danger" *ngIf="subjectForm.get('name').hasError('required')" >
         Name is required
       </p>
 
@@ -27,15 +27,15 @@
     </div>
     <div class="mb-3 d-flex flex-column">
       <label for="noOfEspb" class="form-label">Number of espb</label>
-      <textarea id="noOfEspb" class="form-control" formControlName="noOfEspb"></textarea>
-      <p class="alert alert-danger" *ngIf="subjectForm.get('noOfEspb').hasError('reqired')">
+      <input id="noOfEspb" class="form-control" formControlName="noOfEspb"/>
+      <p class="alert alert-danger" *ngIf="subjectForm.get('noOfEspb').hasError('required')" >
         Number of espb is required
       </p>
     </div>
     <div class="mb-3 d-flex flex-column">
       <label for="yearOfStudy" class="form-label">Year of study</label>
-      <textarea id="yearOfStudy" class="form-control" formControlName="yearOfStudy"></textarea>
-      <p class="alert alert-danger" *ngIf="subjectForm.get('yearOfStudy').hasError('reqired')">
+      <input id="yearOfStudy" class="form-control" formControlName="yearOfStudy"/>
+      <p class="alert alert-danger" *ngIf="subjectForm.get('yearOfStudy').hasError('required')">
         Year of study
       </p>
       <p class="alert alert-danger" *ngIf="subjectForm.get('yearOfStudy').hasError('max')">
@@ -56,6 +56,9 @@
           {{ val }}
         </option>
       </select>
+      <p class="alert alert-danger" *ngIf="subjectForm.get('semester').hasError('required')">
+        Semester is required
+      </p>
     </div>
 
     <hr />

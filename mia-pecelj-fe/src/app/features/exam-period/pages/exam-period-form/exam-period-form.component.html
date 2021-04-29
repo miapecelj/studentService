@@ -1,1 +1,46 @@
-<p>exam-period-form works!</p>
+<div *ngIf="addedExamPeriod" class="alert alert-success" role="alert" >
+  Subject saved!
+</div>
+<form *ngIf="examPeriodForm" [formGroup]="examPeriodForm" (ngSubmit)="onSubmit()">
+  <div class="m-auto w-50 p-4 border border-primary rounded">
+    <h3>Exam period</h3>
+  <a routerLink="/examPeriod">Back to list</a>
+    <div class="mb-3 d-flex flex-column">
+      <label for="name" class="form-label">Name:</label>
+      <input id="name" class="form-control" formControlName="name" />
+      <p class="alert alert-danger" *ngIf="examPeriodForm.get('name').hasError('required') ">
+        Name is required
+      </p>
+    </div>
+
+    <div class="mb-3 d-flex flex-column">
+      <label for="startDate" class="form-label">Start date:</label>
+      <input type="date"id="startDate" class="form-control" formControlName="startDate"/>
+      <p class="alert alert-danger" *ngIf="examPeriodForm.get('startDate').hasError('required')" >
+        Start date is required
+      </p>
+    </div>
+    <div class="mb-3 d-flex flex-column">
+      <label for="endDate" class="form-label">End date:</label>
+      <input type="date"id="endDate" class="form-control" formControlName="endDate"/>
+      <p class="alert alert-danger" *ngIf="examPeriodForm.get('endDate').hasError('required')" >
+        End date is required
+      </p>
+    </div>
+    <div class="mb-3 d-flex flex-column">
+      <label for="active" class="form-label" >Active:</label>
+      <input class="form-check-input" type="checkbox" id="active" class="form-control" formControlName="active" [value]="true" />
+
+    </div>
+
+
+    <hr />
+
+    <div class="d-flex flex-row mt-2">
+      <button class="btn btn-outline-success" [disabled]="!examPeriodForm.valid" type="submit">
+        Save exam period
+      </button>
+    </div>
+  </div>
+</form>
+
