@@ -1,24 +1,44 @@
 package mia.pecelj.be.dto;
 
-public class StudentDto implements MyDto{
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+public class StudentDto implements MyDto {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private long id;
-	private int indexNumber;
+	@NotNull
+	@Size(min=4)
+	@Size(max=4)
+	private String indexNumber;
+	@NotNull
+	@Min(2000)
+	@Max(2100)
 	private int indexYear;
+	@NotNull
+	@Size(min = 3)
 	private String firstname;
+	@NotNull
+	@Size(min = 3)
 	private String lastname;
+	@Pattern(regexp = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
 	private String email;
+	@Size(min = 3)
 	private String address;
 	private CityDto city;
+	@NotNull
 	private int currentYearOfStudy;
+
 	public StudentDto() {
 		// TODO Auto-generated constructor stub
 	}
-	
-	public StudentDto(long id, int indexNumber, int indexYear, String firstname, String lastname, String email,
+
+	public StudentDto(long id, String indexNumber, int indexYear, String firstname, String lastname, String email,
 			String address, CityDto city, int currentYearOfStudy) {
 		super();
 		this.id = id;
@@ -31,9 +51,6 @@ public class StudentDto implements MyDto{
 		this.city = city;
 		this.currentYearOfStudy = currentYearOfStudy;
 	}
-	
-
-	
 
 	public long getId() {
 		return id;
@@ -43,11 +60,11 @@ public class StudentDto implements MyDto{
 		this.id = id;
 	}
 
-	public int getIndexNumber() {
+	public String getIndexNumber() {
 		return indexNumber;
 	}
 
-	public void setIndexNumber(int indexNumber) {
+	public void setIndexNumber(String indexNumber) {
 		this.indexNumber = indexNumber;
 	}
 
@@ -113,7 +130,5 @@ public class StudentDto implements MyDto{
 				+ firstname + ", lastname=" + lastname + ", email=" + email + ", address=" + address + ", city=" + city
 				+ ", currentYearOfStudy=" + currentYearOfStudy + "]";
 	}
-	
-	
 
 }

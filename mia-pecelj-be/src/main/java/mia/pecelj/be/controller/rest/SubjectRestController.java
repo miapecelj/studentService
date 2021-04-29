@@ -1,6 +1,8 @@
 package mia.pecelj.be.controller.rest;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -11,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -53,13 +56,19 @@ public class SubjectRestController {
 	public @ResponseBody ResponseEntity<Object> save(@Valid @RequestBody SubjectDto subjectDto,
 			BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Greska kod cuvanja entiteta: " + subjectDto);
+			Map<String, String> errors = new HashMap<>();
+		    bindingResult.getAllErrors().forEach((error) -> {
+		        String fieldName = ((FieldError) error).getField();
+		        String errorMessage = error.getDefaultMessage();
+		        errors.put(fieldName, errorMessage);
+		    });
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error saving subject "+errors);
 		} else {
 			try {
-				return ResponseEntity.status(HttpStatus.OK).body(subjectService.save(subjectDto));
+				return ResponseEntity.status(HttpStatus.OK).body("Error saving subject "+subjectService.save(subjectDto));
 			} catch (Exception e) {
 				e.printStackTrace();
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Greska kod cuvanja entiteta: " + subjectDto);
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error saving subject "+ subjectDto);
 			}
 		}
 	}
@@ -68,11 +77,17 @@ public class SubjectRestController {
 	public @ResponseBody ResponseEntity<SubjectDto> update(@Valid @RequestBody SubjectDto subjectDto,
 			BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
+			Map<String, String> errors = new HashMap<>();
+		    bindingResult.getAllErrors().forEach((error) -> {
+		        String fieldName = ((FieldError) error).getField();
+		        String errorMessage = error.getDefaultMessage();
+		        errors.put(fieldName, errorMessage);
+		    });
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(subjectDto);
 		} else {
 			Optional<SubjectDto> subject = subjectService.update(subjectDto);
 			if (subject.isPresent()) {
-				return ResponseEntity.status(HttpStatus.OK).body(subject.get());
+				return ResponseEntity.status(HttpStatus.OK).body(subjectDto);
 			} else {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(subjectDto);
 			}

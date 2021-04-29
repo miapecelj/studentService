@@ -1,6 +1,6 @@
 package mia.pecelj.be.exception;
 
-public class MyApplicationException extends Exception{
+public class MyApplicationException extends Exception {
 
 	private static final long serialVersionUID = 1L;
 

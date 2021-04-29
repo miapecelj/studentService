@@ -1,38 +1,44 @@
 package mia.pecelj.be.dto;
 
-import mia.pecelj.be.entity.CityEntity;
-
-public class CityDto implements MyDto{
+public class CityDto implements MyDto {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private long postalCode;
 	private String name;
+
 	public CityDto() {
 		// TODO Auto-generated constructor stub
 	}
+
 	public CityDto(long postalCode, String name) {
 		super();
 		this.postalCode = postalCode;
 		this.name = name;
 	}
+
 	public long getPostalCode() {
 		return postalCode;
 	}
+
 	public void setPostalCode(long postalCode) {
 		this.postalCode = postalCode;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	@Override
 	public String toString() {
 		return "CityEntity [postalCode=" + postalCode + ", name=" + name + "]";
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -41,6 +47,7 @@ public class CityDto implements MyDto{
 		result = prime * result + (int) (postalCode ^ (postalCode >>> 32));
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -59,7 +66,5 @@ public class CityDto implements MyDto{
 			return false;
 		return true;
 	}
-	
-	
 
 }

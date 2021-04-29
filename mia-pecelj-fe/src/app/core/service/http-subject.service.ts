@@ -22,14 +22,12 @@ export class HttpSubjectService {
     return this.httpClient.get<Page<Subject[]>>(`${environment.baseHttpURL}/${this.controlerPrefix}/page?page=${page}&size=${size}`);
   }
   postSubject(subject:Subject):Observable<Subject>{
-    console.log(subject);
     return this.httpClient.post<Subject>(`${environment.baseHttpURL}/${this.controlerPrefix}/`,subject);
   }
   findById(id: number): Observable<Subject> {
     return this.httpClient.get<Subject>(`${environment.baseHttpURL}/${this.controlerPrefix}/${id}`);
   }
   editSubject(subject:Subject):Observable<Subject>{
-    console.log(subject);
     return this.httpClient.put<Subject>(`${environment.baseHttpURL}/${this.controlerPrefix}/`,subject);
   }
   deleteSubject(subject:Subject):Observable<Subject>{

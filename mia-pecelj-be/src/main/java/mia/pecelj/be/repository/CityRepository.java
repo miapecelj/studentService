@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import mia.pecelj.be.entity.CityEntity;
 
 @Repository
-public interface CityRepository extends JpaRepository<CityEntity, Long>{
+public interface CityRepository extends JpaRepository<CityEntity, Long> {
 
 }

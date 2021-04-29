@@ -1,19 +1,15 @@
 package mia.pecelj.be.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import mia.pecelj.be.dto.MyDto;
 import mia.pecelj.be.dto.SubjectDto;
 import mia.pecelj.be.entity.SubjectEntity;
 import mia.pecelj.be.exception.MyEntityExistException;
@@ -22,17 +18,16 @@ import mia.pecelj.be.mapper.SubjectEntityDtoMapper;
 import mia.pecelj.be.repository.SubjectRepository;
 import mia.pecelj.be.service.SubjectService;
 
-
 @Service
 @Transactional
-public class SubjectServiceImpl implements SubjectService{
+public class SubjectServiceImpl implements SubjectService {
 	private SubjectRepository subjectRepository;
 	private SubjectEntityDtoMapper subjectMapper;
-	
+
 	@Autowired
-	public SubjectServiceImpl(SubjectRepository subjectRepository,SubjectEntityDtoMapper subjectMapper) {
-		this.subjectMapper=subjectMapper;
-		this.subjectRepository=subjectRepository;
+	public SubjectServiceImpl(SubjectRepository subjectRepository, SubjectEntityDtoMapper subjectMapper) {
+		this.subjectMapper = subjectMapper;
+		this.subjectRepository = subjectRepository;
 	}
 
 	@Override
@@ -56,7 +51,7 @@ public class SubjectServiceImpl implements SubjectService{
 	public SubjectDto save(SubjectDto dto) throws MyEntityExistException {
 		Optional<SubjectEntity> entity = subjectRepository.findById(dto.getId());
 		if (entity.isPresent()) {
-			throw new MyEntityExistException("Subject already exists!",dto);
+			throw new MyEntityExistException("Subject already exists!", dto);
 		}
 
 		SubjectEntity subject = subjectRepository.save(subjectMapper.toEntity(dto));
@@ -80,7 +75,7 @@ public class SubjectServiceImpl implements SubjectService{
 			throw new MyEntityNotPresentedException("City with code " + id + " does not exist!");
 		}
 		subjectRepository.delete(entity.get());
-		
+
 	}
 
 	@Override
@@ -97,7 +92,5 @@ public class SubjectServiceImpl implements SubjectService{
 //		}
 //		return new ArrayList<SubjectDto>();
 	}
-
-	
 
 }

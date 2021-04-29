@@ -1,0 +1,91 @@
+<a routerLink="/professor">Back to list</a>
+<div class="d-flex flex-column mt-3">
+
+    <div class="col-lg-6 col-md-8 border border-primary p-2">
+      <div>
+      <h4>Title:</h4>
+      <div class="row">
+        <span class="col-lg-8 col-md-6">
+          {{professor?.title.name}}
+        </span>
+      </div>
+    </div>
+    <div>
+      <h4>First name:</h4>
+      <div>
+        <span class="col-lg-8 col-md-6">
+          {{professor?.firstname}}
+        </span>
+      </div>
+    </div>
+    <div>
+      <h4>Last name:</h4>
+      <div class="row">
+        <span class="col-lg-8 col-md-6">
+          {{professor?.lastname}}
+        </span>
+      </div>
+    </div>
+    <div>
+      <h4>Cty:</h4>
+      <div class="row">
+        <span class="col-lg-8 col-md-6">
+          {{professor?.city.name}}
+        </span>
+      </div>
+    </div>
+    <div>
+      <h4>Address:</h4>
+      <div class="row">
+        <span class="col-lg-8 col-md-6">
+          {{professor?.address}}
+        </span>
+      </div>
+    </div>
+    <div>
+      <h4>Email:</h4>
+      <div class="row">
+        <span class="col-lg-8 col-md-6">
+          {{professor?.email}}
+        </span>
+      </div>
+    </div>
+    <div>
+      <h4>Phone:</h4>
+      <div class="row">
+        <span class="col-lg-8 col-md-6">
+          {{professor?.phone}}
+        </span>
+      </div>
+    </div>
+    <div>
+      <h4>Reelection date:</h4>
+      <div class="row">
+        <span class="col-lg-8 col-md-6">
+          {{professor?.reelectionDate}}
+        </span>
+      </div>
+    </div>
+    <div>
+      <h4>Subjects:</h4>
+      <div class="row">
+        <span class="col-lg-8 col-md-6" *ngFor="let subject of professor?.subjects">
+          {{subject.subject.name}}
+        </span>
+      </div>
+    </div>
+    <!-- <button class="btn btn-outline-success" (click)="onAddSubject()"> Add subject</button>
+    <div *ngIf="addSubject"class="mb-3 d-flex flex-column" class="m-auto w-25 p-4 border border-primary rounded">
+      <label for="subjects" class="form-label">Subjects</label>
+      <select id="subjects" [(ngModel)]="selectedSubject" class="form-select" >
+          <option value="">Please select subject</option>
+          <option *ngFor="let subject of subjects" [ngValue]="subject" >
+              {{ subject.name }}
+          </option>
+      </select>
+      <button class="btn btn-outline-secondary" (click)="addSelectedSubject()" >Add</button>
+    </div> -->
+
+    </div>
+</div>
+

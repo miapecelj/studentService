@@ -1,0 +1,5 @@
+INSERT INTO professor(firstname, lastname, address,email,phone,reelection_date,city_code,title)VALUES("Marko","Perovic","Mihajla Pupina 7","marko.perovic@gmail.com","065248253","2020.03.12",11000,1);
+INSERT INTO professor(firstname, lastname, address,email,phone,reelection_date,city_code,title)VALUES("Dunja","Markovic","Internacionalnih Brigada 6","dunja.markovic@gmail.com","066254178","2019.05.16",11300,2);
+INSERT INTO professor(firstname, lastname, address,email,phone,reelection_date,city_code,title)VALUES("Ena","Jovic","Cara Nikolaja II 21","ena.jovic@gmail.com","060321785","2006.04.01",21000,4);
+INSERT INTO professor(firstname, lastname, address,email,phone,reelection_date,city_code,title)VALUES("Jovan","Rajic","Todora Dukina 89","jovan.rajic@gmail.com","062574329","2003.12.04",11000,3);
+INSERT INTO professor(firstname, lastname, address,email,phone,reelection_date,city_code,title)VALUES("Vladan","Simic","Vojvode Misica 45","vladan.simic@gmail.com","065142369","2018.12.05",251604,1);

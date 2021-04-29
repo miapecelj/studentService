@@ -1,0 +1,8 @@
+.subject-chip{
+  padding: 2px 4px;
+  border-radius: 10px;
+  border: 1pt solid grey;
+  background-color: lightgray;
+  margin: 5px;
+  cursor: pointer;
+}
