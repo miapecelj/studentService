@@ -10,7 +10,7 @@ import org.hibernate.annotations.NaturalId;
 
 @Entity
 @Table(name = "title")
-public class TitleEntity {
+public class TitleEntity implements MyEntity{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

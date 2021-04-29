@@ -135,10 +135,10 @@ public class ProfessorRestController {
 	}
 
 	@DeleteMapping("/{id}")
-	public @ResponseBody ResponseEntity<String> delete(@PathVariable(name = "id") Long id) {
+	public @ResponseBody ResponseEntity<Object> delete(@PathVariable(name = "id") Long id) {
 		try {
-			professorService.delete(id);
-			return ResponseEntity.status(HttpStatus.OK).body("Deleted professor with id:" + id);
+			
+			return ResponseEntity.status(HttpStatus.OK).body( professorService.delete(id));
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}

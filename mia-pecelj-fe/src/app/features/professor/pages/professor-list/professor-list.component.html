@@ -23,7 +23,7 @@
     <td>{{ professor.phone }}</td>
     <td><button type="button" class="btn btn-primary" [routerLink]="['../professor-details', professor.id]" >Details</button>
       <button type="button" class="btn btn-primary" [routerLink]="['../professor-form', professor.id]" >Edit</button>
-      <button (click)="deleteProfessor(professor)"type="button" class="btn btn-danger">Delete</button></td>
+      <button (click)="onDeleteClick(professor)"type="button" class="btn btn-danger">Delete</button></td>
   </tr>
   </tbody>
 </table>

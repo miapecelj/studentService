@@ -65,14 +65,13 @@ public class StudentRestController {
 			try {
 				return ResponseEntity.status(HttpStatus.OK).body(studentService.save(studentDto));
 			} catch (Exception e) {
-				e.printStackTrace();
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Greska kod cuvanja entiteta: " + studentDto);
 			}
 		}
 	}
 
 	@PutMapping
-	public @ResponseBody ResponseEntity<StudentDto> update(@Valid @RequestBody StudentDto studentDto,
+	public @ResponseBody ResponseEntity<Object> update(@Valid @RequestBody StudentDto studentDto,
 			BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			Map<String, String> errors = new HashMap<>();
@@ -81,7 +80,7 @@ public class StudentRestController {
 		        String errorMessage = error.getDefaultMessage();
 		        errors.put(fieldName, errorMessage);
 		    });
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(studentDto);
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
 		} else {
 			try {
 				Optional<StudentDto> student = studentService.update(studentDto);
@@ -91,17 +90,16 @@ public class StudentRestController {
 					return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(studentDto);
 				}
 			} catch (Exception e) {
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(studentDto);
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 			}
 		}
 
 	}
 
 	@DeleteMapping("/{id}")
-	public @ResponseBody ResponseEntity<String> delete(@PathVariable(name = "id") Long id) {
+	public @ResponseBody ResponseEntity<Object> delete(@PathVariable(name = "id") Long id) {
 		try {
-			studentService.delete(id);
-			return ResponseEntity.status(HttpStatus.OK).body("Deleted student with id:" + id);
+			return ResponseEntity.status(HttpStatus.OK).body(studentService.delete(id));
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}

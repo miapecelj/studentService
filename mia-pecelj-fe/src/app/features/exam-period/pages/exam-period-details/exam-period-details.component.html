@@ -1,0 +1,31 @@
+<a routerLink="/examPeriod">Back to list</a>
+<div class="d-flex flex-column mt-3">
+
+    <div class="col-lg-6 col-md-8 border border-primary p-2 rounded">
+      <h4>Name:</h4>
+      <div>
+        <span class="col-lg-8 col-md-6">
+          {{examPeriod?.name}}
+        </span>
+      </div>
+      <h4>Start date:</h4>
+      <div class="row">
+        <span class="col-lg-8 col-md-6">
+          {{examPeriod?.startDate | date:'shortDate'}}
+        </span>
+      </div>
+      <h4>End date:</h4>
+      <div class="row">
+        <span class="col-lg-8 col-md-6">
+          {{examPeriod?.endDate | date:'shortDate'}}
+        </span>
+      </div>
+      <h4>Active:</h4>
+      <div class="row">
+        <span class="col-lg-8 col-md-6">
+          {{examPeriod?.active}}
+        </span>
+      </div>
+
+    </div>
+</div>

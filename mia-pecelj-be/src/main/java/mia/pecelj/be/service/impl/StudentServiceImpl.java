@@ -56,9 +56,11 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override
 	public StudentDto save(StudentDto dto) throws MyEntityExistException, MyEntityNotPresentedException {
+		if(dto.getCity()!=null) {
 		Optional<CityEntity> cityEntity = cityRepository.findById(dto.getCity().getPostalCode());
 		if (!cityEntity.isPresent()) {
 			throw new MyEntityNotPresentedException("city does not exist");
+		}
 		}
 		Optional<StudentEntity> studentEntity = studentRepository.findById(dto.getId());
 		if (studentEntity.isPresent()) {
@@ -70,10 +72,12 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override
 	public Optional<StudentDto> update(StudentDto dto) throws MyEntityNotPresentedException {
+		if(dto.getCity()!=null) {
 		Optional<CityEntity> cityEntity = cityRepository.findById(dto.getCity().getPostalCode());
 		if (!cityEntity.isPresent()) {
 			throw new MyEntityNotPresentedException(
 					"City with code " + dto.getCity().getPostalCode() + " does not exist!");
+		}
 		}
 		Optional<StudentEntity> studentEntity = studentRepository.findById(dto.getId());
 		if (!studentEntity.isPresent()) {
@@ -84,10 +88,11 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public void delete(Long id) throws MyEntityNotPresentedException {
+	public StudentDto delete(Long id) throws MyEntityNotPresentedException {
 		Optional<StudentEntity> studentEntity = studentRepository.findById(id);
 		if (studentEntity.isPresent()) {
 			studentRepository.delete(studentEntity.get());
+			return studentMapper.toDto(studentEntity.get());
 		} else {
 			throw new MyEntityNotPresentedException("Student with id " + id + " does not exist");
 		}

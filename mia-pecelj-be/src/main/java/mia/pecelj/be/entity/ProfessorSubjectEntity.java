@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "professor_subject")
-public class ProfessorSubjectEntity {
+public class ProfessorSubjectEntity implements MyEntity{
 
 	@EmbeddedId
 	private ProfessorSubjectId id;

@@ -60,10 +60,10 @@ export class SubjectAddComponent implements OnInit {
         this.toastService.show('Subject saved!', {header:'Saving subject', classname: 'bg-success text-light'});
         this.router.navigate(['/subject/subject-list']);
         this.addedSubject=subject;
+      },
+      error => {
+        this.toastService.show('Subject is not saved: ' + (typeof error.error === 'string'? error.error : error.mesage ) , {header:'Saving Subject', classname: 'bg-danger text-light'});
       }
-      // error => {
-      //   this.toastService.show('Subject is not saved: ' + (typeof error.error === 'string'? error.error : error.mesage ) , {header:'Saving Subject', classname: 'bg-danger text-light'});
-      // }
 
     );
   }

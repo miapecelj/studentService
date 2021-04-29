@@ -69,12 +69,14 @@ public class SubjectServiceImpl implements SubjectService {
 	}
 
 	@Override
-	public void delete(Long id) throws MyEntityNotPresentedException {
+	public SubjectDto delete(Long id) throws MyEntityNotPresentedException {
 		Optional<SubjectEntity> entity = subjectRepository.findById(id);
 		if (!entity.isPresent()) {
-			throw new MyEntityNotPresentedException("City with code " + id + " does not exist!");
+			throw new MyEntityNotPresentedException("Subject with id " + id + " does not exist!");
+			
 		}
 		subjectRepository.delete(entity.get());
+		return subjectMapper.toDto(entity.get());
 
 	}
 
@@ -82,15 +84,7 @@ public class SubjectServiceImpl implements SubjectService {
 	public Page<SubjectDto> getAll(Pageable pageable) {
 		Page<SubjectDto> entites = subjectRepository.findAll(pageable).map(subjectMapper::toDto);
 		return entites;
-//		Pageable paging = PageRequest.of(pageNo, pageSize,Sort.by(sortBy));
-//		Page<SubjectEntity> pageResult = subjectRepository.findAll(paging);
-//		if (pageResult.hasContent()) {
-//			List<SubjectEntity> subjects = pageResult.getContent();
-//			return subjects.stream().map(entity -> {
-//				return subjectMapper.toDto(entity);
-//			}).collect(Collectors.toList());
-//		}
-//		return new ArrayList<SubjectDto>();
+
 	}
 
 }
