@@ -1,0 +1,28 @@
+<a routerLink="/">Home</a>
+<h2>Exam period list</h2>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Name</th>
+    <th scope="col">Start date</th>
+    <th scope="col">End date</th>
+    <th scope="col">Active</th>
+    <th scope="col">Action</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let examPeriod of examPeriods; let i=index">
+    <th scope="row">{{ i + (currentPage - 1) * pageSize + 1 }}</th>
+    <td>{{ examPeriod.name }}</td>
+    <td>{{ examPeriod.startDate | date:'shortDate'}}</td>
+    <td>{{ examPeriod.endDate | date:'shortDate'}}</td>
+    <td>{{ examPeriod.active }}</td>
+    <td><button type="button" class="btn btn-primary" [routerLink]="['../examPeriod-details', examPeriod.id]" >Details</button>
+      <button type="button" class="btn btn-primary" [routerLink]="['../examPeriod-form', examPeriod.id]" >Edit</button>
+      <button (click)="onDeleteClick(examPeriod)"  type="button" class="btn btn-danger">Delete</button></td>
+  </tr>
+  </tbody>
+</table>
+<ngb-pagination [collectionSize]="totalItems" (pageChange)="onPageChange($event)" [(page)]="currentPage" [pageSize]="pageSize" [boundaryLinks]="true"></ngb-pagination>
+<button type="button" class="btn btn-primary" [routerLink]="['../examPeriod-form']" >Add exam</button>

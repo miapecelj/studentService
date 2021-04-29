@@ -22,7 +22,7 @@
     <td>{{ student.currentYearOfStudy }}</td>
     <td><button type="button" class="btn btn-primary" [routerLink]="['../student-details', student.id]" >Details</button>
       <button type="button" class="btn btn-primary" [routerLink]="['../student-form', student.id]" >Edit</button>
-      <button (click)="deleteStudent(student)"type="button" class="btn btn-danger">Delete</button></td>
+      <button (click)="onDeleteClick(student)"type="button" class="btn btn-danger">Delete</button></td>
   </tr>
   </tbody>
 </table>

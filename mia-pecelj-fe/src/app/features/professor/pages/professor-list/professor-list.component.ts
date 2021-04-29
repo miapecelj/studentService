@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Professor } from 'src/app/core/models/professor.model';
 import { HttpProfessorService } from 'src/app/core/service/http-professor.service';
+import { ToastService } from 'src/app/core/service/toast.service';
 import { ConfirmDialogComponent } from 'src/app/shared';
 
 @Component({
@@ -19,7 +20,7 @@ export class ProfessorListComponent implements OnInit {
   totalItems = 10;
   pageSize = 2;
   destroy$: Subject<boolean> = new Subject();
-  constructor(private httpProfessor:HttpProfessorService,private router: Router,private modalService: NgbModal) { }
+  constructor(private httpProfessor:HttpProfessorService,private router: Router,private modalService: NgbModal,private toastService:ToastService) { }
   ngOnInit(): void {
     this.loadStudents();
   }
@@ -44,18 +45,24 @@ export class ProfessorListComponent implements OnInit {
     this.currentPage = page;
     this.loadStudents();
   }
-  deleteProfessor(professor:Professor){
+  onDeleteClick(professor: Professor) {
     const modalRef = this.modalService.open(ConfirmDialogComponent);
-    modalRef.componentInstance.message = `Are you sure you want to delete professor <strong>${professor.firstname} ${professor.lastname}</strong> ?`;
+    modalRef.componentInstance.message = `Are you sure you want to delete professor <strong>${professor.firstname, professor.lastname }</strong> ?`;
     modalRef.componentInstance.headerText = 'Deleting professor';
     modalRef.result.then(
-      // NAPOMENA: Ovde ce samo ako je zadovoljen prvi uslov izvrsiti ovo drugo.
       (result) => result === 'Ok' && this.deleteSelectedProfessor(professor)
     );
-    }
-    deleteSelectedProfessor(professor: Professor) {
-       this.httpProfessor.deleteProfessor(professor).subscribe();
-      this.professors.splice( this.professors.indexOf(professor));
-    }
+  }
+
+
+  deleteSelectedProfessor(professor: Professor) {
+    this.httpProfessor.deleteProfessor(professor).subscribe((response) => {
+      this.toastService.show(
+        'Professor Deleted ',
+        { header: 'Deleting subject', classname: 'bg-success text-light' }
+      );
+    });
+    this.professors.splice( this.professors.indexOf(professor));
+  }
 
 }

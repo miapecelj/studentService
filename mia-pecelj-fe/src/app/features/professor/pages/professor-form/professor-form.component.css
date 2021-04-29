@@ -4,5 +4,15 @@
   border: 1pt solid grey;
   background-color: lightgray;
   margin: 5px;
+
+}
+.x{
+  padding:1px;
+  color:red;
   cursor: pointer;
+
+}
+.x:hover{
+  border:1pt solid red;
+  border-radius: 10px;
 }
