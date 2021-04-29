@@ -2,7 +2,7 @@ import { City } from "./city.model";
 
 export interface Student{
   id:number;
-  indexNumber:number;
+  indexNumber:string;
   indexYear:number;
   firstname:string;
   lastname:string;

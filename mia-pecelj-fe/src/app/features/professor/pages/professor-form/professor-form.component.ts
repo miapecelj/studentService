@@ -114,6 +114,7 @@ export class ProfessorFormComponent implements OnInit {
       takeUntil(this.destroy$)
     )
     .subscribe( professor => {
+      this.selectedSubjectProfessors=professor.subjects;
       console.log(professor);
       this.buildForm(professor);
     });

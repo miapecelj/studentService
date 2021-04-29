@@ -2,20 +2,10 @@
 <div *ngIf="addedProfessor" class="alert alert-success" role="alert" >
   Subject saved!
 </div>
-<!-- <div *ngIf="edit"class="mb-3 d-flex flex-column" class="m-auto w-25 p-4 border border-primary rounded">
-  <label for="subjects" class="form-label">Subjects</label>
-  <select id="subjects" [(ngModel)]="selectedSubject" class="form-select" >
-      <option value="">Please select subject</option>
-      <option *ngFor="let subject of subjects" [ngValue]="subject" >
-          {{ subject.name }}
-      </option>
-  </select>
-  <button class="btn btn-outline-secondary" (click)="addSelectedSubject()" >Add subject</button>
-</div> -->
 <form *ngIf="professorForm" [formGroup]="professorForm" (ngSubmit)="onSubmit()">
   <div class="m-auto w-25 p-4 border border-primary rounded">
     <h3>Professor:</h3>
-  <a routerLink="/student">Back to list</a>
+  <a routerLink="/professor">Back to list</a>
     <div class="mb-3 d-flex flex-column">
       <label for="firstname" class="form-label">Firstname</label>
       <input id="firstname" class="form-control" formControlName="firstname" />
@@ -112,13 +102,10 @@
         Add
       </button>
     </div>
-    <div *ngIf="!edit">
+    <div>
       <span class="subject-chip" *ngFor="let subjectProfessor of selectedSubjectProfessors;let i=index" (click)="removeSubjectAtIndex(i)">{{ subjectProfessor.subject.name}}</span>
     </div>
-    <div *ngIf="edit">
-      <span class="subject-chip" *ngFor="let subjectProfessor of professorForm.value.subjects;let i=index" (click)="removeSubjectAtIndex(i)">{{ subjectProfessor.subject.name}}</span>
-    </div>
-    <div *ngIf="!edit" class="d-flex flex-row mt-2">
+    <div  class="d-flex flex-row mt-2">
       <button class="btn btn-outline-success" [disabled]="!professorForm.valid" type="submit">
         Save professor
       </button>

@@ -30,8 +30,6 @@ export class SubjectAddComponent implements OnInit {
     this.destroy$.next(true);
   }
   prepareData() {
-    // Ovde se uzimaju podaci sa rute. Mogu se dodati staticki i dinamicki.
-    // pogledajte city-routing.module.ts fajl
     this.edit = this.route.snapshot.data.edit;
     if (this.edit) {
       const id = +this.route.snapshot.paramMap.get('id');
@@ -62,18 +60,18 @@ export class SubjectAddComponent implements OnInit {
         this.toastService.show('Subject saved!', {header:'Saving subject', classname: 'bg-success text-light'});
         this.router.navigate(['/subject/subject-list']);
         this.addedSubject=subject;
-      },
-      error => {
-        this.toastService.show('Subject is not saved: ' + (typeof error.error === 'string'? error.error : error.mesage ) , {header:'Saving Subject', classname: 'bg-danger text-light'});
       }
+      // error => {
+      //   this.toastService.show('Subject is not saved: ' + (typeof error.error === 'string'? error.error : error.mesage ) , {header:'Saving Subject', classname: 'bg-danger text-light'});
+      // }
 
     );
   }
   saveSubject() {
     if (this.edit) {
-      return this.httpSubjectService.editSubject(this.subjectForm.value)
+      return this.httpSubjectService.editSubject(this.subjectForm.value);
     } else {
-      return this.httpSubjectService.postSubject(this.subjectForm.value)
+      return this.httpSubjectService.postSubject(this.subjectForm.value);
     }
   }
   getEnumKeys() {
