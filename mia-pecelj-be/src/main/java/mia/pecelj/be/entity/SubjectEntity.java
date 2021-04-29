@@ -26,18 +26,10 @@ public class SubjectEntity implements MyEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	@NotNull
-	@Size(min = 3, message = "Name should have atleast 2 characters")
 	private String name;
-	@Size(max = 200, message = "Description must have less then 200 characters")
 	private String description;
-	@NotNull
-	@Positive
 	@Column(name = "no_of_espb")
 	private int noOfEspb;
-	@NotNull
-	@Max(4)
-	@Min(1)
 	@Column(name = "year_of_study")
 	private int yearOfStudy;
 	@Enumerated(EnumType.STRING)

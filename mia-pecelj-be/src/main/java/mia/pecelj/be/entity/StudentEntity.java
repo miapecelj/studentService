@@ -32,26 +32,15 @@ public class StudentEntity implements Serializable, MyEntity {
 	private long id;
 	@NaturalId
 	@Column(name = "index_number", length = 4)
-	@NotNull
 	private int indexNumber;
 	@NaturalId
 	@Column(name = "index_year")
-	@NotNull
-	@Min(2000)
-	@Max(2100)
 	private int indexYear;
-	@NotNull
-	@Size(min = 3)
 	private String firstname;
-	@NotNull
-	@Size(min = 3)
 	private String lastname;
-	@Pattern(regexp = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
 	private String email;
-	@Size(min = 3)
 	private String address;
 	@Column(name = "current_year_of_study")
-	@NotNull
 	private int currentYearOfStudy;
 	@ManyToOne
 	@JoinColumn(name = "city_code")

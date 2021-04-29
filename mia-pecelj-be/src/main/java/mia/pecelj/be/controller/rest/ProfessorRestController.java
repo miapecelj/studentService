@@ -1,6 +1,8 @@
 package mia.pecelj.be.controller.rest;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -11,6 +13,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -52,10 +56,17 @@ public class ProfessorRestController {
 	}
 
 	@PostMapping
-	public @ResponseBody ResponseEntity<Object> save(@RequestBody ProfessorDto professorDto,
+	public @ResponseBody ResponseEntity<Object> save(@Valid @RequestBody ProfessorDto professorDto,
 			BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Greska kod cuvanja entiteta: " + professorDto);
+			Map<String, String> errors = new HashMap<>();
+		    bindingResult.getAllErrors().forEach((error) -> {
+		        String fieldName = ((FieldError) error).getField();
+		        String errorMessage = error.getDefaultMessage();
+		        errors.put(fieldName, errorMessage);
+		    });
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error saving professor "+errors);
+			
 		} else {
 			try {
 				return ResponseEntity.status(HttpStatus.OK).body(professorService.save(professorDto));
@@ -68,7 +79,7 @@ public class ProfessorRestController {
 	}
 
 	@PostMapping("/addSubject")
-	public @ResponseBody ResponseEntity<Object> save(@RequestParam Long id, @RequestBody SubjectDto subject,
+	public @ResponseBody ResponseEntity<Object> save(@RequestParam Long id, @Valid @RequestBody SubjectDto subject,
 			BindingResult bindingResult) {
 		System.out.println(id);
 		if (bindingResult.hasErrors()) {
@@ -98,20 +109,26 @@ public class ProfessorRestController {
 	}
 
 	@PutMapping
-	public @ResponseBody ResponseEntity<ProfessorDto> update(@Valid @RequestBody ProfessorDto professorDto,
+	public @ResponseBody ResponseEntity<Object> update(@Valid @RequestBody ProfessorDto professorDto,
 			BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(professorDto);
+			Map<String, String> errors = new HashMap<>();
+		    bindingResult.getAllErrors().forEach((error) -> {
+		        String fieldName = ((FieldError) error).getField();
+		        String errorMessage = error.getDefaultMessage();
+		        errors.put(fieldName, errorMessage);
+		    });
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error updating professor "+errors);
 		} else {
 			try {
 				Optional<ProfessorDto> professor = professorService.update(professorDto);
 				if (professor.isPresent()) {
-					return ResponseEntity.status(HttpStatus.OK).body(professor.get());
+					return ResponseEntity.status(HttpStatus.OK).body("Professor saved"+professor.get());
 				} else {
-					return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(professorDto);
+					return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error saving professor"+professorDto);
 				}
 			} catch (Exception e) {
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(professorDto);
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error saving professor"+professorDto);
 			}
 		}
 

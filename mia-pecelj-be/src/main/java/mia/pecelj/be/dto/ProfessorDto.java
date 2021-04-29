@@ -5,19 +5,32 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 public class ProfessorDto implements MyDto {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private long id;
+	@NotNull
+	@Size(min = 3)
 	private String firstname;
+	@NotNull
+	@Size(min = 3)
 	private String lastname;
+	@Pattern(regexp = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
 	private String email;
+	@Size(min = 9)
 	private String phone;
+	@Size(min = 3)
 	private String address;
 	private CityDto city;
+	@NotNull
 	private TitleDto title;
+	@NotNull
 	private LocalDate reelectionDate;
 	private List<ProfessorSubjectDto> subjects = new ArrayList<ProfessorSubjectDto>();
 

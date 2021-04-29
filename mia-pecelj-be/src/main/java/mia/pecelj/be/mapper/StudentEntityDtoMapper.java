@@ -10,6 +10,5 @@ import mia.pecelj.be.entity.StudentEntity;
 		CityEntityDtoMapper.class }, injectionStrategy = InjectionStrategy.CONSTRUCTOR)
 public interface StudentEntityDtoMapper {
 	StudentDto toDto(StudentEntity entity);
-
 	StudentEntity toEntity(StudentDto dto);
 }

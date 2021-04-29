@@ -1,2 +1,6 @@
 INSERT INTO student(current_year_of_study,index_number,index_year,firstname,lastname,email,address,city_code) VALUES(4,0203,2017,"Mia","Pecelj","miapecelj@gmail.com","Krajiskih Brigada 25",11300);
-INSERT INTO student(current_year_of_study,index_number,index_year,firstname,lastname,email,address,city_code) VALUES(3,0278,2017,"Djordje","Starcevic","djstarcevic@gmail.com","Nehruova 66",11000);;
+INSERT INTO student(current_year_of_study,index_number,index_year,firstname,lastname,email,address,city_code) VALUES(3,0278,2017,"Djordje","Starcevic","djstarcevic@gmail.com","Nehruova 66",11000);
+INSERT INTO student(current_year_of_study,index_number,index_year,firstname,lastname,email,address,city_code) VALUES(1,0003,2020,"Ana","Markovic","amarkovic@gmail.com","Kralja Milana 26",11000);
+INSERT INTO student(current_year_of_study,index_number,index_year,firstname,lastname,email,address,city_code) VALUES(2,0278,2019,"Mihailo","Antic","mihailo.antic@gmail.com","Jevrejska 3",21000);
+INSERT INTO student(current_year_of_study,index_number,index_year,firstname,lastname,email,address,city_code) VALUES(1,0245,2019,"Janko","Petrovic","jpetrovic@gmail.com","Branka Krsmanovica 24",18000);
+INSERT INTO student(current_year_of_study,index_number,index_year,firstname,lastname,email,address,city_code) VALUES(4,0027,2017,"Dunja","Stojanovic","dstojanovic@gmail.com","Vojvode Misica 21",251604);;

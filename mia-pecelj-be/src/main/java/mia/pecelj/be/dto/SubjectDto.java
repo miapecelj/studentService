@@ -2,6 +2,13 @@ package mia.pecelj.be.dto;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import mia.pecelj.be.entity.Semester;
@@ -12,9 +19,17 @@ public class SubjectDto implements MyDto {
 	 */
 	private static final long serialVersionUID = 1L;
 	private long id;
+	@NotNull
+	@Size(min = 3, message = "Name should have atleast 2 characters")
 	private String name;
+	@Size(max = 200, message = "Description must have less then 200 characters")
 	private String description;
+	@NotNull
+	@Positive
 	private int noOfEspb;
+	@NotNull
+	@Max(5)
+	@Min(1)
 	private int yearOfStudy;
 	private Semester semester;
 	@JsonIgnore

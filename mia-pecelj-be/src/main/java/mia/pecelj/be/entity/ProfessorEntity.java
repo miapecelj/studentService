@@ -26,20 +26,13 @@ public class ProfessorEntity implements MyEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	@NotNull
-	@Size(min = 3)
 	private String firstname;
-	@NotNull
-	@Size(min = 3)
 	private String lastname;
-	@Pattern(regexp = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
 	private String email;
-	@Size(min = 3)
 	private String address;
 	@ManyToOne
 	@JoinColumn(name = "city_code")
 	private CityEntity city;
-	@Size(min = 9)
 	private String phone;
 	@Column(name = "reelection_date")
 	private LocalDate reelectionDate;
