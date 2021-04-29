@@ -65,7 +65,7 @@ public class SubjectRestController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error saving subject "+errors);
 		} else {
 			try {
-				return ResponseEntity.status(HttpStatus.OK).body("Error saving subject "+subjectService.save(subjectDto));
+				return ResponseEntity.status(HttpStatus.OK).body(subjectService.save(subjectDto));
 			} catch (Exception e) {
 				e.printStackTrace();
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error saving subject "+ subjectDto);
