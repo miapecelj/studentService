@@ -15,6 +15,6 @@ public interface SubjectService {
 	List<SubjectDto> getAll();
 	SubjectDto save(SubjectDto dto) throws MyEntityExistException;
 	Optional<SubjectDto> update(SubjectDto dto);
-	void delete(Long id) throws MyEntityNotPresentedException;
+	SubjectDto delete(Long id) throws MyEntityNotPresentedException;
 	public Page<SubjectDto> getAll(Pageable pageable);
 }

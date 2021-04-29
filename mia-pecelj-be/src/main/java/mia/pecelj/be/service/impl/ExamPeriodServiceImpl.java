@@ -81,12 +81,13 @@ public class ExamPeriodServiceImpl implements ExamPeriodService{
 	}
 
 	@Override
-	public void delete(Long id) throws MyEntityNotPresentedException {
+	public ExamPeriodDto delete(Long id) throws MyEntityNotPresentedException {
 		Optional<ExamPeriodEntity> entity = examPeriodRepository.findById(id);
 		if (!entity.isPresent()) {
 			throw new MyEntityNotPresentedException("ExamPeriod with id " + id + " does not exist!");
 		}
 		examPeriodRepository.delete(entity.get());
+		return examPeriodMapper.toDto(entity.get());
 		
 	}
 

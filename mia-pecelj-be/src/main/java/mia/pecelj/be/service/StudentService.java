@@ -18,6 +18,6 @@ public interface StudentService {
 	List<StudentDto> getAll();
 	StudentDto save(StudentDto dto) throws MyEntityExistException, MyEntityNotPresentedException;
 	Optional<StudentDto> update(StudentDto dto) throws MyEntityNotPresentedException;
-	void delete(Long id) throws MyEntityNotPresentedException;
+	StudentDto delete(Long id) throws MyEntityNotPresentedException;
 	public Page<StudentDto> getAll(Pageable pageable);
 }

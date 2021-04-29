@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -20,7 +21,9 @@ import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.NaturalIdCache;
 
 @Entity
-@Table(name = "student")
+@Table(name = "student",uniqueConstraints = {
+		@UniqueConstraint(columnNames = {"email"})
+})
 @NaturalIdCache
 public class StudentEntity implements Serializable, MyEntity {
 	/**
@@ -32,7 +35,7 @@ public class StudentEntity implements Serializable, MyEntity {
 	private long id;
 	@NaturalId
 	@Column(name = "index_number", length = 4)
-	private int indexNumber;
+	private String indexNumber;
 	@NaturalId
 	@Column(name = "index_year")
 	private int indexYear;
@@ -50,7 +53,7 @@ public class StudentEntity implements Serializable, MyEntity {
 		// TODO Auto-generated constructor stub
 	}
 
-	public StudentEntity(long id, int indexNumber, int indexYear, String firstname, String lastname, String email,
+	public StudentEntity(long id, String indexNumber, int indexYear, String firstname, String lastname, String email,
 			String address, int currentYearOfStudy, CityEntity city) {
 		super();
 		this.id = id;
@@ -88,11 +91,11 @@ public class StudentEntity implements Serializable, MyEntity {
 		this.id = id;
 	}
 
-	public int getIndexNumber() {
+	public String getIndexNumber() {
 		return indexNumber;
 	}
 
-	public void setIndexNumber(int indexNumber) {
+	public void setIndexNumber(String indexNumber) {
 		this.indexNumber = indexNumber;
 	}
 
@@ -151,12 +154,14 @@ public class StudentEntity implements Serializable, MyEntity {
 				+ ", currentYearOfStudy=" + currentYearOfStudy + ", city=" + city + "]";
 	}
 
+	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + (int) (id ^ (id >>> 32));
-		result = prime * result + indexNumber;
+		result = prime * result + ((indexNumber == null) ? 0 : indexNumber.hashCode());
 		result = prime * result + indexYear;
 		return result;
 	}
@@ -172,7 +177,10 @@ public class StudentEntity implements Serializable, MyEntity {
 		StudentEntity other = (StudentEntity) obj;
 		if (id != other.id)
 			return false;
-		if (indexNumber != other.indexNumber)
+		if (indexNumber == null) {
+			if (other.indexNumber != null)
+				return false;
+		} else if (!indexNumber.equals(other.indexNumber))
 			return false;
 		if (indexYear != other.indexYear)
 			return false;

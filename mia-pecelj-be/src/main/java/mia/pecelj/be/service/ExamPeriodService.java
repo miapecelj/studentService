@@ -16,6 +16,6 @@ public interface ExamPeriodService {
 	List<ExamPeriodDto> getAll();
 	ExamPeriodDto save(ExamPeriodDto dto) throws MyEntityExistException;
 	Optional<ExamPeriodDto> update(ExamPeriodDto dto) throws MyEntityExistException;
-	void delete(Long id) throws MyEntityNotPresentedException;
+	ExamPeriodDto delete(Long id) throws MyEntityNotPresentedException;
 	public Page<ExamPeriodDto> getAll(Pageable pageable);
 }

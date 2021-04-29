@@ -69,12 +69,14 @@ public class SubjectServiceImpl implements SubjectService {
 	}
 
 	@Override
-	public void delete(Long id) throws MyEntityNotPresentedException {
+	public SubjectDto delete(Long id) throws MyEntityNotPresentedException {
 		Optional<SubjectEntity> entity = subjectRepository.findById(id);
 		if (!entity.isPresent()) {
-			throw new MyEntityNotPresentedException("City with code " + id + " does not exist!");
+			throw new MyEntityNotPresentedException("Subject with id " + id + " does not exist!");
+			
 		}
 		subjectRepository.delete(entity.get());
+		return subjectMapper.toDto(entity.get());
 
 	}
 

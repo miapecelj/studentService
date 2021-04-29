@@ -71,7 +71,7 @@ export class ProfessorFormComponent implements OnInit {
         lastname:[professor? professor.lastname:null, [Validators.minLength(3),Validators.required]],
         email:[professor? professor.email:null,[Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]],
         address:[professor? professor.address:null,[Validators.minLength(3)]],
-        reelectionDate:[professor? professor.reelectionDate:null],
+        reelectionDate:[professor? professor.reelectionDate:null,[Validators.required]],
         city:[professor? professor.city:null,[]],
         id:[+this.route.snapshot.paramMap.get('id')],
         subjects:[professor? professor.subjects:this.selectedSubjectProfessors]
@@ -124,13 +124,13 @@ export class ProfessorFormComponent implements OnInit {
   }
 
   addSelectedSubject(){
-    console.log(this.selectedSubject);
-    console.log(this.asignDate);
     this.addSubject=false;
+    if(this.selectedSubject!=null){
     const professorSubject: professorSubject={subject:this.selectedSubject,assignDate:this.asignDate}
     if (this.selectedSubjectProfessors?.findIndex(subject => subject.subject.id===this.selectedSubject.id) < 0){
     this.selectedSubjectProfessors.push(professorSubject);
     }
+  }
   }
   removeSubjectAtIndex(i:number){
     if (this.selectedSubjectProfessors) {

@@ -74,7 +74,7 @@ public class SubjectRestController {
 	}
 
 	@PutMapping
-	public @ResponseBody ResponseEntity<SubjectDto> update(@Valid @RequestBody SubjectDto subjectDto,
+	public @ResponseBody ResponseEntity<Object> update(@Valid @RequestBody SubjectDto subjectDto,
 			BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			Map<String, String> errors = new HashMap<>();
@@ -83,7 +83,7 @@ public class SubjectRestController {
 		        String errorMessage = error.getDefaultMessage();
 		        errors.put(fieldName, errorMessage);
 		    });
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(subjectDto);
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
 		} else {
 			Optional<SubjectDto> subject = subjectService.update(subjectDto);
 			if (subject.isPresent()) {
@@ -96,10 +96,9 @@ public class SubjectRestController {
 	}
 
 	@DeleteMapping("/{id}")
-	public @ResponseBody ResponseEntity<String> delete(@PathVariable(name = "id") Long id) {
+	public @ResponseBody ResponseEntity<Object> delete(@PathVariable(name = "id") Long id) {
 		try {
-			subjectService.delete(id);
-			return ResponseEntity.status(HttpStatus.OK).body("Deleted subject with id:" + id);
+			return ResponseEntity.status(HttpStatus.OK).body(subjectService.delete(id));
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}

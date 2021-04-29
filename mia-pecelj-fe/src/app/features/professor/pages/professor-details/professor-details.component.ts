@@ -17,14 +17,10 @@ export class ProfessorDetailsComponent implements OnInit {
 
   professor:Professor;
   destroy$: SubjectObservable<boolean> = new SubjectObservable();
-  subjects:Subject[]=[];
-  addSubject:boolean;
-  selectedSubject: Subject;
 
   constructor(private httpProfessorService:HttpProfessorService,private httpSubjectService:HttpSubjectService,
     private route: ActivatedRoute,private router: Router,) { }
   ngOnInit(): void {
-    this.httpSubjectService.getAll().subscribe(response=>this.subjects=response);
     const id = +this.route.snapshot.paramMap.get('id');
     this.loadProfessor(id);
   }
@@ -41,15 +37,6 @@ export class ProfessorDetailsComponent implements OnInit {
       this.professor = professor;
     });
   }
-  // addSelectedSubject(){
 
-  //   this.httpProfessorService.addSubject(this.selectedSubject,this.professor.id).subscribe();
-  //   this.addSubject=false;
-  //   this.loadProfessor(this.professor.id);
-
-  // }
-  // onAddSubject(){
-  //   this.addSubject=true;
-  // }
 
 }

@@ -3,7 +3,7 @@
   Subject saved!
 </div>
 <form *ngIf="professorForm" [formGroup]="professorForm" (ngSubmit)="onSubmit()">
-  <div class="m-auto w-25 p-4 border border-primary rounded">
+  <div class="m-auto w-50 p-4 border border-primary rounded">
     <h3>Professor:</h3>
   <a routerLink="/professor">Back to list</a>
     <div class="mb-3 d-flex flex-column">
@@ -53,9 +53,9 @@
     </div>
     <div class="mb-3 d-flex flex-column">
       <label for="reelectionDate" class="form-label">Reelection date</label>
-      <input id="reelectionDate" class="form-control" formControlName="reelectionDate"/>
+      <input type="date" id="reelectionDate" class="form-control" formControlName="reelectionDate"/>
 
-      <p class="alert alert-danger" *ngIf="professorForm.get('reelectionDate').hasError('required') && professorForm.get('reelectionDate').touched">
+      <p class="alert alert-danger" *ngIf="professorForm.get('reelectionDate').hasError('required') ">
        Reelection date of study is required
       </p>
 
@@ -80,6 +80,9 @@
           {{ title.name }}
         </option>
       </select>
+      <p class="alert alert-danger" *ngIf="professorForm.get('title').hasError('required') " >
+        Title is required
+      </p>
     </div>
 
     <hr />
@@ -97,13 +100,13 @@
         </option>
       </select>
       <label for="assignDate" class="form-label">Assign date</label>
-      <input id="assignDate" class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="asignDate" />
-      <button class="btn btn-outline-primary" (click)="addSelectedSubject()">
+      <input type="date" id="assignDate" class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="asignDate" />
+      <button class="btn btn-outline-success" (click)="addSelectedSubject()">
         Add
       </button>
     </div>
-    <div>
-      <span class="subject-chip" *ngFor="let subjectProfessor of selectedSubjectProfessors;let i=index" (click)="removeSubjectAtIndex(i)">{{ subjectProfessor.subject.name}}</span>
+    <div class="d-flex flex-column w-25">
+      <span class="subject-chip" *ngFor="let subjectProfessor of selectedSubjectProfessors;let i=index" >{{ subjectProfessor.subject.name}}<span (click)="removeSubjectAtIndex(i)"class="x">x</span></span>
     </div>
     <div  class="d-flex flex-row mt-2">
       <button class="btn btn-outline-success" [disabled]="!professorForm.valid" type="submit">

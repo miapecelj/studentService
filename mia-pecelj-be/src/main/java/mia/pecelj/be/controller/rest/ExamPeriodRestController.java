@@ -64,7 +64,7 @@ public class ExamPeriodRestController {
 	}
 
 	@PutMapping
-	public @ResponseBody ResponseEntity<ExamPeriodDto> update(@RequestBody ExamPeriodDto examPeriodDto) {
+	public @ResponseBody ResponseEntity<Object> update(@RequestBody ExamPeriodDto examPeriodDto) {
 		try {
 			Optional<ExamPeriodDto> examPeriod = examPeriodService.update(examPeriodDto);
 			if (examPeriod.isPresent()) {
@@ -73,17 +73,16 @@ public class ExamPeriodRestController {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(examPeriodDto);
 			}
 		}catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(examPeriodDto);
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
 		}
 
 
 	}
 
 	@DeleteMapping("/{id}")
-	public @ResponseBody ResponseEntity<String> delete(@PathVariable(name = "id") Long id) {
+	public @ResponseBody ResponseEntity<Object> delete(@PathVariable(name = "id") Long id) {
 		try {
-			examPeriodService.delete(id);
-			return ResponseEntity.status(HttpStatus.OK).body("Deleted exam period with id:" + id);
+			return ResponseEntity.status(HttpStatus.OK).body(examPeriodService.delete(id));
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}

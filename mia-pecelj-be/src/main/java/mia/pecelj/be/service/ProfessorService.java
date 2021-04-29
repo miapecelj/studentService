@@ -17,7 +17,7 @@ public interface ProfessorService {
 	List<ProfessorDto> getAll();
 	ProfessorDto save(ProfessorDto dto) throws MyEntityExistException, MyEntityNotPresentedException;
 	Optional<ProfessorDto> update(ProfessorDto dto) throws MyEntityNotPresentedException;
-	void delete(Long id) throws MyEntityNotPresentedException;
+	ProfessorDto delete(Long id) throws MyEntityNotPresentedException;
 	public Page<ProfessorDto> getAll(Pageable pageable);
 	public ProfessorDto addSubject(SubjectDto subject,Long id) throws MyEntityNotPresentedException;
 	void removeSubject(Long professorId, Long subjectId) throws MyEntityNotPresentedException;
