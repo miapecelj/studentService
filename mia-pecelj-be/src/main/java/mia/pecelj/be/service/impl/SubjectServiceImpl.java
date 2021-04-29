@@ -82,15 +82,7 @@ public class SubjectServiceImpl implements SubjectService {
 	public Page<SubjectDto> getAll(Pageable pageable) {
 		Page<SubjectDto> entites = subjectRepository.findAll(pageable).map(subjectMapper::toDto);
 		return entites;
-//		Pageable paging = PageRequest.of(pageNo, pageSize,Sort.by(sortBy));
-//		Page<SubjectEntity> pageResult = subjectRepository.findAll(paging);
-//		if (pageResult.hasContent()) {
-//			List<SubjectEntity> subjects = pageResult.getContent();
-//			return subjects.stream().map(entity -> {
-//				return subjectMapper.toDto(entity);
-//			}).collect(Collectors.toList());
-//		}
-//		return new ArrayList<SubjectDto>();
+
 	}
 
 }
