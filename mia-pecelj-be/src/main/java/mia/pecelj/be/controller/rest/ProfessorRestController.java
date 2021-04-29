@@ -109,7 +109,7 @@ public class ProfessorRestController {
 	}
 
 	@PutMapping
-	public @ResponseBody ResponseEntity<Object> update(@Valid @RequestBody ProfessorDto professorDto,
+	public @ResponseBody ResponseEntity<ProfessorDto> update(@Valid @RequestBody ProfessorDto professorDto,
 			BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			Map<String, String> errors = new HashMap<>();
@@ -118,17 +118,17 @@ public class ProfessorRestController {
 		        String errorMessage = error.getDefaultMessage();
 		        errors.put(fieldName, errorMessage);
 		    });
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error updating professor "+errors);
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(professorDto);
 		} else {
 			try {
 				Optional<ProfessorDto> professor = professorService.update(professorDto);
 				if (professor.isPresent()) {
-					return ResponseEntity.status(HttpStatus.OK).body("Professor saved"+professor.get());
+					return ResponseEntity.status(HttpStatus.OK).body(professorDto);
 				} else {
-					return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error saving professor"+professorDto);
+					return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(professorDto);
 				}
 			} catch (Exception e) {
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error saving professor"+professorDto);
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(professorDto);
 			}
 		}
 

@@ -74,7 +74,7 @@ public class SubjectRestController {
 	}
 
 	@PutMapping
-	public @ResponseBody ResponseEntity<Object> update(@Valid @RequestBody SubjectDto subjectDto,
+	public @ResponseBody ResponseEntity<SubjectDto> update(@Valid @RequestBody SubjectDto subjectDto,
 			BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			Map<String, String> errors = new HashMap<>();
@@ -83,13 +83,13 @@ public class SubjectRestController {
 		        String errorMessage = error.getDefaultMessage();
 		        errors.put(fieldName, errorMessage);
 		    });
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error updating subject "+errors);
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(subjectDto);
 		} else {
 			Optional<SubjectDto> subject = subjectService.update(subjectDto);
 			if (subject.isPresent()) {
-				return ResponseEntity.status(HttpStatus.OK).body("Saved subject "+subject.get());
+				return ResponseEntity.status(HttpStatus.OK).body(subjectDto);
 			} else {
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error updating subject "+subjectDto);
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(subjectDto);
 			}
 		}
 
