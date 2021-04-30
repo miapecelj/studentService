@@ -13,48 +13,52 @@ public class ProfessorSubjectDto implements MyDto {
 	private static final long serialVersionUID = 1L;
 
 	private ProfessorSubjectId id;
-	@JsonBackReference
-	private ProfessorDto professor;
-	private SubjectDto subject;
+	private MyProfessorDto professor;
+	private MySubjectDto subject;
 	private LocalDate assignDate = LocalDate.now();
 
 	public ProfessorSubjectDto() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ProfessorSubjectDto(ProfessorDto professor, SubjectDto subject) {
-		super();
-		this.professor = professor;
-		this.subject = subject;
-		this.id = new ProfessorSubjectId(professor.getId(), subject.getId());
-	}
+	
 
 	public ProfessorSubjectId getId() {
 		return id;
 	}
 
+	public ProfessorSubjectDto(MyProfessorDto professor, MySubjectDto subject, LocalDate assignDate) {
+	super();
+	this.professor = professor;
+	this.subject = subject;
+	this.assignDate = assignDate;
+	this.id = new ProfessorSubjectId(professor.getId(),subject.getId());
+}
+
 	public void setId(ProfessorSubjectId id) {
 		this.id = id;
 	}
 
-	public ProfessorDto getProfessor() {
-		return professor;
-	}
-
-	public void setProfessor(ProfessorDto professor) {
-		this.professor = professor;
-	}
-
-	public SubjectDto getSubject() {
-		return subject;
-	}
-
-	public void setSubject(SubjectDto subject) {
-		this.subject = subject;
-	}
+	
 
 	public LocalDate getAssignDate() {
 		return assignDate;
+	}
+
+	public MyProfessorDto getProfessor() {
+		return professor;
+	}
+
+	public void setProfessor(MyProfessorDto professor) {
+		this.professor = professor;
+	}
+
+	public MySubjectDto getSubject() {
+		return subject;
+	}
+
+	public void setSubject(MySubjectDto subject) {
+		this.subject = subject;
 	}
 
 	public void setAssignDate(LocalDate assignDate) {

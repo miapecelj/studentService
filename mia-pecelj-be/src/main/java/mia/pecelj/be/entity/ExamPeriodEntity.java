@@ -1,14 +1,20 @@
 package mia.pecelj.be.entity;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -24,6 +30,10 @@ public class ExamPeriodEntity implements MyEntity{
 	private LocalDate endDate;
 	@Column(columnDefinition = "tinyInt(1) default 1")
 	private boolean active;
+	@OneToMany( mappedBy = "examPeriod",
+	        cascade = CascadeType.ALL,
+	        orphanRemoval = true)
+	private List<ExamEntity> exams=new ArrayList<ExamEntity>();
 
 	public ExamPeriodEntity() {
 		// TODO Auto-generated constructor stub
@@ -37,6 +47,23 @@ public class ExamPeriodEntity implements MyEntity{
 		this.endDate = endDate;
 		this.active = active;
 	}
+
+	
+
+	public void addExam(ExamEntity entity) {
+		exams.add(entity);
+	}
+	public void removeExam(ExamEntity entity) {
+		exams.remove(entity);
+	}
+	public List<ExamEntity> getExams() {
+		return exams;
+	}
+
+	public void setExams(List<ExamEntity> exams) {
+		this.exams = exams;
+	}
+	
 
 	public Long getId() {
 		return id;
@@ -78,10 +105,14 @@ public class ExamPeriodEntity implements MyEntity{
 		this.active = active;
 	}
 
+	
+
+	
+
 	@Override
 	public String toString() {
 		return "ExamPeriodEntity [id=" + id + ", name=" + name + ", startDate=" + startDate + ", endDate=" + endDate
-				+ ", active=" + active + "]";
+				+ ", active=" + active + ", exams=" + exams + "]";
 	}
 
 	@Override
@@ -129,4 +160,5 @@ public class ExamPeriodEntity implements MyEntity{
 			return false;
 		return true;
 	}
+	
 }

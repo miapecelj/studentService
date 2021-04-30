@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import mia.pecelj.be.entity.Semester;
@@ -32,7 +33,6 @@ public class SubjectDto implements MyDto {
 	@Min(1)
 	private int yearOfStudy;
 	private Semester semester;
-	@JsonIgnore
 	private List<ProfessorSubjectDto> professors = new ArrayList<ProfessorSubjectDto>();
 
 	public SubjectDto() {

@@ -21,6 +21,7 @@ import mia.pecelj.be.entity.SubjectEntity;
 import mia.pecelj.be.entity.TitleEntity;
 import mia.pecelj.be.exception.MyEntityExistException;
 import mia.pecelj.be.exception.MyEntityNotPresentedException;
+import mia.pecelj.be.mapper.MySubjectEntityDtoMapper;
 import mia.pecelj.be.mapper.ProfessorEntityDtoMyMapper;
 import mia.pecelj.be.mapper.SubjectEntityDtoMapper;
 import mia.pecelj.be.repository.CityRepository;
@@ -38,17 +39,19 @@ public class ProfessorServiceImpl implements ProfessorService {
 	TitleRepository titleRepository;
 	SubjectEntityDtoMapper subjectMapper;
 	SubjectRepository subjectRepository;
+	MySubjectEntityDtoMapper mySubjectMapper;
+	
 
 	@Autowired
-	public ProfessorServiceImpl(ProfessorEntityDtoMyMapper professorMapper, ProfessorRepository professorRepository,
+	public ProfessorServiceImpl( ProfessorRepository professorRepository,
 			CityRepository cityRepository, TitleRepository titleRepository, SubjectEntityDtoMapper subjectMapper,
-			SubjectRepository subjectRepository) {
-		this.professorMapper = professorMapper;
+			SubjectRepository subjectRepository,ProfessorEntityDtoMyMapper professorMapper) {
 		this.professorRepository = professorRepository;
 		this.cityRepository = cityRepository;
 		this.titleRepository = titleRepository;
 		this.subjectMapper = subjectMapper;
 		this.subjectRepository = subjectRepository;
+		this.professorMapper = professorMapper;
 	}
 
 	@Override
@@ -88,9 +91,8 @@ public class ProfessorServiceImpl implements ProfessorService {
 		dto.setSubjects(new ArrayList<ProfessorSubjectDto>());
 		ProfessorEntity professor = professorRepository.save(professorMapper.toEntity(dto));
 		dto.setId(professor.getId());
-		for (ProfessorSubjectDto professorSubject : subjects) {
-			dto.addSubject(professorSubject.getSubject());
-
+		for(ProfessorSubjectDto professorSubject: subjects) {
+			dto.getSubjects().add(professorSubject);
 		}
 		professor = professorRepository.save(professorMapper.toEntity(dto));
 		return professorMapper.toDto(professor);

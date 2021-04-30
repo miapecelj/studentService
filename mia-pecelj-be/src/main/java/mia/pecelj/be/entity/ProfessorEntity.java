@@ -162,6 +162,7 @@ public class ProfessorEntity implements MyEntity {
 	public void setTitle(TitleEntity title) {
 		this.title = title;
 	}
+	
 
 	@Override
 	public boolean equals(Object o) {

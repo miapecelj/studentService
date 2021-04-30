@@ -98,7 +98,7 @@ public class ExamPeriodServiceImpl implements ExamPeriodService{
 	}
 	public boolean isInterfering(ExamPeriodDto dto) throws MyEntityExistException {
 		List<ExamPeriodEntity> entities = examPeriodRepository.findAll();
-		if(dto.isActive() && entities.stream().anyMatch(entity->entity.isActive())) {
+		if(dto.isActive() && entities.stream().anyMatch(entity->entity.isActive()&&entity.getId()!=dto.getId())) {
 			throw new MyEntityExistException("Active exam period already exist",dto);
 		}
 		if(entities.stream().anyMatch(entity->((entity.getStartDate().isBefore(dto.getStartDate())&&entity.getEndDate().isAfter(dto.getStartDate()))

@@ -55,7 +55,7 @@ public class ExamPeriodRestController {
 	@PostMapping
 	public @ResponseBody ResponseEntity<Object> save(@RequestBody ExamPeriodDto examPeriodDto) {
 		try {
-			return ResponseEntity.status(HttpStatus.OK).body("Saved exam period "+examPeriodService.save(examPeriodDto));	
+			return ResponseEntity.status(HttpStatus.OK).body(examPeriodService.save(examPeriodDto));	
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
 		}
