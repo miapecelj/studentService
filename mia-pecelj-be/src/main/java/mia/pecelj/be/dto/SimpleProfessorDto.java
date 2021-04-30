@@ -2,7 +2,7 @@ package mia.pecelj.be.dto;
 
 import java.time.LocalDate;
 
-public class MyProfessorDto implements MyDto{
+public class SimpleProfessorDto implements MyDto{
 
 	private long id;
 	private String firstname;
@@ -13,10 +13,10 @@ public class MyProfessorDto implements MyDto{
 	private CityDto city;
 	private TitleDto title;
 	private LocalDate reelectionDate;
-	public MyProfessorDto() {
+	public SimpleProfessorDto() {
 		// TODO Auto-generated constructor stub
 	}
-	public MyProfessorDto(long id, String firstname, String lastname, String email, String phone, String address,
+	public SimpleProfessorDto(long id, String firstname, String lastname, String email, String phone, String address,
 			CityDto city, TitleDto title, LocalDate reelectionDate) {
 		super();
 		this.id = id;

@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 @Table(name="exam") 
 public class ExamEntity {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@ManyToOne(fetch = FetchType.LAZY)
 	private ExamPeriodEntity examPeriod;

@@ -9,13 +9,13 @@ public class ExamDto implements MyDto{
 	private Long id;
 	private ProfessorDto professor;
 	private SubjectDto subject;
-	@JsonBackReference
-	private MyExamPeriodDto examPeriod;
+	//@JsonBackReference
+	private SimpleExamPeriodDto examPeriod;
 	private LocalDate dateOfExam;
 	public ExamDto() {
 		// TODO Auto-generated constructor stub
 	}
-	public ExamDto(Long id, ProfessorDto professor, SubjectDto subject, MyExamPeriodDto examPeriod,
+	public ExamDto(Long id, ProfessorDto professor, SubjectDto subject, SimpleExamPeriodDto examPeriod,
 			LocalDate dateOfExam) {
 		super();
 		this.id = id;
@@ -44,10 +44,10 @@ public class ExamDto implements MyDto{
 	public void setSubject(SubjectDto subject) {
 		this.subject = subject;
 	}
-	public MyExamPeriodDto getExamPeriod() {
+	public SimpleExamPeriodDto getExamPeriod() {
 		return examPeriod;
 	}
-	public void setExamPeriod(MyExamPeriodDto examPeriod) {
+	public void setExamPeriod(SimpleExamPeriodDto examPeriod) {
 		this.examPeriod = examPeriod;
 	}
 	public LocalDate getDateOfExam() {

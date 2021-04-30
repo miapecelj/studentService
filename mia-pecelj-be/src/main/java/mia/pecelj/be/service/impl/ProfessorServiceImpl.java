@@ -21,8 +21,8 @@ import mia.pecelj.be.entity.SubjectEntity;
 import mia.pecelj.be.entity.TitleEntity;
 import mia.pecelj.be.exception.MyEntityExistException;
 import mia.pecelj.be.exception.MyEntityNotPresentedException;
-import mia.pecelj.be.mapper.MySubjectEntityDtoMapper;
-import mia.pecelj.be.mapper.ProfessorEntityDtoMyMapper;
+import mia.pecelj.be.mapper.SubjectEntitySimpleDtoMapper;
+import mia.pecelj.be.mapper.MyProfessorEntityDtoMapper;
 import mia.pecelj.be.mapper.SubjectEntityDtoMapper;
 import mia.pecelj.be.repository.CityRepository;
 import mia.pecelj.be.repository.ProfessorRepository;
@@ -34,18 +34,18 @@ import mia.pecelj.be.service.ProfessorService;
 @Transactional
 public class ProfessorServiceImpl implements ProfessorService {
 	ProfessorRepository professorRepository;
-	ProfessorEntityDtoMyMapper professorMapper;
+	MyProfessorEntityDtoMapper professorMapper;
 	CityRepository cityRepository;
 	TitleRepository titleRepository;
 	SubjectEntityDtoMapper subjectMapper;
 	SubjectRepository subjectRepository;
-	MySubjectEntityDtoMapper mySubjectMapper;
+	SubjectEntitySimpleDtoMapper mySubjectMapper;
 	
 
 	@Autowired
 	public ProfessorServiceImpl( ProfessorRepository professorRepository,
 			CityRepository cityRepository, TitleRepository titleRepository, SubjectEntityDtoMapper subjectMapper,
-			SubjectRepository subjectRepository,ProfessorEntityDtoMyMapper professorMapper) {
+			SubjectRepository subjectRepository,MyProfessorEntityDtoMapper professorMapper) {
 		this.professorRepository = professorRepository;
 		this.cityRepository = cityRepository;
 		this.titleRepository = titleRepository;

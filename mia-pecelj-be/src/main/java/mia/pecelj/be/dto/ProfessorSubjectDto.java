@@ -2,7 +2,6 @@ package mia.pecelj.be.dto;
 
 import java.time.LocalDate;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import mia.pecelj.be.entity.ProfessorSubjectId;
 
 public class ProfessorSubjectDto implements MyDto {
@@ -13,8 +12,8 @@ public class ProfessorSubjectDto implements MyDto {
 	private static final long serialVersionUID = 1L;
 
 	private ProfessorSubjectId id;
-	private MyProfessorDto professor;
-	private MySubjectDto subject;
+	private SimpleProfessorDto professor;
+	private SimpleSubjectDto subject;
 	private LocalDate assignDate = LocalDate.now();
 
 	public ProfessorSubjectDto() {
@@ -27,7 +26,7 @@ public class ProfessorSubjectDto implements MyDto {
 		return id;
 	}
 
-	public ProfessorSubjectDto(MyProfessorDto professor, MySubjectDto subject, LocalDate assignDate) {
+	public ProfessorSubjectDto(SimpleProfessorDto professor, SimpleSubjectDto subject, LocalDate assignDate) {
 	super();
 	this.professor = professor;
 	this.subject = subject;
@@ -45,19 +44,19 @@ public class ProfessorSubjectDto implements MyDto {
 		return assignDate;
 	}
 
-	public MyProfessorDto getProfessor() {
+	public SimpleProfessorDto getProfessor() {
 		return professor;
 	}
 
-	public void setProfessor(MyProfessorDto professor) {
+	public void setProfessor(SimpleProfessorDto professor) {
 		this.professor = professor;
 	}
 
-	public MySubjectDto getSubject() {
+	public SimpleSubjectDto getSubject() {
 		return subject;
 	}
 
-	public void setSubject(MySubjectDto subject) {
+	public void setSubject(SimpleSubjectDto subject) {
 		this.subject = subject;
 	}
 

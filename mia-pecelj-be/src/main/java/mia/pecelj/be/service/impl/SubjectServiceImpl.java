@@ -10,15 +10,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import mia.pecelj.be.dto.MySubjectDto;
+import mia.pecelj.be.dto.SimpleSubjectDto;
 import mia.pecelj.be.dto.ProfessorSubjectDto;
 import mia.pecelj.be.dto.SubjectDto;
 import mia.pecelj.be.entity.ProfessorSubjectEntity;
 import mia.pecelj.be.entity.SubjectEntity;
 import mia.pecelj.be.exception.MyEntityExistException;
 import mia.pecelj.be.exception.MyEntityNotPresentedException;
-import mia.pecelj.be.mapper.MyProfessorEntityDtoMapper;
-import mia.pecelj.be.mapper.MySubjectEntityDtoMapper;
+import mia.pecelj.be.mapper.ProfessorEntitySimpleDtoMapper;
+import mia.pecelj.be.mapper.SubjectEntitySimpleDtoMapper;
 import mia.pecelj.be.mapper.SubjectEntityDtoMapper;
 import mia.pecelj.be.repository.SubjectRepository;
 import mia.pecelj.be.service.SubjectService;
@@ -28,11 +28,11 @@ import mia.pecelj.be.service.SubjectService;
 public class SubjectServiceImpl implements SubjectService {
 	private SubjectRepository subjectRepository;
 	private SubjectEntityDtoMapper subjectMapper;
-	private MyProfessorEntityDtoMapper professorMapper;
-	private MySubjectEntityDtoMapper mySubjectMapper;
+	private ProfessorEntitySimpleDtoMapper professorMapper;
+	private SubjectEntitySimpleDtoMapper mySubjectMapper;
 
 	@Autowired
-	public SubjectServiceImpl(SubjectRepository subjectRepository, SubjectEntityDtoMapper subjectMapper, MyProfessorEntityDtoMapper professorMapper,MySubjectEntityDtoMapper mySubjectMapper ) {
+	public SubjectServiceImpl(SubjectRepository subjectRepository, SubjectEntityDtoMapper subjectMapper, ProfessorEntitySimpleDtoMapper professorMapper,SubjectEntitySimpleDtoMapper mySubjectMapper ) {
 		this.subjectMapper = subjectMapper;
 		this.subjectRepository = subjectRepository;
 		this.professorMapper = professorMapper;
@@ -76,7 +76,7 @@ public class SubjectServiceImpl implements SubjectService {
 			List<ProfessorSubjectEntity> professors = entity.get().getProfessors();
 			for(ProfessorSubjectEntity professorSubjectEntity:professors) {
 				dto.getProfessors().add(new ProfessorSubjectDto(professorMapper.toDto(professorSubjectEntity.getProfessor()),
-						new MySubjectDto(dto.getId(), dto.getName(), dto.getDescription(), dto.getNoOfEspb(), dto.getYearOfStudy(), null),
+						new SimpleSubjectDto(dto.getId(), dto.getName(), dto.getDescription(), dto.getNoOfEspb(), dto.getYearOfStudy(), null),
 						professorSubjectEntity.getAssignDate()));
 			}
 			SubjectEntity subjectEntity = subjectRepository.save(subjectMapper.toEntity(dto));

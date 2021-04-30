@@ -4,18 +4,18 @@ package mia.pecelj.be.dto;
 
 import mia.pecelj.be.entity.Semester;
 
-public class MySubjectDto {
+public class SimpleSubjectDto {
 	private long id;
 	private String name;
 	private String description;
 	private int noOfEspb;
 	private int yearOfStudy;
 	private Semester semester;
-	public MySubjectDto() {
+	public SimpleSubjectDto() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public MySubjectDto(long id, String name, String description, int noOfEspb, int yearOfStudy, Semester semester) {
+	public SimpleSubjectDto(long id, String name, String description, int noOfEspb, int yearOfStudy, Semester semester) {
 		super();
 		this.id = id;
 		this.name = name;

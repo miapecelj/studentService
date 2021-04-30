@@ -14,7 +14,7 @@ public interface ExamService {
 	Optional<ExamDto> findById(Long id);
 	List<ExamDto> getAll();
 	ExamDto save(ExamDto dto) throws MyEntityExistException, MyEntityNotPresentedException;
-	Optional<ExamDto> update(ExamDto dto);
+	Optional<ExamDto> update(ExamDto dto) throws MyEntityNotPresentedException, MyEntityExistException;
 	ExamDto delete(Long id) throws MyEntityNotPresentedException;
 	public Page<ExamDto> getAll(Pageable pageable);
 

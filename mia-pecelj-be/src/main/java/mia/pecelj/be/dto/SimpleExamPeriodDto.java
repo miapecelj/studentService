@@ -2,16 +2,16 @@ package mia.pecelj.be.dto;
 
 import java.time.LocalDate;
 
-public class MyExamPeriodDto implements MyDto{
+public class SimpleExamPeriodDto implements MyDto{
 	private Long id;
 	private String name;
 	private LocalDate startDate;
 	private LocalDate endDate;
 	private boolean active;
-	public MyExamPeriodDto() {
+	public SimpleExamPeriodDto() {
 		// TODO Auto-generated constructor stub
 	}
-	public MyExamPeriodDto(Long id, String name, LocalDate startDate, LocalDate endDate, boolean active) {
+	public SimpleExamPeriodDto(Long id, String name, LocalDate startDate, LocalDate endDate, boolean active) {
 		super();
 		this.id = id;
 		this.name = name;
