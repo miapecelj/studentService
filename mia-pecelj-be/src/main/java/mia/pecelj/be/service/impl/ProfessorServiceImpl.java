@@ -91,9 +91,7 @@ public class ProfessorServiceImpl implements ProfessorService {
 		dto.setSubjects(new ArrayList<ProfessorSubjectDto>());
 		ProfessorEntity professor = professorRepository.save(professorMapper.toEntity(dto));
 		dto.setId(professor.getId());
-		for(ProfessorSubjectDto professorSubject: subjects) {
-			dto.getSubjects().add(professorSubject);
-		}
+		dto.setSubjects(subjects);
 		professor = professorRepository.save(professorMapper.toEntity(dto));
 		return professorMapper.toDto(professor);
 	}
