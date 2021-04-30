@@ -1,0 +1,46 @@
+<a routerLink="/subject">Back to list</a>
+<div class="d-flex flex-column mt-3">
+
+    <div class="col-lg-6 col-md-8 border border-primary p-2 rounded">
+      <h4>Name:</h4>
+      <div>
+        <span class="col-lg-8 col-md-6">
+          {{subject?.name}}
+        </span>
+      </div>
+      <h4>Description:</h4>
+      <div class="row">
+        <span class="col-lg-8 col-md-6">
+          {{subject?.description}}
+        </span>
+      </div>
+      <h4>Number of espb:</h4>
+      <div class="row">
+        <span class="col-lg-8 col-md-6">
+          {{subject?.noOfEspb}}
+        </span>
+      </div>
+      <h4>Year of study:</h4>
+      <div class="row">
+        <span class="col-lg-8 col-md-6">
+          {{subject?.yearOfStudy}}
+        </span>
+      </div>
+      <h4>Semester:</h4>
+      <div class="row">
+        <span class="col-lg-8 col-md-6">
+          {{subject?.semester | lowercase}}
+        </span>
+      </div>
+      <h4>Professors:</h4>
+      <div *ngFor="let professor of subject?.professors" class="row">
+        <div class="d-flex flex-column col-lg-8 col-md-6" >
+          <span>{{professor.professor.firstname}} {{professor.professor.lastname}}</span>
+        </div>
+      </div>
+
+
+
+
+    </div>
+</div>

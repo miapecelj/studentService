@@ -1,7 +1,7 @@
 <a routerLink="/examPeriod">Back to list</a>
 <div class="d-flex flex-column mt-3">
 
-    <div class="col-lg-6 col-md-8 border border-primary p-2 rounded">
+    <div class="col-lg-8 col-md-8 border border-primary p-2 rounded">
       <h4>Name:</h4>
       <div>
         <span class="col-lg-8 col-md-6">
@@ -25,6 +25,14 @@
         <span class="col-lg-8 col-md-6">
           {{examPeriod?.active}}
         </span>
+      </div>
+      <h4>Exams:</h4>
+      <div *ngFor="let exam of examPeriod?.exams" class="row">
+        <div class="d-flex flex-column col-lg-8 col-md-6" >
+          <h5>{{exam.subject.name}}</h5>
+          <span>Professor in charge: {{exam.professor.title.name}} {{exam.professor.firstname}} {{exam.professor.lastname}}</span>
+          <span>Date of exam: {{exam.dateOfExam | date:'shortDate'}}</span>
+        </div>
       </div>
 
     </div>

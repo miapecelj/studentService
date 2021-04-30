@@ -93,7 +93,8 @@ export class ProfessorFormComponent implements OnInit {
         this.addedProfessor=professor;
       },
       error => {
-        this.toastService.show('Professor is not saved: ' + (typeof error.error === 'string'? error.error : error.mesage ) , {header:'Saving Professor', classname: 'bg-danger text-light'});
+        this.toastService.show('Professor is not saved: ' + (typeof error.error === 'string'? error.error : error.mesage ) ,
+        {header:'Saving Professor', classname: 'bg-danger text-light'});
       }
 
 
@@ -120,7 +121,8 @@ export class ProfessorFormComponent implements OnInit {
     });
   }
   hasErrors(componentName: string, errorCode: string) {
-    return  (this.professorForm.get(componentName).dirty || this.professorForm.get(componentName).touched) && this.professorForm.get(componentName).hasError(errorCode);
+    return  (this.professorForm.get(componentName).dirty || this.professorForm.get(componentName).touched) &&
+    this.professorForm.get(componentName).hasError(errorCode);
   }
 
   addSelectedSubject(){

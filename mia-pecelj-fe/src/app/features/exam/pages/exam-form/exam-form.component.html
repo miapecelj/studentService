@@ -1,0 +1,55 @@
+<div *ngIf="addedExam" class="alert alert-success" role="alert" >
+  Subject saved!
+</div>
+<form *ngIf="examForm" [formGroup]="examForm" (ngSubmit)="onSubmit()">
+  <div class="m-auto w-50 p-4 border border-primary rounded">
+    <h3>Exam</h3>
+  <a routerLink="/exam">Back to list</a>
+
+
+    <div class="mb-3 d-flex flex-column">
+      <label for="subject" class="form-label">Subject</label>
+      <select id="subject" class="form-select" [(ngModel)]="selectedSubject" formControlName="subject" (change)="selectedRow($event)"  >
+        <option>Please select subject</option>
+        <option *ngFor="let subject of subjects" [ngValue]="subject" >
+          {{ subject.name }}
+        </option>
+      </select>
+    </div>
+    <div class="mb-3 d-flex flex-column">
+      <label for="professor" class="form-label">Professor</label>
+      <select id="professor" class="form-select" formControlName="professor">
+        <option>Please select professor</option>
+        <option *ngFor="let professor of selectedSubject?.professors" [ngValue]="professor.professor">
+          {{ professor.professor.firstname }} {{ professor.professor.lastname}}
+        </option>
+      </select>
+    </div>
+    <div class="mb-3 d-flex flex-column">
+      <label for="examPeriod" class="form-label">Exam period</label>
+      <select id="examPeriod" class="form-select" formControlName="examPeriod">
+        <option>Please select examPeriod</option>
+        <option *ngFor="let examPeriod of examPeriods" [ngValue]="examPeriod">
+          {{ examPeriod.name }}
+        </option>
+      </select>
+    </div>
+    <div class="mb-3 d-flex flex-column">
+      <label for="dateOfExam" class="form-label">Date of exam:</label>
+      <input type="date"id="dateOfExam" class="form-control" formControlName="dateOfExam"/>
+      <p class="alert alert-danger" *ngIf="examForm.get('dateOfExam').hasError('required')" >
+        Date of exam is required
+      </p>
+    </div>
+
+
+    <hr />
+
+    <div class="d-flex flex-row mt-2">
+      <button class="btn btn-outline-success" [disabled]="!examForm.valid" type="submit">
+        Save exam
+      </button>
+    </div>
+  </div>
+</form>
+

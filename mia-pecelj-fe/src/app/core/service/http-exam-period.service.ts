@@ -18,19 +18,17 @@ export class HttpExamPeriodService {
   getByPage(page:number, size: number) {
     return this.httpClient.get<Page<ExamPeriod[]>>(`${environment.baseHttpURL}/${this.controlPrefix}/page?page=${page}&size=${size}`);
   }
-  deleteExamPeriod(professor:ExamPeriod):Observable<ExamPeriod>{
-    return this.httpClient.delete<ExamPeriod>(`${environment.baseHttpURL}/${this.controlPrefix}/${professor.id}`);
+  deleteExamPeriod(examPeriod:ExamPeriod):Observable<ExamPeriod>{
+    return this.httpClient.delete<ExamPeriod>(`${environment.baseHttpURL}/${this.controlPrefix}/${examPeriod.id}`);
   }
-  postExamPeriod(professor:ExamPeriod):Observable<ExamPeriod>{
-    console.log(professor);
-    return this.httpClient.post<ExamPeriod>(`${environment.baseHttpURL}/${this.controlPrefix}/`,professor);
+  postExamPeriod(examPeriod:ExamPeriod):Observable<ExamPeriod>{
+    return this.httpClient.post<ExamPeriod>(`${environment.baseHttpURL}/${this.controlPrefix}/`,examPeriod);
   }
   findById(id: number): Observable<ExamPeriod> {
     return this.httpClient.get<ExamPeriod>(`${environment.baseHttpURL}/${this.controlPrefix}/${id}`);
   }
-  editExamPeriod(professor:ExamPeriod):Observable<ExamPeriod>{
-    console.log(professor);
-    return this.httpClient.put<ExamPeriod>(`${environment.baseHttpURL}/${this.controlPrefix}/`,professor);
+  editExamPeriod(examPeriod:ExamPeriod):Observable<ExamPeriod>{
+    return this.httpClient.put<ExamPeriod>(`${environment.baseHttpURL}/${this.controlPrefix}/`,examPeriod);
   }
 
 }

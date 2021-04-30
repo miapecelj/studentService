@@ -48,7 +48,7 @@ export class ExamPeriodListComponent implements OnInit {
   onDeleteClick(examPeriod: ExamPeriod) {
     const modalRef = this.modalService.open(ConfirmDialogComponent);
     modalRef.componentInstance.message = `Are you sure you want to delete exam period <strong>${examPeriod.name}</strong> ?`;
-    modalRef.componentInstance.headerText = 'Deleting city';
+    modalRef.componentInstance.headerText = 'Deleting exam period';
     modalRef.result.then(
       (result) => result === 'Ok' && this.deleteSelectedExamPeriod(examPeriod)
     );
