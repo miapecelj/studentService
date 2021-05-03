@@ -1,5 +1,6 @@
 package mia.pecelj.be.controller.rest;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,9 +22,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import mia.pecelj.be.dto.ExamDto;
 import mia.pecelj.be.dto.StudentDto;
+import mia.pecelj.be.dto.SubjectDto;
 import mia.pecelj.be.service.StudentService;
 
 @RestController
@@ -108,6 +113,25 @@ public class StudentRestController {
 	@GetMapping("/page")
 	public @ResponseBody ResponseEntity<Page<StudentDto>> getByPage(Pageable pageable) {
 		return ResponseEntity.status(HttpStatus.OK).body(studentService.getAll(pageable));
+	}
+	@PostMapping("/addExam")
+	public @ResponseBody ResponseEntity<Object> addExam(@RequestParam Long examId, @RequestParam Long studentId) {
+			try {
+				return ResponseEntity.status(HttpStatus.OK).body(studentService.addExam(examId, studentId));
+			} catch (Exception e) {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+			}
+		
+	}
+
+	@DeleteMapping("/removeExam")
+	public @ResponseBody ResponseEntity<Object> removeExam(@RequestParam Long studentId,@RequestParam Long examId) {
+		try {
+			studentService.removeExam(studentId, examId);
+			return ResponseEntity.status(HttpStatus.OK).body(studentService.removeExam(studentId, examId));
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
 	}
 
 }

@@ -1,25 +1,17 @@
 package mia.pecelj.be.dto;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-
-
-public class ExamDto implements MyDto{
+public class SimpleExamDto implements MyDto{
 	private Long id;
 	private ProfessorDto professor;
 	private SubjectDto subject;
 	private SimpleExamPeriodDto examPeriod;
 	private LocalDate dateOfExam;
-	private List<ExamRegistrationDto> students=new ArrayList<ExamRegistrationDto>();
-	public ExamDto() {
+	public SimpleExamDto() {
 		// TODO Auto-generated constructor stub
 	}
-	public ExamDto(Long id, ProfessorDto professor, SubjectDto subject, SimpleExamPeriodDto examPeriod,
+	public SimpleExamDto(Long id, ProfessorDto professor, SubjectDto subject, SimpleExamPeriodDto examPeriod,
 			LocalDate dateOfExam) {
 		super();
 		this.id = id;
@@ -27,15 +19,6 @@ public class ExamDto implements MyDto{
 		this.subject = subject;
 		this.examPeriod = examPeriod;
 		this.dateOfExam = dateOfExam;
-	}
-	
-
-	
-	public List<ExamRegistrationDto> getStudents() {
-		return students;
-	}
-	public void setStudents(List<ExamRegistrationDto> students) {
-		this.students = students;
 	}
 	public Long getId() {
 		return id;
@@ -69,11 +52,9 @@ public class ExamDto implements MyDto{
 	}
 	@Override
 	public String toString() {
-		return "ExamDto [id=" + id + ", professor=" + professor + ", subject=" + subject + ", examPeriod=" + examPeriod
-				+ ", dateOfExam=" + dateOfExam + "]";
+		return "SimpleExamDto [id=" + id + ", professor=" + professor + ", subject=" + subject + ", examPeriod="
+				+ examPeriod + ", dateOfExam=" + dateOfExam + "]";
 	}
-	
-	
 	
 
 }

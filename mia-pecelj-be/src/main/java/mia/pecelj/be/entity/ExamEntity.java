@@ -35,6 +35,8 @@ public class ExamEntity {
 	private ProfessorEntity professor;
 	@Column(name="date_of_exam")
 	private LocalDate dateOfExam;
+	@OneToMany(mappedBy = "exam", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<ExamRegistrationEntity> students = new ArrayList<ExamRegistrationEntity>();
 
 	public ExamEntity() {
 		// TODO Auto-generated constructor stub
@@ -47,6 +49,13 @@ public class ExamEntity {
 		this.subject = subject;
 		this.professor = professor;
 		this.dateOfExam = dateOfExam;
+	}
+	
+	public List<ExamRegistrationEntity> getStudents() {
+		return students;
+	}
+	public void setStudents(List<ExamRegistrationEntity> students) {
+		this.students = students;
 	}
 	public Long getId() {
 		return id;

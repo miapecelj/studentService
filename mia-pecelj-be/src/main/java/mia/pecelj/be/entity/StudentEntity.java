@@ -57,11 +57,23 @@ public class StudentEntity implements Serializable, MyEntity {
 	@ManyToOne
 	@JoinColumn(name = "city_code")
 	private CityEntity city;
-
+	@OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<ExamRegistrationEntity> exams = new ArrayList<ExamRegistrationEntity>();
 
 	public StudentEntity() {
 		// TODO Auto-generated constructor stub
 	}
+	
+
+	public List<ExamRegistrationEntity> getExams() {
+		return exams;
+	}
+
+
+	public void setExams(List<ExamRegistrationEntity> exams) {
+		this.exams = exams;
+	}
+
 
 	public StudentEntity(Long id, String indexNumber, int indexYear, String firstname, String lastname, String email,
 			String address, int currentYearOfStudy, CityEntity city) {
@@ -116,9 +128,12 @@ public class StudentEntity implements Serializable, MyEntity {
 		return indexYear;
 	}
 
+	
+
 	public void setIndexYear(int indexYear) {
 		this.indexYear = indexYear;
 	}
+
 
 	public String getFirstname() {
 		return firstname;
@@ -183,6 +198,29 @@ public class StudentEntity implements Serializable, MyEntity {
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
+	}
+
+
+	public void addSubject(ExamEntity exam) {
+		ExamRegistrationEntity examRegistration = new ExamRegistrationEntity(this, exam);
+		exams.add(examRegistration);
+		exam.getStudents().add(examRegistration);
+		
+	}
+
+
+	public void removeSubject(ExamEntity exam) {
+		for (Iterator<ExamRegistrationEntity> iterator = exams.iterator(); iterator.hasNext();) {
+			ExamRegistrationEntity examRegistration = iterator.next();
+
+			if (examRegistration.getStudent().equals(this) && examRegistration.getExam().equals(exam)) {
+				iterator.remove();
+				examRegistration.getExam().getStudents().remove(examRegistration);
+				examRegistration.setStudent(null);
+				examRegistration.setExam(null);
+			}
+		}
+		
 	}
 
 }
