@@ -1,14 +1,23 @@
 package mia.pecelj.be.entity;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Max;
@@ -32,7 +41,7 @@ public class StudentEntity implements Serializable, MyEntity {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	@NaturalId
 	@Column(name = "index_number", length = 4)
 	private String indexNumber;
@@ -49,11 +58,12 @@ public class StudentEntity implements Serializable, MyEntity {
 	@JoinColumn(name = "city_code")
 	private CityEntity city;
 
+
 	public StudentEntity() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public StudentEntity(long id, String indexNumber, int indexYear, String firstname, String lastname, String email,
+	public StudentEntity(Long id, String indexNumber, int indexYear, String firstname, String lastname, String email,
 			String address, int currentYearOfStudy, CityEntity city) {
 		super();
 		this.id = id;
@@ -66,6 +76,9 @@ public class StudentEntity implements Serializable, MyEntity {
 		this.currentYearOfStudy = currentYearOfStudy;
 		this.city = city;
 	}
+
+	
+
 
 	public String getAddress() {
 		return address;
@@ -83,11 +96,11 @@ public class StudentEntity implements Serializable, MyEntity {
 		this.currentYearOfStudy = currentYearOfStudy;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -146,6 +159,7 @@ public class StudentEntity implements Serializable, MyEntity {
 	public void setCity(CityEntity city) {
 		this.city = city;
 	}
+	
 
 	@Override
 	public String toString() {
@@ -157,34 +171,18 @@ public class StudentEntity implements Serializable, MyEntity {
 	
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (int) (id ^ (id >>> 32));
-		result = prime * result + ((indexNumber == null) ? 0 : indexNumber.hashCode());
-		result = prime * result + indexYear;
-		return result;
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		StudentEntity student = (StudentEntity) o;
+		return Objects.equals(id, student.id);
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		StudentEntity other = (StudentEntity) obj;
-		if (id != other.id)
-			return false;
-		if (indexNumber == null) {
-			if (other.indexNumber != null)
-				return false;
-		} else if (!indexNumber.equals(other.indexNumber))
-			return false;
-		if (indexYear != other.indexYear)
-			return false;
-		return true;
+	public int hashCode() {
+		return Objects.hash(id);
 	}
 
 }

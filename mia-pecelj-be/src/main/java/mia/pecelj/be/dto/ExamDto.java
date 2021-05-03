@@ -2,14 +2,16 @@ package mia.pecelj.be.dto;
 
 import java.time.LocalDate;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
 
 public class ExamDto implements MyDto{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Long id;
 	private ProfessorDto professor;
 	private SubjectDto subject;
-	//@JsonBackReference
 	private SimpleExamPeriodDto examPeriod;
 	private LocalDate dateOfExam;
 	public ExamDto() {

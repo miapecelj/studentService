@@ -1,7 +1,11 @@
 package mia.pecelj.be.entity;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -30,6 +35,7 @@ public class ExamEntity {
 	private ProfessorEntity professor;
 	@Column(name="date_of_exam")
 	private LocalDate dateOfExam;
+
 	public ExamEntity() {
 		// TODO Auto-generated constructor stub
 	}
@@ -71,6 +77,24 @@ public class ExamEntity {
 	}
 	public void setDateOfExam(LocalDate dateOfExam) {
 		this.dateOfExam = dateOfExam;
+	}
+	
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+
+		if (o == null || getClass() != o.getClass())
+			return false;
+
+		ExamEntity exam = (ExamEntity) o;
+		return Objects.equals(id, exam.id);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
 	}
 	@Override
 	public String toString() {
