@@ -18,7 +18,8 @@ import { GlobalToastComponent } from './components/global-toast/global-toast.com
     FooterComponent,
     ObjectInfoPipe,
     ConfirmDialogComponent,
-    GlobalToastComponent
+    GlobalToastComponent,
+    SortableHeaderDirective
   ],
   imports: [
     CommonModule,
@@ -40,7 +41,8 @@ import { GlobalToastComponent } from './components/global-toast/global-toast.com
     FooterComponent,
     ObjectInfoPipe,
     ConfirmDialogComponent,
-    GlobalToastComponent
+    GlobalToastComponent,
+    SortableHeaderDirective
   ]
 })
 export class SharedModule { }

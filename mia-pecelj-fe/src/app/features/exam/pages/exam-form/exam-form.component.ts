@@ -101,12 +101,7 @@ export class ExamFormComponent implements OnInit {
     return  (this.examForm
     .get(componentName).dirty || this.examForm.get(componentName).touched) && this.examForm.get(componentName).hasError(errorCode);
   }
-  selectedRow(e){
-    console.log(this.selectedSubject);
-    this.professors=this.selectedSubject.professors.map(professorSubject=>professorSubject.professor);
-    console.log(this.professors)
 
-}
 
 
 

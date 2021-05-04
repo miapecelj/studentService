@@ -27,14 +27,14 @@
     </div>
     <div class="mb-3 d-flex flex-column">
       <label for="noOfEspb" class="form-label">Number of espb</label>
-      <input id="noOfEspb" class="form-control" formControlName="noOfEspb"/>
+      <input type="number"id="noOfEspb" class="form-control" formControlName="noOfEspb"/>
       <p class="alert alert-danger" *ngIf="subjectForm.get('noOfEspb').hasError('required')" >
         Number of espb is required
       </p>
     </div>
     <div class="mb-3 d-flex flex-column">
       <label for="yearOfStudy" class="form-label">Year of study</label>
-      <input id="yearOfStudy" class="form-control" formControlName="yearOfStudy"/>
+      <input  type="number" id="yearOfStudy" class="form-control" formControlName="yearOfStudy"/>
       <p class="alert alert-danger" *ngIf="subjectForm.get('yearOfStudy').hasError('required')">
         Year of study
       </p>

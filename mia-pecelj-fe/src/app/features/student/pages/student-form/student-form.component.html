@@ -44,15 +44,15 @@
     </div>
     <div class="mb-3 d-flex flex-column">
       <label for="indexYear" class="form-label">Index Year</label>
-      <input id="indexYear" class="form-control" formControlName="indexYear"/>
+      <input type = "number" id="indexYear" class="form-control" formControlName="indexYear"/>
       <p class="alert alert-danger" *ngIf="studentForm.get('indexYear').hasError('required')">
         Index year is required
       </p>
       <p class="alert alert-danger" *ngIf="studentForm.get('indexYear').hasError('min')">
-        Year of study must be more then 2000
+        Index year must be more then 2000
       </p>
       <p class="alert alert-danger" *ngIf="studentForm.get('indexYear').hasError('max')">
-        Year of study must be less then 2100
+        Index year must be less then 2100
       </p>
     </div>
     <div class="mb-3 d-flex flex-column">
@@ -71,7 +71,7 @@
     </div>
     <div class="mb-3 d-flex flex-column">
       <label for="currentYearOfStudy" class="form-label">Current year of study</label>
-      <input id="currentYearOfStudy" class="form-control" formControlName="currentYearOfStudy"/>
+      <input type = "number" id="currentYearOfStudy" class="form-control" formControlName="currentYearOfStudy"/>
 
       <p class="alert alert-danger" *ngIf="studentForm.get('currentYearOfStudy').hasError('required') ">
         Current year of study is required

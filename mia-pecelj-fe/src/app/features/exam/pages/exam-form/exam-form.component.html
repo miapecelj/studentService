@@ -9,7 +9,7 @@
 
     <div class="mb-3 d-flex flex-column">
       <label for="subject" class="form-label">Subject</label>
-      <select id="subject" class="form-select" [(ngModel)]="selectedSubject" formControlName="subject" (change)="selectedRow($event)"  >
+      <select id="subject" class="form-select" [(ngModel)]="selectedSubject" formControlName="subject"  >
         <option >Please select subject</option>
         <option *ngFor="let subject of subjects" [ngValue]="subject" >
           {{ subject.name }}

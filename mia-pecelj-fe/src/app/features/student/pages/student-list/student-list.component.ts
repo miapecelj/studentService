@@ -18,7 +18,7 @@ export class StudentListComponent implements OnInit {
   students: Student[];
   currentPage = 1;
   totalItems = 10;
-  pageSize = 2;
+  pageSize = 8;
   destroy$: Subject<boolean> = new Subject();
   constructor(private httpStudent:HttpStudentService,private router: Router,private modalService: NgbModal, private toastService:ToastService) { }
   ngOnInit(): void {

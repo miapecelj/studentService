@@ -28,8 +28,6 @@ export class SortableHeaderDirective {
 
   constructor() {
     console.log('Directive sortable');
-    // this.m1();
-    // this.m1(5)
    }
 
    rotate() {
@@ -37,7 +35,5 @@ export class SortableHeaderDirective {
     this.sort.emit({column: this.sortable, direction: this.direction});
   }
 
-
-  // m1(a:number=1) {}
 
 }

@@ -18,7 +18,7 @@ export class ExamListComponent implements OnInit {
   exams: Exam[];
   currentPage = 1;
   totalItems = 10;
-  pageSize = 2;
+  pageSize = 8;
   destroy$: Subject<boolean> = new Subject();
   constructor(private httpExamService:HttpExamService,private router: Router,private modalService: NgbModal,private toastService: ToastService) { }
 

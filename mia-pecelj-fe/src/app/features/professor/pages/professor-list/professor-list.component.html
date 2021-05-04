@@ -27,5 +27,6 @@
   </tr>
   </tbody>
 </table>
+<input type="number" name="pageSize" id="pageSize" [(ngModel)]="pageSize" (change)="onPageChange(1)">
 <ngb-pagination [collectionSize]="totalItems" (pageChange)="onPageChange($event)" [(page)]="currentPage" [pageSize]="pageSize" [boundaryLinks]="true"></ngb-pagination>
 <button type="button" class="btn btn-primary" [routerLink]="['../professor-form']" >Add professor</button>
