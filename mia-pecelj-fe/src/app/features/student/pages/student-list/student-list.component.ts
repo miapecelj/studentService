@@ -50,19 +50,26 @@ export class StudentListComponent implements OnInit {
     modalRef.componentInstance.message = `Are you sure you want to delete student <strong>${student.firstname}</strong> ?`;
     modalRef.componentInstance.headerText = 'Deleting student';
     modalRef.result.then(
-      (result) => result === 'Ok' && this.deleteSelectedProfessor(student)
+      (result) => result === 'Ok' && this.deleteSelectedStudent(student)
     );
   }
 
 
-  deleteSelectedProfessor(student: Student) {
+  deleteSelectedStudent(student: Student) {
     this.httpStudent.deleteStudent(student).subscribe((response) => {
+      this.loadStudents();
       this.toastService.show(
         'Professor Deleted ',
         { header: 'Deleting student', classname: 'bg-success text-light' }
       );
+    },
+    err=>{
+      this.toastService.show(
+        'Student can not be deleted',
+        {header: 'Student is not deleted', classname: 'bg-danger text-light'}
+      )
     });
-    this.students.splice( this.students.indexOf(student));
+
   }
 
 }

@@ -1,4 +1,6 @@
 import { City } from "./city.model";
+import { ExamRegistration } from "./examRegistration.model";
+
 
 export interface Student{
   id:number;
@@ -10,4 +12,5 @@ export interface Student{
   address:string;
   city: City;
   currentYearOfStudy:number;
+  exams:ExamRegistration[];
 }

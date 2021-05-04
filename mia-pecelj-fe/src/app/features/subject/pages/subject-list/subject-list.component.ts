@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject } from 'src/app/core';
 import { Subject as SubjectObservable} from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { catchError, takeUntil } from 'rxjs/operators';
 import { HttpSubjectService } from 'src/app/core/service/http-subject.service';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -68,12 +68,20 @@ export class SubjectListComponent implements OnInit {
 
   deleteSelectedSubject(subject: Subject) {
     this.httpSubject.deleteSubject(subject).subscribe((response) => {
+      this.loadSubjects();
       this.toastService.show(
         'Subject Deleted ',
         { header: 'Deleting subject', classname: 'bg-success text-light' }
       );
-    });
-    this.subjects.splice( this.subjects.indexOf(subject));
+    },
+    err=>{
+      this.toastService.show(
+        'Subject can not be deleted',
+        {header: 'Subject is not deleted', classname: 'bg-danger text-light'}
+      )
+    }
+    );
   }
+
 
 }

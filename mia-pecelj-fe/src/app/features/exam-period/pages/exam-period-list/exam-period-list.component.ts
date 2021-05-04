@@ -56,13 +56,18 @@ export class ExamPeriodListComponent implements OnInit {
 
   deleteSelectedExamPeriod(examPeriod: ExamPeriod) {
     this.httpExamPeriodService.deleteExamPeriod(examPeriod).subscribe((response) => {
+      this.loadExamPeriods();
       this.toastService.show(
         'Exam period Deleted ',
         { header: 'Deleting exam period', classname: 'bg-success text-light' }
       );
-      this.loadExamPeriods();
+    },
+    err=>{
+      this.toastService.show(
+        'Exam period can not be deleted',
+        {header: 'Exam period is not deleted', classname: 'bg-danger text-light'}
+      )
     });
-    this.examPeriods.splice( this.examPeriods.indexOf(examPeriod));
   }
 
 

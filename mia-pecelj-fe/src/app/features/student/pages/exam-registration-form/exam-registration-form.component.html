@@ -1,0 +1,28 @@
+
+<div >
+<form *ngIf="examRegistrationForm" [formGroup]="examRegistrationForm" (ngSubmit)="onSubmit()">
+  <div class="m-auto w-50 p-4 border border-primary rounded">
+    <h3>Exam registration</h3>
+  <a routerLink="/student">Back to list</a>
+
+    <div class="mb-3 d-flex flex-column">
+      <label for="exam" class="form-label">Exam</label>
+      <select id="exam" class="form-select" formControlName="exam">
+        <option>Please select exam</option>
+        <option *ngFor="let exam of selectedExamPeriod?.exams" [ngValue]="exam">
+          {{ exam.subject.name }}
+        </option>
+      </select>
+    </div>
+
+    <hr />
+
+
+    <div class="d-flex flex-row mt-2">
+      <button class="btn btn-outline-success" [disabled]="!examRegistrationForm.valid" type="submit">
+        Register exam
+      </button>
+    </div>
+  </div>
+</form>
+</div>

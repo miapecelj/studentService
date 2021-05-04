@@ -6,13 +6,17 @@ import { StudentListComponent } from './pages/student-list/student-list.componen
 import { StudentFormComponent } from './pages/student-form/student-form.component';
 import { StudentDetailsComponent } from './pages/student-details/student-details.component';
 import { SharedModule } from 'src/app/shared';
+import { ExamRegistrationFormComponent } from './pages/exam-registration-form/exam-registration-form.component';
+import { ExamRegistrationListComponent } from './pages/exam-registration-list/exam-registration-list.component';
 
 
 @NgModule({
   declarations: [
     StudentListComponent,
     StudentFormComponent,
-    StudentDetailsComponent
+    StudentDetailsComponent,
+    ExamRegistrationFormComponent,
+    ExamRegistrationListComponent
   ],
   imports: [
     CommonModule,

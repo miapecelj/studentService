@@ -22,12 +22,12 @@ export class ProfessorListComponent implements OnInit {
   destroy$: Subject<boolean> = new Subject();
   constructor(private httpProfessor:HttpProfessorService,private router: Router,private modalService: NgbModal,private toastService:ToastService) { }
   ngOnInit(): void {
-    this.loadStudents();
+    this.loadProfessors();
   }
   ngOnDestroy() {
     this.destroy$.next(true);
   }
-  loadStudents(){
+  loadProfessors(){
 
     this.httpProfessor.getByPage(this.currentPage-1,this.pageSize)
     .pipe(
@@ -43,7 +43,7 @@ export class ProfessorListComponent implements OnInit {
   }
   onPageChange(page: number) {
     this.currentPage = page;
-    this.loadStudents();
+    this.loadProfessors();
   }
   onDeleteClick(professor: Professor) {
     const modalRef = this.modalService.open(ConfirmDialogComponent);
@@ -57,12 +57,19 @@ export class ProfessorListComponent implements OnInit {
 
   deleteSelectedProfessor(professor: Professor) {
     this.httpProfessor.deleteProfessor(professor).subscribe((response) => {
+      this.loadProfessors()
       this.toastService.show(
         'Professor Deleted ',
         { header: 'Deleting subject', classname: 'bg-success text-light' }
       );
+    },
+    err=>{
+      this.toastService.show(
+        'Professor can not be deleted',
+        {header: 'Professor is not deleted', classname: 'bg-danger text-light'}
+      )
     });
-    this.professors.splice( this.professors.indexOf(professor));
+
   }
 
 }

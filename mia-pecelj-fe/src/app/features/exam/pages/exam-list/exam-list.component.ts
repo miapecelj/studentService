@@ -48,7 +48,7 @@ export class ExamListComponent implements OnInit {
   }
   onDeleteClick(exam: Exam) {
     const modalRef = this.modalService.open(ConfirmDialogComponent);
-    modalRef.componentInstance.message = `Are you sure you want to delete exam <strong>${exam.subject}</strong> ?`;
+    modalRef.componentInstance.message = `Are you sure you want to delete exam <strong>${exam.subject.name}</strong> ?`;
     modalRef.componentInstance.headerText = 'Deleting exam';
     modalRef.result.then(
       (result) => result === 'Ok' && this.deleteSelectedExam(exam)
@@ -57,13 +57,19 @@ export class ExamListComponent implements OnInit {
 
   deleteSelectedExam(exam: Exam) {
     this.httpExamService.deleteExam(exam).subscribe((response) => {
+      this.loadExams();
       this.toastService.show(
         'Exam Deleted ',
         { header: 'Deleting exam', classname: 'bg-success text-light' }
       );
-      this.loadExams();
+
+    },
+    err=>{
+      this.toastService.show(
+        'Exam can not be deleted',
+        {header: 'Exam is not deleted', classname: 'bg-danger text-light'}
+      )
     });
-    this.exams.splice( this.exams.indexOf(exam));
   }
 
 

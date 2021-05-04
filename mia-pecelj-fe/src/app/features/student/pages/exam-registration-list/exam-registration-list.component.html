@@ -1,0 +1,28 @@
+
+<a routerLink="../../student-list">Back to list</a>
+<div class="d-flex flex-column mt-3">
+
+    <div *ngFor="let exam of student?.exams"class="col-lg-6 col-md-8 border border-primary p-2 rounded">
+      <h4>Subject:</h4>
+      <div>
+        <span class="col-lg-8 col-md-6">
+          {{exam.exam.subject.name}}
+        </span>
+      </div>
+      <h4>Exam period:</h4>
+      <div class="row">
+        <span class="col-lg-8 col-md-6">
+          {{exam.exam.examPeriod.name}}
+        </span>
+      </div>
+      <h4>Date:</h4>
+      <div class="row">
+        <span class="col-lg-8 col-md-6">
+          {{exam.exam.dateOfExam}}
+        </span>
+      </div>
+      <button (click)="onDeleteClick(exam.exam)"type="button" class="btn btn-danger">Delete</button>
+
+    </div>
+</div>
+

@@ -26,6 +26,17 @@
           {{exam?.dateOfExam | date:'shortDate'}}
         </span>
       </div>
+      <div>
+        <h4>Students taking exam:</h4>
+        <div class="row">
+          <ul>
+          <li  *ngFor="let student of exam?.students">
+            {{student.student.firstname}} {{student.student.lastname}}
+          </li>
+        </ul>
+        </div>
+      </div>
+
 
     </div>
 </div>

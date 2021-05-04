@@ -8,6 +8,8 @@ import { Page, Student } from '../models';
   providedIn: 'root'
 })
 export class HttpStudentService {
+
+
   controlPrefix='student';
   constructor(private httpClient:HttpClient) { }
   getAll() {
@@ -29,5 +31,11 @@ export class HttpStudentService {
   editStudent(student:Student):Observable<Student>{
     console.log(student);
     return this.httpClient.put<Student>(`${environment.baseHttpURL}/${this.controlPrefix}/`,student);
+  }
+  addExam(idStudent: number, idExam: number) {
+    return this.httpClient.post<Student>(`${environment.baseHttpURL}/${this.controlPrefix}/addExam?examId=${idExam}&studentId=${idStudent}`,null);
+  }
+  deleteExam(idStudent: number, idExam: number):Observable<Student> {
+    return this.httpClient.delete<Student>(`${environment.baseHttpURL}/${this.controlPrefix}/removeExam?studentId=${idStudent}&examId=${idExam}`);
   }
 }

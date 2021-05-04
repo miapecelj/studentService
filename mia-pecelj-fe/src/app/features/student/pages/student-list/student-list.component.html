@@ -10,6 +10,7 @@
     <th scope="col">Email</th>
     <th scope="col">Current Year Of Study</th>
     <th scope="col">Action</th>
+    <th scope="col">Exams</th>
   </tr>
   </thead>
   <tbody>
@@ -23,6 +24,9 @@
     <td><button type="button" class="btn btn-primary" [routerLink]="['../student-details', student.id]" >Details</button>
       <button type="button" class="btn btn-primary" [routerLink]="['../student-form', student.id]" >Edit</button>
       <button (click)="onDeleteClick(student)"type="button" class="btn btn-danger">Delete</button></td>
+      <td>    <button class="btn btn-primary" [routerLink]="['../student-register-exam', student.id]">Register exam</button>
+        <button class="btn btn-danger" [routerLink]="['../student-register-exam-list', student.id]">Remove exam</button></td>
+
   </tr>
   </tbody>
 </table>

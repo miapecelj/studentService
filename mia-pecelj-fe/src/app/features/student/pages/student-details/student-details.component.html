@@ -51,6 +51,16 @@
           {{student?.currentYearOfStudy}}
         </span>
       </div>
+      <div>
+        <h4>Exams:</h4>
+        <div class="row">
+          <span class="d-flex flex-column col-lg-8 col-md-6" *ngFor="let exam of student?.exams">
+            <h6>Subject: {{exam.exam.subject.name}}</h6>
+            <h6>Exam period: {{exam.exam.examPeriod.name}}</h6>
+            <h6>Date of exam: {{exam.exam.dateOfExam}}</h6>
+          </span>
+        </div>
+      </div>
 
 
 
