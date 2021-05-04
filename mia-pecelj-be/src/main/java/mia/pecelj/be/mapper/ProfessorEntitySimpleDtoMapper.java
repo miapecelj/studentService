@@ -8,6 +8,7 @@ import mia.pecelj.be.entity.ProfessorEntity;
 @Mapper(componentModel = "spring")
 public interface ProfessorEntitySimpleDtoMapper {
 	SimpleProfessorDto toDto(ProfessorEntity entity);
+
 	ProfessorEntity toEntity(SimpleProfessorDto dto);
 
 }

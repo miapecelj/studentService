@@ -13,23 +13,24 @@ import org.springframework.stereotype.Service;
 
 import mia.pecelj.be.dto.ExamPeriodDto;
 import mia.pecelj.be.entity.ExamPeriodEntity;
-import mia.pecelj.be.entity.StudentEntity;
-import mia.pecelj.be.entity.SubjectEntity;
 import mia.pecelj.be.exception.MyEntityExistException;
 import mia.pecelj.be.exception.MyEntityNotPresentedException;
+import mia.pecelj.be.exception.MyValidationException;
 import mia.pecelj.be.mapper.ExamPeriodEntityDtoMapper;
 import mia.pecelj.be.repository.ExamPeriodRepository;
 import mia.pecelj.be.service.ExamPeriodService;
 
 @Service
 @Transactional
-public class ExamPeriodServiceImpl implements ExamPeriodService{
+public class ExamPeriodServiceImpl implements ExamPeriodService {
 	ExamPeriodRepository examPeriodRepository;
 	ExamPeriodEntityDtoMapper examPeriodMapper;
+
 	@Autowired
-	public ExamPeriodServiceImpl(ExamPeriodRepository examPeriodRepository,ExamPeriodEntityDtoMapper examPeriodMapper) {
-		this.examPeriodRepository=examPeriodRepository;
-		this.examPeriodMapper=examPeriodMapper;
+	public ExamPeriodServiceImpl(ExamPeriodRepository examPeriodRepository,
+			ExamPeriodEntityDtoMapper examPeriodMapper) {
+		this.examPeriodRepository = examPeriodRepository;
+		this.examPeriodMapper = examPeriodMapper;
 	}
 
 	@Override
@@ -50,10 +51,10 @@ public class ExamPeriodServiceImpl implements ExamPeriodService{
 	}
 
 	@Override
-	public ExamPeriodDto save(ExamPeriodDto dto) throws MyEntityExistException {
+	public ExamPeriodDto save(ExamPeriodDto dto) throws MyEntityExistException, MyValidationException {
 		try {
 			isInterfering(dto);
-		} catch (MyEntityExistException e) {
+		} catch (MyValidationException e) {
 			throw e;
 		}
 		Optional<ExamPeriodEntity> entity = examPeriodRepository.findById(dto.getId());
@@ -66,10 +67,10 @@ public class ExamPeriodServiceImpl implements ExamPeriodService{
 	}
 
 	@Override
-	public Optional<ExamPeriodDto> update(ExamPeriodDto dto) throws MyEntityExistException {
+	public Optional<ExamPeriodDto> update(ExamPeriodDto dto) throws MyEntityExistException, MyValidationException {
 		try {
 			isInterfering(dto);
-		} catch (MyEntityExistException e) {
+		} catch (MyValidationException e) {
 			throw e;
 		}
 		Optional<ExamPeriodEntity> examPeriodEntity = examPeriodRepository.findById(dto.getId());
@@ -88,7 +89,7 @@ public class ExamPeriodServiceImpl implements ExamPeriodService{
 		}
 		examPeriodRepository.delete(entity.get());
 		return examPeriodMapper.toDto(entity.get());
-		
+
 	}
 
 	@Override
@@ -96,17 +97,22 @@ public class ExamPeriodServiceImpl implements ExamPeriodService{
 		Page<ExamPeriodDto> entites = examPeriodRepository.findAll(pageable).map(examPeriodMapper::toDto);
 		return entites;
 	}
-	public boolean isInterfering(ExamPeriodDto dto) throws MyEntityExistException {
+
+	public boolean isInterfering(ExamPeriodDto dto) throws MyValidationException {
 		List<ExamPeriodEntity> entities = examPeriodRepository.findAll();
-		if(dto.isActive() && entities.stream().anyMatch(entity->entity.isActive()&&entity.getId()!=dto.getId())) {
-			throw new MyEntityExistException("Active exam period already exist",dto);
+		if (dto.isActive()
+				&& entities.stream().anyMatch(entity -> entity.isActive() && entity.getId() != dto.getId())) {
+			throw new MyValidationException("Active exam period already exist");
 		}
-		if(entities.stream().anyMatch(entity->((entity.getStartDate().isBefore(dto.getStartDate())&&entity.getEndDate().isAfter(dto.getStartDate()))
-				||(entity.getStartDate().isBefore(dto.getEndDate())&&entity.getEndDate().isAfter(dto.getEndDate()))))) {
-			throw new MyEntityExistException("Date ovrelap", dto);
+		if (entities.stream()
+				.anyMatch(entity -> ((entity.getStartDate().isBefore(dto.getStartDate())
+						&& entity.getEndDate().isAfter(dto.getStartDate()))
+						|| (entity.getStartDate().isBefore(dto.getEndDate())
+								&& entity.getEndDate().isAfter(dto.getEndDate()))))) {
+			throw new MyValidationException("Date ovrelap");
 		}
-		if(dto.getEndDate().isBefore(dto.getStartDate())) {
-			throw new MyEntityExistException("End date is before start date", dto);
+		if (dto.getEndDate().isBefore(dto.getStartDate())) {
+			throw new MyValidationException("End date is before start date");
 		}
 		return true;
 	}

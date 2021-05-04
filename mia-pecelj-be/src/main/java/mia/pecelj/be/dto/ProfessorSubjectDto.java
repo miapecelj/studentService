@@ -20,25 +20,21 @@ public class ProfessorSubjectDto implements MyDto {
 		// TODO Auto-generated constructor stub
 	}
 
-	
-
 	public ProfessorSubjectId getId() {
 		return id;
 	}
 
 	public ProfessorSubjectDto(SimpleProfessorDto professor, SimpleSubjectDto subject, LocalDate assignDate) {
-	super();
-	this.professor = professor;
-	this.subject = subject;
-	this.assignDate = assignDate;
-	this.id = new ProfessorSubjectId(professor.getId(),subject.getId());
-}
+		super();
+		this.professor = professor;
+		this.subject = subject;
+		this.assignDate = assignDate;
+		this.id = new ProfessorSubjectId(professor.getId(), subject.getId());
+	}
 
 	public void setId(ProfessorSubjectId id) {
 		this.id = id;
 	}
-
-	
 
 	public LocalDate getAssignDate() {
 		return assignDate;

@@ -10,16 +10,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="exam_period")
-public class ExamPeriodEntity implements MyEntity{
+@Table(name = "exam_period")
+public class ExamPeriodEntity implements MyEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -30,10 +26,8 @@ public class ExamPeriodEntity implements MyEntity{
 	private LocalDate endDate;
 	@Column(columnDefinition = "tinyInt(1) default 1")
 	private boolean active;
-	@OneToMany( mappedBy = "examPeriod",
-	        cascade = CascadeType.ALL,
-	        orphanRemoval = true)
-	private List<ExamEntity> exams=new ArrayList<ExamEntity>();
+	@OneToMany(mappedBy = "examPeriod", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<ExamEntity> exams = new ArrayList<ExamEntity>();
 
 	public ExamPeriodEntity() {
 		// TODO Auto-generated constructor stub
@@ -48,14 +42,14 @@ public class ExamPeriodEntity implements MyEntity{
 		this.active = active;
 	}
 
-	
-
 	public void addExam(ExamEntity entity) {
 		exams.add(entity);
 	}
+
 	public void removeExam(ExamEntity entity) {
 		exams.remove(entity);
 	}
+
 	public List<ExamEntity> getExams() {
 		return exams;
 	}
@@ -63,7 +57,6 @@ public class ExamPeriodEntity implements MyEntity{
 	public void setExams(List<ExamEntity> exams) {
 		this.exams = exams;
 	}
-	
 
 	public Long getId() {
 		return id;
@@ -104,10 +97,6 @@ public class ExamPeriodEntity implements MyEntity{
 	public void setActive(boolean active) {
 		this.active = active;
 	}
-
-	
-
-	
 
 	@Override
 	public String toString() {
@@ -160,5 +149,5 @@ public class ExamPeriodEntity implements MyEntity{
 			return false;
 		return true;
 	}
-	
+
 }

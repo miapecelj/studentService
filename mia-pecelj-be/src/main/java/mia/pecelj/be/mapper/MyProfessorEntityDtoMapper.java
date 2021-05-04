@@ -3,7 +3,6 @@ package mia.pecelj.be.mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import mia.pecelj.be.dto.SimpleProfessorDto;
 import mia.pecelj.be.dto.ProfessorDto;
 import mia.pecelj.be.dto.ProfessorSubjectDto;
 import mia.pecelj.be.entity.ProfessorEntity;
@@ -19,12 +18,13 @@ public class MyProfessorEntityDtoMapper {
 
 	@Autowired
 	public MyProfessorEntityDtoMapper(CityEntityDtoMapper cityMapper, TitleEntityDtoMapper titleMapper,
-			SubjectEntityDtoMapper subjectMapper,SubjectEntitySimpleDtoMapper mySubjectMapper,ProfessorEntitySimpleDtoMapper myProfessorMapper) {
+			SubjectEntityDtoMapper subjectMapper, SubjectEntitySimpleDtoMapper mySubjectMapper,
+			ProfessorEntitySimpleDtoMapper myProfessorMapper) {
 		this.cityMapper = cityMapper;
 		this.titleMapper = titleMapper;
 		this.subjectMapper = subjectMapper;
 		this.mySubjectMapper = mySubjectMapper;
-		this.myProfessorMapper=myProfessorMapper;
+		this.myProfessorMapper = myProfessorMapper;
 	}
 
 	public ProfessorDto toDto(ProfessorEntity entity) {
@@ -39,7 +39,8 @@ public class MyProfessorEntityDtoMapper {
 		dto.setCity(cityMapper.toDto(entity.getCity()));
 		dto.setTitle(titleMapper.toDto(entity.getTitle()));
 		for (ProfessorSubjectEntity professorSubject : entity.getSubjects()) {
-			dto.getSubjects().add(new ProfessorSubjectDto(myProfessorMapper.toDto(entity),mySubjectMapper.toDto(professorSubject.getSubject()),professorSubject.getAssignDate()));
+			dto.getSubjects().add(new ProfessorSubjectDto(myProfessorMapper.toDto(entity),
+					mySubjectMapper.toDto(professorSubject.getSubject()), professorSubject.getAssignDate()));
 		}
 		return dto;
 	}
@@ -56,7 +57,8 @@ public class MyProfessorEntityDtoMapper {
 		entity.setCity(cityMapper.toEntity(dto.getCity()));
 		entity.setTitle(titleMapper.toEntity(dto.getTitle()));
 		for (ProfessorSubjectDto professorSubject : dto.getSubjects()) {
-			entity.getSubjects().add(new ProfessorSubjectEntity(entity,mySubjectMapper.toEntity(professorSubject.getSubject())));
+			entity.getSubjects()
+					.add(new ProfessorSubjectEntity(entity, mySubjectMapper.toEntity(professorSubject.getSubject())));
 		}
 		return entity;
 

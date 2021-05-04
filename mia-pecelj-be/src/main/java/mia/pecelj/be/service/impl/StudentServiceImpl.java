@@ -6,29 +6,22 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import mia.pecelj.be.dto.ExamDto;
 import mia.pecelj.be.dto.StudentDto;
 import mia.pecelj.be.entity.CityEntity;
 import mia.pecelj.be.entity.ExamEntity;
-import mia.pecelj.be.entity.ExamPeriodEntity;
 import mia.pecelj.be.entity.ExamRegistrationEntity;
-import mia.pecelj.be.entity.ProfessorEntity;
 import mia.pecelj.be.entity.StudentEntity;
-import mia.pecelj.be.entity.SubjectEntity;
-import mia.pecelj.be.entity.TitleEntity;
 import mia.pecelj.be.exception.MyEntityExistException;
 import mia.pecelj.be.exception.MyEntityNotPresentedException;
-import mia.pecelj.be.mapper.ExamEntityDtoMapper;
+import mia.pecelj.be.exception.MyValidationException;
 import mia.pecelj.be.mapper.ExamEntitySimpleDtoMapper;
 import mia.pecelj.be.mapper.MyStudentEntityDtoMapper;
-import mia.pecelj.be.mapper.StudentEntityDtoMapper;
 import mia.pecelj.be.repository.CityRepository;
 import mia.pecelj.be.repository.ExamRepository;
 import mia.pecelj.be.repository.StudentRepository;
@@ -40,17 +33,15 @@ public class StudentServiceImpl implements StudentService {
 	private StudentRepository studentRepository;
 	private MyStudentEntityDtoMapper studentMapper;
 	private CityRepository cityRepository;
-	private ExamEntitySimpleDtoMapper examMapper;
 	private ExamRepository examRepository;
 
 	@Autowired
 	public StudentServiceImpl(StudentRepository studentRepository, MyStudentEntityDtoMapper studentMapper,
-			CityRepository cityRepository,ExamEntitySimpleDtoMapper examMapper,ExamRepository examRepository) {
+			CityRepository cityRepository, ExamEntitySimpleDtoMapper examMapper,ExamRepository examRepository) {
 		this.studentRepository = studentRepository;
 		this.studentMapper = studentMapper;
 		this.cityRepository = cityRepository;
-		this.examMapper=examMapper;
-		this.examRepository=examRepository;
+		this.examRepository =examRepository;
 
 	}
 
@@ -73,11 +64,11 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override
 	public StudentDto save(StudentDto dto) throws MyEntityExistException, MyEntityNotPresentedException {
-		if(dto.getCity()!=null) {
-		Optional<CityEntity> cityEntity = cityRepository.findById(dto.getCity().getPostalCode());
-		if (!cityEntity.isPresent()) {
-			throw new MyEntityNotPresentedException("city does not exist");
-		}
+		if (dto.getCity() != null) {
+			Optional<CityEntity> cityEntity = cityRepository.findById(dto.getCity().getPostalCode());
+			if (!cityEntity.isPresent()) {
+				throw new MyEntityNotPresentedException("city does not exist");
+			}
 		}
 		Optional<StudentEntity> studentEntity = studentRepository.findById(dto.getId());
 		if (studentEntity.isPresent()) {
@@ -89,20 +80,20 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override
 	public Optional<StudentDto> update(StudentDto dto) throws MyEntityNotPresentedException {
-		if(dto.getCity()!=null) {
+		if (dto.getCity() != null) {
 			Optional<CityEntity> cityEntity = cityRepository.findById(dto.getCity().getPostalCode());
 			if (!cityEntity.isPresent()) {
 				throw new MyEntityNotPresentedException(
 						"City with code " + dto.getCity().getPostalCode() + " does not exist!");
 			}
-			}
-			
-			Optional<StudentEntity> studentEntity = studentRepository.findById(dto.getId());
-			if (!studentEntity.isPresent()) {
-				return Optional.empty();
-			}
-			StudentEntity student = studentRepository.save(studentMapper.toEntity(dto));
-			return Optional.of(studentMapper.toDto(student));
+		}
+
+		Optional<StudentEntity> studentEntity = studentRepository.findById(dto.getId());
+		if (!studentEntity.isPresent()) {
+			return Optional.empty();
+		}
+		StudentEntity student = studentRepository.save(studentMapper.toEntity(dto));
+		return Optional.of(studentMapper.toDto(student));
 	}
 
 	@Override
@@ -124,38 +115,36 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public StudentDto addExam(Long examId,Long studentId) throws MyEntityNotPresentedException {
+	public StudentDto addExam(Long examId, Long studentId) throws MyEntityNotPresentedException, MyValidationException {
 		Optional<StudentEntity> studentEntity = studentRepository.findById(studentId);
 		if (!studentEntity.isPresent()) {
 			throw new MyEntityNotPresentedException("student does not exist");
 		}
 		Optional<ExamEntity> examEntity = examRepository.findById(examId);
-		if(!examEntity.isPresent()) {
+		if (!examEntity.isPresent()) {
 			throw new MyEntityNotPresentedException("exam does not exist");
 		}
 		try {
-		isValid(examEntity.get(),studentEntity.get());
-		}catch (MyEntityNotPresentedException e) {
+			isValid(examEntity.get(), studentEntity.get());
+		} catch (MyValidationException e) {
 			throw e;
 		}
 		StudentEntity student = studentEntity.get();
 		ExamEntity exam = examEntity.get();
-		student.getExams().add(new ExamRegistrationEntity(student,exam));
+		student.getExams().add(new ExamRegistrationEntity(student, exam));
 		studentRepository.save(student);
 		return studentMapper.toDto(student);
 	}
 
-	
+	private void isValid(ExamEntity examEntity, StudentEntity studentEntity) throws MyValidationException {
+		if (examEntity.getSubject().getYearOfStudy() > studentEntity.getCurrentYearOfStudy()) {
+			throw new MyValidationException("Student can't register subject that is from higher year of study");
+		}
+		if ((LocalDate.now().plusWeeks(1).isBefore(examEntity.getExamPeriod().getStartDate())
+				|| LocalDate.now().isAfter(examEntity.getExamPeriod().getStartDate()))) {
+			throw new MyValidationException("Exam can be registered one week before start of exam period");
+		}
 
-	private void isValid(ExamEntity examEntity, StudentEntity studentEntity) throws MyEntityNotPresentedException {
-		if(examEntity.getSubject().getYearOfStudy()>studentEntity.getCurrentYearOfStudy()) {
-			throw new MyEntityNotPresentedException("Student can't register subject that is from higher year of study");
-		}
-		if((LocalDate.now().plusWeeks(1).isBefore(examEntity.getExamPeriod().getStartDate()) || LocalDate.now().isAfter(examEntity.getExamPeriod().getStartDate()))) {
-			throw new MyEntityNotPresentedException("Exam can be registered one week before start of exam period");
-		}
-		
-		
 	}
 
 	@Override
@@ -170,11 +159,10 @@ public class StudentServiceImpl implements StudentService {
 		}
 		ExamEntity exam = examEntity.get();
 		StudentEntity student = studentEntity.get();
-		student.getExams().remove(new ExamRegistrationEntity(student,exam));
-		student =  studentRepository.save(student);
+		student.getExams().remove(new ExamRegistrationEntity(student, exam));
+		student = studentRepository.save(student);
 		return studentMapper.toDto(student);
-		
+
 	}
-	
 
 }

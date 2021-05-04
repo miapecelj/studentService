@@ -11,11 +11,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
 
-import org.springframework.data.annotation.CreatedDate;
-
 @Entity
 @Table(name = "professor_subject")
-public class ProfessorSubjectEntity implements MyEntity{
+public class ProfessorSubjectEntity implements MyEntity {
 
 	@EmbeddedId
 	private ProfessorSubjectId id;

@@ -1,7 +1,6 @@
 package mia.pecelj.be.dto;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.validation.constraints.Max;
@@ -10,9 +9,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import mia.pecelj.be.entity.ExamEntity;
-import mia.pecelj.be.entity.ExamRegistrationEntity;
-
 public class StudentDto implements MyDto {
 	/**
 	 * 
@@ -20,8 +16,8 @@ public class StudentDto implements MyDto {
 	private static final long serialVersionUID = 1L;
 	private long id;
 	@NotNull
-	@Size(min=4)
-	@Size(max=4)
+	@Size(min = 4)
+	@Size(max = 4)
 	private String indexNumber;
 	@NotNull
 	@Min(2000)
@@ -40,7 +36,7 @@ public class StudentDto implements MyDto {
 	private CityDto city;
 	@NotNull
 	private int currentYearOfStudy;
-	List<ExamRegistrationDto> exams=new ArrayList<ExamRegistrationDto>();
+	List<ExamRegistrationDto> exams = new ArrayList<ExamRegistrationDto>();
 
 	public StudentDto() {
 		// TODO Auto-generated constructor stub
@@ -59,7 +55,6 @@ public class StudentDto implements MyDto {
 		this.city = city;
 		this.currentYearOfStudy = currentYearOfStudy;
 	}
-	
 
 	public List<ExamRegistrationDto> getExams() {
 		return exams;

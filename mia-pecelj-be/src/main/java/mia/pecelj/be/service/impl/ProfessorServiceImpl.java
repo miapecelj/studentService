@@ -40,12 +40,11 @@ public class ProfessorServiceImpl implements ProfessorService {
 	SubjectEntityDtoMapper subjectMapper;
 	SubjectRepository subjectRepository;
 	SubjectEntitySimpleDtoMapper mySubjectMapper;
-	
 
 	@Autowired
-	public ProfessorServiceImpl( ProfessorRepository professorRepository,
-			CityRepository cityRepository, TitleRepository titleRepository, SubjectEntityDtoMapper subjectMapper,
-			SubjectRepository subjectRepository,MyProfessorEntityDtoMapper professorMapper) {
+	public ProfessorServiceImpl(ProfessorRepository professorRepository, CityRepository cityRepository,
+			TitleRepository titleRepository, SubjectEntityDtoMapper subjectMapper, SubjectRepository subjectRepository,
+			MyProfessorEntityDtoMapper professorMapper) {
 		this.professorRepository = professorRepository;
 		this.cityRepository = cityRepository;
 		this.titleRepository = titleRepository;
@@ -73,11 +72,11 @@ public class ProfessorServiceImpl implements ProfessorService {
 
 	@Override
 	public ProfessorDto save(ProfessorDto dto) throws MyEntityExistException, MyEntityNotPresentedException {
-		if(dto.getCity()!=null) {
-		Optional<CityEntity> cityEntity = cityRepository.findById(dto.getCity().getPostalCode());
-		if (!cityEntity.isPresent()) {
-			throw new MyEntityNotPresentedException("city does not exist");
-		}
+		if (dto.getCity() != null) {
+			Optional<CityEntity> cityEntity = cityRepository.findById(dto.getCity().getPostalCode());
+			if (!cityEntity.isPresent()) {
+				throw new MyEntityNotPresentedException("city does not exist");
+			}
 		}
 		Optional<TitleEntity> titleEntity = titleRepository.findById(dto.getTitle().getId());
 		if (!titleEntity.isPresent()) {
@@ -98,12 +97,12 @@ public class ProfessorServiceImpl implements ProfessorService {
 
 	@Override
 	public Optional<ProfessorDto> update(ProfessorDto dto) throws MyEntityNotPresentedException {
-		if(dto.getCity()!=null) {
-		Optional<CityEntity> cityEntity = cityRepository.findById(dto.getCity().getPostalCode());
-		if (!cityEntity.isPresent()) {
-			throw new MyEntityNotPresentedException(
-					"City with code " + dto.getCity().getPostalCode() + " does not exist!");
-		}
+		if (dto.getCity() != null) {
+			Optional<CityEntity> cityEntity = cityRepository.findById(dto.getCity().getPostalCode());
+			if (!cityEntity.isPresent()) {
+				throw new MyEntityNotPresentedException(
+						"City with code " + dto.getCity().getPostalCode() + " does not exist!");
+			}
 		}
 		Optional<TitleEntity> titleEntity = titleRepository.findById(dto.getTitle().getId());
 		if (!titleEntity.isPresent()) {

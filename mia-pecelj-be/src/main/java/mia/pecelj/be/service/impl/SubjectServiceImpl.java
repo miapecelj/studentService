@@ -18,7 +18,6 @@ import mia.pecelj.be.entity.SubjectEntity;
 import mia.pecelj.be.exception.MyEntityExistException;
 import mia.pecelj.be.exception.MyEntityNotPresentedException;
 import mia.pecelj.be.mapper.ProfessorEntitySimpleDtoMapper;
-import mia.pecelj.be.mapper.SubjectEntitySimpleDtoMapper;
 import mia.pecelj.be.mapper.SubjectEntityDtoMapper;
 import mia.pecelj.be.repository.SubjectRepository;
 import mia.pecelj.be.service.SubjectService;
@@ -29,14 +28,13 @@ public class SubjectServiceImpl implements SubjectService {
 	private SubjectRepository subjectRepository;
 	private SubjectEntityDtoMapper subjectMapper;
 	private ProfessorEntitySimpleDtoMapper professorMapper;
-	private SubjectEntitySimpleDtoMapper mySubjectMapper;
 
 	@Autowired
-	public SubjectServiceImpl(SubjectRepository subjectRepository, SubjectEntityDtoMapper subjectMapper, ProfessorEntitySimpleDtoMapper professorMapper,SubjectEntitySimpleDtoMapper mySubjectMapper ) {
+	public SubjectServiceImpl(SubjectRepository subjectRepository, SubjectEntityDtoMapper subjectMapper,
+			ProfessorEntitySimpleDtoMapper professorMapper) {
 		this.subjectMapper = subjectMapper;
 		this.subjectRepository = subjectRepository;
 		this.professorMapper = professorMapper;
-		this.mySubjectMapper=mySubjectMapper;
 	}
 
 	@Override
@@ -64,7 +62,7 @@ public class SubjectServiceImpl implements SubjectService {
 		if (entity.isPresent()) {
 			throw new MyEntityExistException("Subject already exists!", dto);
 		}
-		
+
 		SubjectEntity subject = subjectRepository.save(subjectMapper.toEntity(dto));
 		return subjectMapper.toDto(subject);
 	}
@@ -72,12 +70,14 @@ public class SubjectServiceImpl implements SubjectService {
 	@Override
 	public Optional<SubjectDto> update(SubjectDto dto) {
 		Optional<SubjectEntity> entity = subjectRepository.findById(dto.getId());
-		if (entity.isPresent()) {	
+		if (entity.isPresent()) {
 			List<ProfessorSubjectEntity> professors = entity.get().getProfessors();
-			for(ProfessorSubjectEntity professorSubjectEntity:professors) {
-				dto.getProfessors().add(new ProfessorSubjectDto(professorMapper.toDto(professorSubjectEntity.getProfessor()),
-						new SimpleSubjectDto(dto.getId(), dto.getName(), dto.getDescription(), dto.getNoOfEspb(), dto.getYearOfStudy(), null),
-						professorSubjectEntity.getAssignDate()));
+			for (ProfessorSubjectEntity professorSubjectEntity : professors) {
+				dto.getProfessors()
+						.add(new ProfessorSubjectDto(professorMapper.toDto(professorSubjectEntity.getProfessor()),
+								new SimpleSubjectDto(dto.getId(), dto.getName(), dto.getDescription(),
+										dto.getNoOfEspb(), dto.getYearOfStudy(), null),
+								professorSubjectEntity.getAssignDate()));
 			}
 			SubjectEntity subjectEntity = subjectRepository.save(subjectMapper.toEntity(dto));
 			return Optional.of(subjectMapper.toDto(subjectEntity));
@@ -90,7 +90,7 @@ public class SubjectServiceImpl implements SubjectService {
 		Optional<SubjectEntity> entity = subjectRepository.findById(id);
 		if (!entity.isPresent()) {
 			throw new MyEntityNotPresentedException("Subject with id " + id + " does not exist!");
-			
+
 		}
 		subjectRepository.delete(entity.get());
 		return subjectMapper.toDto(entity.get());

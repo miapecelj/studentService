@@ -22,9 +22,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "professor",uniqueConstraints = {
-		@UniqueConstraint(columnNames = {"email"})
-})
+@Table(name = "professor", uniqueConstraints = { @UniqueConstraint(columnNames = { "email" }) })
 public class ProfessorEntity implements MyEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -162,7 +160,6 @@ public class ProfessorEntity implements MyEntity {
 	public void setTitle(TitleEntity title) {
 		this.title = title;
 	}
-	
 
 	@Override
 	public boolean equals(Object o) {

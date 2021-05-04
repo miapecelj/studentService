@@ -9,13 +9,14 @@ import org.springframework.data.domain.Pageable;
 import mia.pecelj.be.dto.ExamPeriodDto;
 import mia.pecelj.be.exception.MyEntityExistException;
 import mia.pecelj.be.exception.MyEntityNotPresentedException;
+import mia.pecelj.be.exception.MyValidationException;
 
 public interface ExamPeriodService {
 
 	Optional<ExamPeriodDto> findById(Long id);
 	List<ExamPeriodDto> getAll();
-	ExamPeriodDto save(ExamPeriodDto dto) throws MyEntityExistException;
-	Optional<ExamPeriodDto> update(ExamPeriodDto dto) throws MyEntityExistException;
+	ExamPeriodDto save(ExamPeriodDto dto) throws MyEntityExistException, MyValidationException;
+	Optional<ExamPeriodDto> update(ExamPeriodDto dto) throws MyEntityExistException, MyValidationException;
 	ExamPeriodDto delete(Long id) throws MyEntityNotPresentedException;
 	public Page<ExamPeriodDto> getAll(Pageable pageable);
 }

@@ -12,17 +12,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import mia.pecelj.be.dto.ExamDto;
-import mia.pecelj.be.dto.SimpleProfessorDto;
-import mia.pecelj.be.dto.StudentDto;
 import mia.pecelj.be.entity.ExamEntity;
 import mia.pecelj.be.entity.ExamPeriodEntity;
 import mia.pecelj.be.entity.ProfessorEntity;
-import mia.pecelj.be.entity.StudentEntity;
 import mia.pecelj.be.entity.SubjectEntity;
 import mia.pecelj.be.exception.MyEntityExistException;
 import mia.pecelj.be.exception.MyEntityNotPresentedException;
+import mia.pecelj.be.exception.MyValidationException;
 import mia.pecelj.be.mapper.ExamEntityDtoMapper;
-import mia.pecelj.be.mapper.ProfessorEntitySimpleDtoMapper;
 import mia.pecelj.be.repository.ExamPeriodRepository;
 import mia.pecelj.be.repository.ExamRepository;
 import mia.pecelj.be.repository.ProfessorRepository;
@@ -31,23 +28,24 @@ import mia.pecelj.be.service.ExamService;
 
 @Service
 @Transactional
-public class ExamServiceImpl implements ExamService{
+public class ExamServiceImpl implements ExamService {
 	ExamRepository examRepository;
 	ExamPeriodRepository examPeriodRepository;
 	ProfessorRepository professorRepository;
 	SubjectRepository subjectRepository;
 	ExamEntityDtoMapper examMapper;
+
 	@Autowired
-	public ExamServiceImpl(ExamRepository examRepository,ExamPeriodRepository examPeriodRepository,ProfessorRepository professorRepository,
-			SubjectRepository subjectRepository,ExamEntityDtoMapper examMapper) {
-		this.examPeriodRepository=examPeriodRepository;
-		this.examRepository=examRepository;
-		this.professorRepository=professorRepository;
-		this.subjectRepository=subjectRepository;
-		this.examMapper=examMapper;
+	public ExamServiceImpl(ExamRepository examRepository, ExamPeriodRepository examPeriodRepository,
+			ProfessorRepository professorRepository, SubjectRepository subjectRepository,
+			ExamEntityDtoMapper examMapper) {
+		this.examPeriodRepository = examPeriodRepository;
+		this.examRepository = examRepository;
+		this.professorRepository = professorRepository;
+		this.subjectRepository = subjectRepository;
+		this.examMapper = examMapper;
 
 	}
-	
 
 	@Override
 	public Optional<ExamDto> findById(Long id) {
@@ -67,67 +65,75 @@ public class ExamServiceImpl implements ExamService{
 	}
 
 	@Override
-	public ExamDto save(ExamDto dto) throws MyEntityExistException, MyEntityNotPresentedException {
-		if(dto.getExamPeriod()!=null) {
+	public ExamDto save(ExamDto dto)
+			throws MyEntityExistException, MyEntityNotPresentedException, MyValidationException {
+		if (dto.getExamPeriod() != null) {
 			Optional<ExamPeriodEntity> examPeriodEntity = examPeriodRepository.findById(dto.getExamPeriod().getId());
 			if (!examPeriodEntity.isPresent()) {
 				throw new MyEntityNotPresentedException("examPeriod does not exist");
-			}else {
-				if(examPeriodEntity.get().getExams().stream().map(exam->exam.getSubject().getId()).collect(Collectors.toList()).contains(dto.getSubject().getId())) {
-					throw new MyEntityExistException("Exam for this subject already defined in this examPeriod", dto);
+			} else {
+				if (examPeriodEntity.get().getExams().stream().map(exam -> exam.getSubject().getId())
+						.collect(Collectors.toList()).contains(dto.getSubject().getId())) {
+					throw new MyValidationException("Exam for this subject already defined in this examPeriod");
 				}
-				if(dto.getDateOfExam().isBefore(examPeriodEntity.get().getStartDate())|| dto.getDateOfExam().isAfter(examPeriodEntity.get().getEndDate())) {
-					throw new MyEntityNotPresentedException("Date of exam must be between "+examPeriodEntity.get().getStartDate()+" and "+examPeriodEntity.get().getEndDate());
+				if (dto.getDateOfExam().isBefore(examPeriodEntity.get().getStartDate())
+						|| dto.getDateOfExam().isAfter(examPeriodEntity.get().getEndDate())) {
+					throw new MyValidationException("Date of exam must be between "
+							+ examPeriodEntity.get().getStartDate() + " and " + examPeriodEntity.get().getEndDate());
 				}
 
 			}
-			}
-			Optional<SubjectEntity>  subjectEntity= subjectRepository.findById(dto.getSubject().getId());
-			if (!subjectEntity.isPresent()) {
-				throw new MyEntityNotPresentedException("subject does not exist");
-			}
-			Optional<ProfessorEntity>  professorEntity= professorRepository.findById(dto.getProfessor().getId());
-			if (!professorEntity.isPresent()) {
-				throw new MyEntityNotPresentedException("professor  does not exist");
-			}
-			Optional<ExamEntity>  examEntity= examRepository.findById(dto.getId());
-			if (examEntity.isPresent()) {
-				throw new MyEntityExistException("exam already exist",dto);
-			}
-			ExamEntity exam = examRepository.save(examMapper.toEntity(dto));
-			return examMapper.toDto(exam);
+		}
+		Optional<SubjectEntity> subjectEntity = subjectRepository.findById(dto.getSubject().getId());
+		if (!subjectEntity.isPresent()) {
+			throw new MyEntityNotPresentedException("subject does not exist");
+		}
+		Optional<ProfessorEntity> professorEntity = professorRepository.findById(dto.getProfessor().getId());
+		if (!professorEntity.isPresent()) {
+			throw new MyEntityNotPresentedException("professor  does not exist");
+		}
+		Optional<ExamEntity> examEntity = examRepository.findById(dto.getId());
+		if (examEntity.isPresent()) {
+			throw new MyEntityExistException("exam already exist", dto);
+		}
+		ExamEntity exam = examRepository.save(examMapper.toEntity(dto));
+		return examMapper.toDto(exam);
 	}
 
 	@Override
-	public Optional<ExamDto> update(ExamDto dto) throws MyEntityNotPresentedException, MyEntityExistException {
-		if(dto.getExamPeriod()!=null) {
+	public Optional<ExamDto> update(ExamDto dto)
+			throws MyEntityNotPresentedException, MyEntityExistException, MyValidationException {
+		if (dto.getExamPeriod() != null) {
 			Optional<ExamPeriodEntity> examPeriodEntity = examPeriodRepository.findById(dto.getExamPeriod().getId());
 			if (!examPeriodEntity.isPresent()) {
 				throw new MyEntityNotPresentedException("examPeriod does not exist");
-			}else {
-				if(examPeriodEntity.get().getExams().stream().map(exam->exam.getSubject().getId()).collect(Collectors.toList()).contains(dto.getSubject().getId())) {
-					throw new MyEntityExistException("Exam for this subject already defined in this examPeriod", dto);
+			} else {
+				if (examPeriodEntity.get().getExams().stream().map(exam -> exam.getSubject().getId())
+						.collect(Collectors.toList()).contains(dto.getSubject().getId())) {
+					throw new MyValidationException("Exam for this subject already defined in this examPeriod");
 				}
-				if(dto.getDateOfExam().isBefore(examPeriodEntity.get().getStartDate())|| dto.getDateOfExam().isAfter(examPeriodEntity.get().getEndDate())) {
-					throw new MyEntityNotPresentedException("Date of exam must be between "+examPeriodEntity.get().getStartDate()+" and "+examPeriodEntity.get().getEndDate());
+				if (dto.getDateOfExam().isBefore(examPeriodEntity.get().getStartDate())
+						|| dto.getDateOfExam().isAfter(examPeriodEntity.get().getEndDate())) {
+					throw new MyValidationException("Date of exam must be between "
+							+ examPeriodEntity.get().getStartDate() + " and " + examPeriodEntity.get().getEndDate());
 				}
 
 			}
-			}
-			Optional<SubjectEntity>  subjectEntity= subjectRepository.findById(dto.getSubject().getId());
-			if (!subjectEntity.isPresent()) {
-				throw new MyEntityNotPresentedException("subject does not exist");
-			}
-			Optional<ProfessorEntity>  professorEntity= professorRepository.findById(dto.getProfessor().getId());
-			if (!professorEntity.isPresent()) {
-				throw new MyEntityNotPresentedException("professor  does not exist");
-			}
-			Optional<ExamEntity>  examEntity= examRepository.findById(dto.getId());
-			if (!examEntity.isPresent()) {
-				throw new MyEntityNotPresentedException("exam already exist");
-			}
-			ExamEntity exam = examRepository.save(examMapper.toEntity(dto));
-			return Optional.of(examMapper.toDto(exam));
+		}
+		Optional<SubjectEntity> subjectEntity = subjectRepository.findById(dto.getSubject().getId());
+		if (!subjectEntity.isPresent()) {
+			throw new MyEntityNotPresentedException("subject does not exist");
+		}
+		Optional<ProfessorEntity> professorEntity = professorRepository.findById(dto.getProfessor().getId());
+		if (!professorEntity.isPresent()) {
+			throw new MyEntityNotPresentedException("professor  does not exist");
+		}
+		Optional<ExamEntity> examEntity = examRepository.findById(dto.getId());
+		if (!examEntity.isPresent()) {
+			throw new MyEntityNotPresentedException("exam already exist");
+		}
+		ExamEntity exam = examRepository.save(examMapper.toEntity(dto));
+		return Optional.of(examMapper.toDto(exam));
 	}
 
 	@Override
@@ -146,10 +152,5 @@ public class ExamServiceImpl implements ExamService{
 		Page<ExamDto> entites = examRepository.findAll(pageable).map(examMapper::toDto);
 		return entites;
 	}
-	
 
 }
-
-
-
-

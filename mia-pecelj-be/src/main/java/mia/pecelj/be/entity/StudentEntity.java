@@ -1,7 +1,6 @@
 package mia.pecelj.be.entity;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -14,25 +13,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.NaturalIdCache;
 
 @Entity
-@Table(name = "student",uniqueConstraints = {
-		@UniqueConstraint(columnNames = {"email"})
-})
+@Table(name = "student", uniqueConstraints = { @UniqueConstraint(columnNames = { "email" }) })
 @NaturalIdCache
 public class StudentEntity implements Serializable, MyEntity {
 	/**
@@ -63,17 +53,14 @@ public class StudentEntity implements Serializable, MyEntity {
 	public StudentEntity() {
 		// TODO Auto-generated constructor stub
 	}
-	
 
 	public List<ExamRegistrationEntity> getExams() {
 		return exams;
 	}
 
-
 	public void setExams(List<ExamRegistrationEntity> exams) {
 		this.exams = exams;
 	}
-
 
 	public StudentEntity(Long id, String indexNumber, int indexYear, String firstname, String lastname, String email,
 			String address, int currentYearOfStudy, CityEntity city) {
@@ -88,9 +75,6 @@ public class StudentEntity implements Serializable, MyEntity {
 		this.currentYearOfStudy = currentYearOfStudy;
 		this.city = city;
 	}
-
-	
-
 
 	public String getAddress() {
 		return address;
@@ -128,12 +112,9 @@ public class StudentEntity implements Serializable, MyEntity {
 		return indexYear;
 	}
 
-	
-
 	public void setIndexYear(int indexYear) {
 		this.indexYear = indexYear;
 	}
-
 
 	public String getFirstname() {
 		return firstname;
@@ -174,7 +155,6 @@ public class StudentEntity implements Serializable, MyEntity {
 	public void setCity(CityEntity city) {
 		this.city = city;
 	}
-	
 
 	@Override
 	public String toString() {
@@ -182,8 +162,6 @@ public class StudentEntity implements Serializable, MyEntity {
 				+ firstname + ", lastname=" + lastname + ", email=" + email + ", address=" + address
 				+ ", currentYearOfStudy=" + currentYearOfStudy + ", city=" + city + "]";
 	}
-
-	
 
 	@Override
 	public boolean equals(Object o) {
@@ -200,14 +178,12 @@ public class StudentEntity implements Serializable, MyEntity {
 		return Objects.hash(id);
 	}
 
-
 	public void addSubject(ExamEntity exam) {
 		ExamRegistrationEntity examRegistration = new ExamRegistrationEntity(this, exam);
 		exams.add(examRegistration);
 		exam.getStudents().add(examRegistration);
-		
-	}
 
+	}
 
 	public void removeSubject(ExamEntity exam) {
 		for (Iterator<ExamRegistrationEntity> iterator = exams.iterator(); iterator.hasNext();) {
@@ -220,7 +196,7 @@ public class StudentEntity implements Serializable, MyEntity {
 				examRegistration.setExam(null);
 			}
 		}
-		
+
 	}
 
 }

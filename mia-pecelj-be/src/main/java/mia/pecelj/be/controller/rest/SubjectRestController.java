@@ -57,18 +57,18 @@ public class SubjectRestController {
 			BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			Map<String, String> errors = new HashMap<>();
-		    bindingResult.getAllErrors().forEach((error) -> {
-		        String fieldName = ((FieldError) error).getField();
-		        String errorMessage = error.getDefaultMessage();
-		        errors.put(fieldName, errorMessage);
-		    });
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error saving subject "+errors);
+			bindingResult.getAllErrors().forEach((error) -> {
+				String fieldName = ((FieldError) error).getField();
+				String errorMessage = error.getDefaultMessage();
+				errors.put(fieldName, errorMessage);
+			});
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error saving subject " + errors);
 		} else {
 			try {
 				return ResponseEntity.status(HttpStatus.OK).body(subjectService.save(subjectDto));
 			} catch (Exception e) {
 				e.printStackTrace();
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error saving subject "+ subjectDto);
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 			}
 		}
 	}
@@ -78,11 +78,11 @@ public class SubjectRestController {
 			BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			Map<String, String> errors = new HashMap<>();
-		    bindingResult.getAllErrors().forEach((error) -> {
-		        String fieldName = ((FieldError) error).getField();
-		        String errorMessage = error.getDefaultMessage();
-		        errors.put(fieldName, errorMessage);
-		    });
+			bindingResult.getAllErrors().forEach((error) -> {
+				String fieldName = ((FieldError) error).getField();
+				String errorMessage = error.getDefaultMessage();
+				errors.put(fieldName, errorMessage);
+			});
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
 		} else {
 			Optional<SubjectDto> subject = subjectService.update(subjectDto);

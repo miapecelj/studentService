@@ -1,7 +1,5 @@
 package mia.pecelj.be.dto;
 
-
-
 import mia.pecelj.be.entity.Semester;
 
 public class SimpleSubjectDto {
@@ -11,11 +9,13 @@ public class SimpleSubjectDto {
 	private int noOfEspb;
 	private int yearOfStudy;
 	private Semester semester;
+
 	public SimpleSubjectDto() {
 		// TODO Auto-generated constructor stub
 	}
-	
-	public SimpleSubjectDto(long id, String name, String description, int noOfEspb, int yearOfStudy, Semester semester) {
+
+	public SimpleSubjectDto(long id, String name, String description, int noOfEspb, int yearOfStudy,
+			Semester semester) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -25,7 +25,6 @@ public class SimpleSubjectDto {
 		this.semester = semester;
 	}
 
-	
 	public long getId() {
 		return id;
 	}
@@ -79,6 +78,5 @@ public class SimpleSubjectDto {
 		return "MySubjectDto [id=" + id + ", name=" + name + ", description=" + description + ", noOfEspb=" + noOfEspb
 				+ ", yearOfStudy=" + yearOfStudy + ", semester=" + semester + "]";
 	}
-	
 
 }

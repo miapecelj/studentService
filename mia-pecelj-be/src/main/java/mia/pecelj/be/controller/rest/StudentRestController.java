@@ -1,6 +1,5 @@
 package mia.pecelj.be.controller.rest;
 
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,9 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import mia.pecelj.be.dto.ExamDto;
 import mia.pecelj.be.dto.StudentDto;
-import mia.pecelj.be.dto.SubjectDto;
 import mia.pecelj.be.service.StudentService;
 
 @RestController
@@ -57,20 +54,21 @@ public class StudentRestController {
 	}
 
 	@PostMapping
-	public @ResponseBody ResponseEntity<Object> save(@Valid @RequestBody StudentDto studentDto, BindingResult bindingResult) {
+	public @ResponseBody ResponseEntity<Object> save(@Valid @RequestBody StudentDto studentDto,
+			BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			Map<String, String> errors = new HashMap<>();
-		    bindingResult.getAllErrors().forEach((error) -> {
-		        String fieldName = ((FieldError) error).getField();
-		        String errorMessage = error.getDefaultMessage();
-		        errors.put(fieldName, errorMessage);
-		    });
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error saving student "+errors);
+			bindingResult.getAllErrors().forEach((error) -> {
+				String fieldName = ((FieldError) error).getField();
+				String errorMessage = error.getDefaultMessage();
+				errors.put(fieldName, errorMessage);
+			});
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error saving student " + errors);
 		} else {
 			try {
 				return ResponseEntity.status(HttpStatus.OK).body(studentService.save(studentDto));
 			} catch (Exception e) {
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Greska kod cuvanja entiteta: " + studentDto);
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 			}
 		}
 	}
@@ -80,11 +78,11 @@ public class StudentRestController {
 			BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			Map<String, String> errors = new HashMap<>();
-		    bindingResult.getAllErrors().forEach((error) -> {
-		        String fieldName = ((FieldError) error).getField();
-		        String errorMessage = error.getDefaultMessage();
-		        errors.put(fieldName, errorMessage);
-		    });
+			bindingResult.getAllErrors().forEach((error) -> {
+				String fieldName = ((FieldError) error).getField();
+				String errorMessage = error.getDefaultMessage();
+				errors.put(fieldName, errorMessage);
+			});
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
 		} else {
 			try {
@@ -114,18 +112,19 @@ public class StudentRestController {
 	public @ResponseBody ResponseEntity<Page<StudentDto>> getByPage(Pageable pageable) {
 		return ResponseEntity.status(HttpStatus.OK).body(studentService.getAll(pageable));
 	}
+
 	@PostMapping("/addExam")
 	public @ResponseBody ResponseEntity<Object> addExam(@RequestParam Long examId, @RequestParam Long studentId) {
-			try {
-				return ResponseEntity.status(HttpStatus.OK).body(studentService.addExam(examId, studentId));
-			} catch (Exception e) {
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-			}
-		
+		try {
+			return ResponseEntity.status(HttpStatus.OK).body(studentService.addExam(examId, studentId));
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+
 	}
 
 	@DeleteMapping("/removeExam")
-	public @ResponseBody ResponseEntity<Object> removeExam(@RequestParam Long studentId,@RequestParam Long examId) {
+	public @ResponseBody ResponseEntity<Object> removeExam(@RequestParam Long studentId, @RequestParam Long examId) {
 		try {
 			studentService.removeExam(studentId, examId);
 			return ResponseEntity.status(HttpStatus.OK).body(studentService.removeExam(studentId, examId));

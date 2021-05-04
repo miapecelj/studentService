@@ -17,10 +17,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-@Table(name="exam") 
+@Table(name = "exam")
 public class ExamEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,12 +27,12 @@ public class ExamEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	private ExamPeriodEntity examPeriod;
 	@ManyToOne
-	@JoinColumn(name="subject_id")
+	@JoinColumn(name = "subject_id")
 	private SubjectEntity subject;
 	@ManyToOne
-	@JoinColumn(name="professor_id")
+	@JoinColumn(name = "professor_id")
 	private ProfessorEntity professor;
-	@Column(name="date_of_exam")
+	@Column(name = "date_of_exam")
 	private LocalDate dateOfExam;
 	@OneToMany(mappedBy = "exam", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ExamRegistrationEntity> students = new ArrayList<ExamRegistrationEntity>();
@@ -41,6 +40,7 @@ public class ExamEntity {
 	public ExamEntity() {
 		// TODO Auto-generated constructor stub
 	}
+
 	public ExamEntity(Long id, ExamPeriodEntity examPeriod, SubjectEntity subject, ProfessorEntity professor,
 			LocalDate dateOfExam) {
 		super();
@@ -50,44 +50,54 @@ public class ExamEntity {
 		this.professor = professor;
 		this.dateOfExam = dateOfExam;
 	}
-	
+
 	public List<ExamRegistrationEntity> getStudents() {
 		return students;
 	}
+
 	public void setStudents(List<ExamRegistrationEntity> students) {
 		this.students = students;
 	}
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public ExamPeriodEntity getExamPeriod() {
 		return examPeriod;
 	}
+
 	public void setExamPeriod(ExamPeriodEntity examPeriod) {
 		this.examPeriod = examPeriod;
 	}
+
 	public SubjectEntity getSubject() {
 		return subject;
 	}
+
 	public void setSubject(SubjectEntity subject) {
 		this.subject = subject;
 	}
+
 	public ProfessorEntity getProfessor() {
 		return professor;
 	}
+
 	public void setProfessor(ProfessorEntity professor) {
 		this.professor = professor;
 	}
+
 	public LocalDate getDateOfExam() {
 		return dateOfExam;
 	}
+
 	public void setDateOfExam(LocalDate dateOfExam) {
 		this.dateOfExam = dateOfExam;
 	}
-	
 
 	@Override
 	public boolean equals(Object o) {
@@ -105,10 +115,11 @@ public class ExamEntity {
 	public int hashCode() {
 		return Objects.hash(id);
 	}
+
 	@Override
 	public String toString() {
 		return "ExamEntity [id=" + id + ", examPeriod=" + examPeriod + ", subject=" + subject + ", professor="
 				+ professor + ", dateOfExam=" + dateOfExam + "]";
 	}
-	
+
 }

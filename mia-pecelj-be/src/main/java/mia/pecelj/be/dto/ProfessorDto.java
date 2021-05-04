@@ -2,14 +2,11 @@ package mia.pecelj.be.dto;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
 public class ProfessorDto implements MyDto {
 	/**
@@ -134,7 +131,6 @@ public class ProfessorDto implements MyDto {
 		this.reelectionDate = reelectionDate;
 	}
 
-	
 	@Override
 	public String toString() {
 		return "ProfessorDto [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email

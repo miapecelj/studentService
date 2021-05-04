@@ -6,16 +6,20 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class StudentExamId implements Serializable{
-	@Column(name="student_id")
+public class StudentExamId implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@Column(name = "student_id")
 	Long studentId;
-	@Column(name="exam_id")
+	@Column(name = "exam_id")
 	Long examId;
-	
+
 	public StudentExamId() {
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	public StudentExamId(Long studentId, Long examId) {
 		super();
 		this.studentId = studentId;
@@ -25,19 +29,24 @@ public class StudentExamId implements Serializable{
 	public Long getStudentId() {
 		return studentId;
 	}
+
 	public void setStudentId(Long studentId) {
 		this.studentId = studentId;
 	}
+
 	public Long getExamId() {
 		return examId;
 	}
+
 	public void setExamId(Long examId) {
 		this.examId = examId;
 	}
+
 	@Override
 	public String toString() {
 		return "StudentExamId [studentId=" + studentId + ", examId=" + examId + "]";
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -46,6 +55,7 @@ public class StudentExamId implements Serializable{
 		result = prime * result + ((studentId == null) ? 0 : studentId.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -67,7 +77,5 @@ public class StudentExamId implements Serializable{
 			return false;
 		return true;
 	}
-	 
-	
 
 }

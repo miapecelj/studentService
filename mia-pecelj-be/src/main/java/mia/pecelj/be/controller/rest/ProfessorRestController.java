@@ -14,7 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -60,20 +59,20 @@ public class ProfessorRestController {
 			BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			Map<String, String> errors = new HashMap<>();
-		    bindingResult.getAllErrors().forEach((error) -> {
-		        String fieldName = ((FieldError) error).getField();
-		        String errorMessage = error.getDefaultMessage();
-		        errors.put(fieldName, errorMessage);
-		    });
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error saving professor "+errors);
-			
+			bindingResult.getAllErrors().forEach((error) -> {
+				String fieldName = ((FieldError) error).getField();
+				String errorMessage = error.getDefaultMessage();
+				errors.put(fieldName, errorMessage);
+			});
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error saving professor " + errors);
+
 		} else {
 			try {
 				return ResponseEntity.status(HttpStatus.OK).body(professorService.save(professorDto));
 			} catch (Exception e) {
 				e.printStackTrace();
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-						.body("Greska kod cuvanja entiteta: " + professorDto);
+						.body(e.getMessage());
 			}
 		}
 	}
@@ -89,7 +88,7 @@ public class ProfessorRestController {
 				return ResponseEntity.status(HttpStatus.OK).body(professorService.addSubject(subject, id));
 			} catch (Exception e) {
 				e.printStackTrace();
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Greska kod dodavanja predmete " + subject);
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 			}
 		}
 	}
@@ -104,7 +103,7 @@ public class ProfessorRestController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-					.body("Greska kod uklanjanja predmeta sa id " + subjectId);
+					.body(e.getMessage());
 		}
 	}
 
@@ -113,11 +112,11 @@ public class ProfessorRestController {
 			BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			Map<String, String> errors = new HashMap<>();
-		    bindingResult.getAllErrors().forEach((error) -> {
-		        String fieldName = ((FieldError) error).getField();
-		        String errorMessage = error.getDefaultMessage();
-		        errors.put(fieldName, errorMessage);
-		    });
+			bindingResult.getAllErrors().forEach((error) -> {
+				String fieldName = ((FieldError) error).getField();
+				String errorMessage = error.getDefaultMessage();
+				errors.put(fieldName, errorMessage);
+			});
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(professorDto);
 		} else {
 			try {
@@ -137,8 +136,8 @@ public class ProfessorRestController {
 	@DeleteMapping("/{id}")
 	public @ResponseBody ResponseEntity<Object> delete(@PathVariable(name = "id") Long id) {
 		try {
-			
-			return ResponseEntity.status(HttpStatus.OK).body( professorService.delete(id));
+
+			return ResponseEntity.status(HttpStatus.OK).body(professorService.delete(id));
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}

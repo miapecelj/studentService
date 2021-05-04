@@ -4,12 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import mia.pecelj.be.dto.ExamRegistrationDto;
-import mia.pecelj.be.dto.ProfessorDto;
-import mia.pecelj.be.dto.ProfessorSubjectDto;
 import mia.pecelj.be.dto.StudentDto;
 import mia.pecelj.be.entity.ExamRegistrationEntity;
-import mia.pecelj.be.entity.ProfessorEntity;
-import mia.pecelj.be.entity.ProfessorSubjectEntity;
 import mia.pecelj.be.entity.StudentEntity;
 
 @Component
@@ -23,6 +19,7 @@ public class MyStudentEntityDtoMapper {
 	ExamEntityDtoMapper examMapper;
 	@Autowired
 	ExamEntitySimpleDtoMapper simpleExamMapper;
+
 	public StudentDto toDto(StudentEntity entity) {
 		StudentDto dto = new StudentDto();
 		dto.setCurrentYearOfStudy(entity.getCurrentYearOfStudy());
@@ -35,7 +32,8 @@ public class MyStudentEntityDtoMapper {
 		dto.setLastname(entity.getLastname());
 		dto.setCity(cityMapper.toDto(entity.getCity()));
 		for (ExamRegistrationEntity examRegistration : entity.getExams()) {
-			dto.getExams().add(new ExamRegistrationDto(studentMapper.toDto(entity),simpleExamMapper.toDto(examRegistration.getExam())));
+			dto.getExams().add(new ExamRegistrationDto(studentMapper.toDto(entity),
+					simpleExamMapper.toDto(examRegistration.getExam())));
 		}
 		return dto;
 	}
@@ -52,7 +50,8 @@ public class MyStudentEntityDtoMapper {
 		entity.setId(dto.getId());
 		entity.setCity(cityMapper.toEntity(dto.getCity()));
 		for (ExamRegistrationDto examRegistration : dto.getExams()) {
-			entity.getExams().add(new ExamRegistrationEntity(entity,simpleExamMapper.toEntity(examRegistration.getExam())));
+			entity.getExams()
+					.add(new ExamRegistrationEntity(entity, simpleExamMapper.toEntity(examRegistration.getExam())));
 		}
 		return entity;
 
