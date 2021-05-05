@@ -4,3 +4,10 @@ INSERT INTO professor_subject(professor_id,subject_id,assign_date)VALUES(2,1,"20
 INSERT INTO professor_subject(professor_id,subject_id,assign_date)VALUES(2,3,"2020.03.12");
 INSERT INTO professor_subject(professor_id,subject_id,assign_date)VALUES(3,2,"2020.03.12");
 INSERT INTO professor_subject(professor_id,subject_id,assign_date)VALUES(3,3,"2020.03.12");
+INSERT INTO professor_subject(professor_id,subject_id,assign_date)VALUES(3,4,"2020.03.12");
+INSERT INTO professor_subject(professor_id,subject_id,assign_date)VALUES(1,4,"2020.03.12");
+INSERT INTO professor_subject(professor_id,subject_id,assign_date)VALUES(3,5,"2020.03.12");
+INSERT INTO professor_subject(professor_id,subject_id,assign_date)VALUES(4,5,"2020.03.12");
+INSERT INTO professor_subject(professor_id,subject_id,assign_date)VALUES(5,6,"2020.03.12");
+INSERT INTO professor_subject(professor_id,subject_id,assign_date)VALUES(2,6,"2020.03.12");
+INSERT INTO professor_subject(professor_id,subject_id,assign_date)VALUES(1,6,"2020.03.12");

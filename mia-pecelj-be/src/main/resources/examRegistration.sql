@@ -1,1 +1,9 @@
-INSERT INTO exam_registration(registration_date, exam_id, student_id) VALUES ("2020.03.12",1,3)
+INSERT INTO exam_registration(registration_date, exam_id, student_id) VALUES ("2020.03.12",1,3);
+INSERT INTO exam_registration(registration_date, exam_id, student_id) VALUES ("2020.03.12",2,3);
+INSERT INTO exam_registration(registration_date, exam_id, student_id) VALUES ("2020.03.12",2,4);
+INSERT INTO exam_registration(registration_date, exam_id, student_id) VALUES ("2020.03.12",1,1);
+INSERT INTO exam_registration(registration_date, exam_id, student_id) VALUES ("2020.03.12",2,1);
+INSERT INTO exam_registration(registration_date, exam_id, student_id) VALUES ("2020.03.12",3,1);
+INSERT INTO exam_registration(registration_date, exam_id, student_id) VALUES ("2020.03.12",1,2);
+INSERT INTO exam_registration(registration_date, exam_id, student_id) VALUES ("2020.03.12",2,5);
+INSERT INTO exam_registration(registration_date, exam_id, student_id) VALUES ("2020.03.12",2,2);
