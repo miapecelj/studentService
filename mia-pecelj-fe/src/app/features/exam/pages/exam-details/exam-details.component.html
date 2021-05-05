@@ -26,7 +26,7 @@
           {{exam?.dateOfExam | date:'shortDate'}}
         </span>
       </div>
-      <div>
+      <div *ngIf="exam?.students.length!=0">
         <h4>Students taking exam:</h4>
         <div class="row">
           <ul>

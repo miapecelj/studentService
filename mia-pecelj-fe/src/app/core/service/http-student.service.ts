@@ -15,8 +15,8 @@ export class HttpStudentService {
   getAll() {
     return this.httpClient.get<Student[]>(`${environment.baseHttpURL}/${this.controlPrefix}`)
   }
-  getByPage(page:number, size: number) {
-    return this.httpClient.get<Page<Student[]>>(`${environment.baseHttpURL}/${this.controlPrefix}/page?page=${page}&size=${size}`);
+  getByPage(page:number, size: number, column?:string, order?:string) {
+    return this.httpClient.get<Page<Student[]>>(`${environment.baseHttpURL}/${this.controlPrefix}/page?page=${page}&size=${size}&sort=${column},${order}`);
   }
   deleteStudent(student:Student):Observable<Student>{
     return this.httpClient.delete<Student>(`${environment.baseHttpURL}/${this.controlPrefix}/${student.id}`);

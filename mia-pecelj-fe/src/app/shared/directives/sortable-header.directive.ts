@@ -8,7 +8,7 @@ export interface SortEvent {
   direction: SortDirection;
 }
 
-const rotate: {[key: string]: SortDirection} = { 'asc': 'desc', 'desc': '', '': 'asc' };
+const rotate: {[key: string]: SortDirection} = { 'asc': 'desc', 'desc': 'asc', '': 'asc' };
 
 @Directive({
   selector: 'th[sortable]',

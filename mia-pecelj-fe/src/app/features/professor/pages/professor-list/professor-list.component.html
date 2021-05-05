@@ -5,9 +5,9 @@
   <thead>
   <tr>
     <th scope="col">#</th>
-    <th scope="col">title</th>
-    <th scope="col">Firstname</th>
-    <th scope="col">Lastname</th>
+    <th scope="col">Title</th>
+    <th sortable="firstname" (sort)="onSort($event)" scope="col">Firstname</th>
+    <th sortable="lastname" (sort)="onSort($event)" scope="col">Lastname</th>
     <th scope="col">Email</th>
     <th scope="col">Phone</th>
     <th scope="col">Action</th>
@@ -27,6 +27,6 @@
   </tr>
   </tbody>
 </table>
-<input type="number" name="pageSize" id="pageSize" [(ngModel)]="pageSize" (change)="onPageChange(1)">
+Items per page:<input type="number" class="itemsPerPage"name="pageSize" id="pageSize" [(ngModel)]="pageSize" (change)="onPageChange(1)">
 <ngb-pagination [collectionSize]="totalItems" (pageChange)="onPageChange($event)" [(page)]="currentPage" [pageSize]="pageSize" [boundaryLinks]="true"></ngb-pagination>
 <button type="button" class="btn btn-primary" [routerLink]="['../professor-form']" >Add professor</button>

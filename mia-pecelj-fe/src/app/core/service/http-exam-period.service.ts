@@ -15,8 +15,8 @@ export class HttpExamPeriodService {
   getAll() {
     return this.httpClient.get<ExamPeriod[]>(`${environment.baseHttpURL}/${this.controlPrefix}`)
   }
-  getByPage(page:number, size: number) {
-    return this.httpClient.get<Page<ExamPeriod[]>>(`${environment.baseHttpURL}/${this.controlPrefix}/page?page=${page}&size=${size}`);
+  getByPage(page:number, size: number, column:string, order:string) {
+    return this.httpClient.get<Page<ExamPeriod[]>>(`${environment.baseHttpURL}/${this.controlPrefix}/page?page=${page}&size=${size}&sort=${column},${order}`);
   }
   deleteExamPeriod(examPeriod:ExamPeriod):Observable<ExamPeriod>{
     return this.httpClient.delete<ExamPeriod>(`${environment.baseHttpURL}/${this.controlPrefix}/${examPeriod.id}`);

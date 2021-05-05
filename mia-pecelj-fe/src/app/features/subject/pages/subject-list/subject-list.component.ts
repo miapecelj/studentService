@@ -9,7 +9,7 @@ import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog
 import { ToastService } from 'src/app/core/service/toast.service';
 import { SortableHeaderDirective,SortEvent} from 'src/app/shared';
 
-const compare = (v1:string | number, v2: string| number)=> v1<v2 ? -1 : v1>v2 ? 1:0;
+
 
 @Component({
   selector: 'app-subject-list',
@@ -27,14 +27,14 @@ export class SubjectListComponent implements OnInit {
 
   @ViewChildren(SortableHeaderDirective) headers: QueryList<SortableHeaderDirective>;
   ngOnInit(): void {
-    this.loadSubjects();
+    this.loadSubjects("","");
   }
   ngOnDestroy() {
     this.destroy$.next(true);
   }
-  loadSubjects(){
+  loadSubjects(column:string,order:string){
 
-    this.httpSubject.getByPage(this.currentPage-1,this.pageSize)
+    this.httpSubject.getByPage(this.currentPage-1,this.pageSize, column, order)
     .pipe(
       takeUntil(this.destroy$)
     ).subscribe(
@@ -48,7 +48,7 @@ export class SubjectListComponent implements OnInit {
   }
   onPageChange(page: number) {
     this.currentPage = page;
-    this.loadSubjects();
+    this.loadSubjects("","");
   }
 
   deleteSubject(subject:Subject){
@@ -72,7 +72,7 @@ export class SubjectListComponent implements OnInit {
 
   deleteSelectedSubject(subject: Subject) {
     this.httpSubject.deleteSubject(subject).subscribe((response) => {
-      this.loadSubjects();
+      this.loadSubjects("","");
       this.toastService.show(
         'Subject Deleted ',
         { header: 'Deleting subject', classname: 'bg-success text-light' }
@@ -87,17 +87,7 @@ export class SubjectListComponent implements OnInit {
     );
   }
   onSort(event: SortEvent) {
-    console.log('sort event', event);
-
-    this.headers.forEach((header) => {
-      if (header.sortable !== event.column) {
-        header.direction = '';
-      }
-      this.subjects = [...this.subjects].sort((a,b)=>{
-        const res = compare(a[event.column],b[event.column]);
-        return event.direction==='desc' ? res:-res;
-      });
-    });
+      this.loadSubjects(event.column,event.direction)
   }
 
 

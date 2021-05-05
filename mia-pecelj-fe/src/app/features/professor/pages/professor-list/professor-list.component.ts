@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
@@ -6,7 +6,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Professor } from 'src/app/core/models/professor.model';
 import { HttpProfessorService } from 'src/app/core/service/http-professor.service';
 import { ToastService } from 'src/app/core/service/toast.service';
-import { ConfirmDialogComponent } from 'src/app/shared';
+import { ConfirmDialogComponent, SortableHeaderDirective, SortEvent } from 'src/app/shared';
 
 @Component({
   selector: 'app-professor-list',
@@ -21,15 +21,16 @@ export class ProfessorListComponent implements OnInit {
   pageSize = 8;
   destroy$: Subject<boolean> = new Subject();
   constructor(private httpProfessor:HttpProfessorService,private router: Router,private modalService: NgbModal,private toastService:ToastService) { }
+  @ViewChildren(SortableHeaderDirective) headers: QueryList<SortableHeaderDirective>;
   ngOnInit(): void {
-    this.loadProfessors();
+    this.loadProfessors("","");
   }
   ngOnDestroy() {
     this.destroy$.next(true);
   }
-  loadProfessors(){
+  loadProfessors(column:string, order:string){
 
-    this.httpProfessor.getByPage(this.currentPage-1,this.pageSize)
+    this.httpProfessor.getByPage(this.currentPage-1,this.pageSize, column, order)
     .pipe(
       takeUntil(this.destroy$)
     ).subscribe(
@@ -43,7 +44,7 @@ export class ProfessorListComponent implements OnInit {
   }
   onPageChange(page: number) {
     this.currentPage = page;
-    this.loadProfessors();
+    this.loadProfessors("","");
   }
   onDeleteClick(professor: Professor) {
     const modalRef = this.modalService.open(ConfirmDialogComponent);
@@ -57,7 +58,7 @@ export class ProfessorListComponent implements OnInit {
 
   deleteSelectedProfessor(professor: Professor) {
     this.httpProfessor.deleteProfessor(professor).subscribe((response) => {
-      this.loadProfessors()
+      this.loadProfessors("","")
       this.toastService.show(
         'Professor Deleted ',
         { header: 'Deleting subject', classname: 'bg-success text-light' }
@@ -71,5 +72,9 @@ export class ProfessorListComponent implements OnInit {
     });
 
   }
+  onSort(event: SortEvent) {
+    console.log(event)
+    this.loadProfessors(event.column,event.direction)
+}
 
 }

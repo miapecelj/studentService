@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
@@ -6,7 +6,7 @@ import { takeUntil } from 'rxjs/operators';
 import { ExamPeriod } from 'src/app/core/models/examPeriod.model';
 import { HttpExamPeriodService } from 'src/app/core/service/http-exam-period.service';
 import { ToastService } from 'src/app/core/service/toast.service';
-import { ConfirmDialogComponent } from 'src/app/shared';
+import { ConfirmDialogComponent, SortableHeaderDirective, SortEvent } from 'src/app/shared';
 
 @Component({
   selector: 'app-exam-period-list',
@@ -20,16 +20,16 @@ export class ExamPeriodListComponent implements OnInit {
   pageSize = 8;
   destroy$: Subject<boolean> = new Subject();
   constructor(private httpExamPeriodService:HttpExamPeriodService,private router: Router,private modalService: NgbModal,private toastService: ToastService) { }
-
+  @ViewChildren(SortableHeaderDirective) headers: QueryList<SortableHeaderDirective>;
   ngOnInit(): void {
-    this.loadExamPeriods();
+    this.loadExamPeriods("","");
   }
   ngOnDestroy() {
     this.destroy$.next(true);
   }
-  loadExamPeriods(){
+  loadExamPeriods(column:string, order:string){
 
-    this.httpExamPeriodService.getByPage(this.currentPage-1,this.pageSize)
+    this.httpExamPeriodService.getByPage(this.currentPage-1,this.pageSize, column, order)
     .pipe(
       takeUntil(this.destroy$)
     ).subscribe(
@@ -43,7 +43,7 @@ export class ExamPeriodListComponent implements OnInit {
   }
   onPageChange(page: number) {
     this.currentPage = page;
-    this.loadExamPeriods();
+    this.loadExamPeriods("","");
   }
   onDeleteClick(examPeriod: ExamPeriod) {
     const modalRef = this.modalService.open(ConfirmDialogComponent);
@@ -56,7 +56,7 @@ export class ExamPeriodListComponent implements OnInit {
 
   deleteSelectedExamPeriod(examPeriod: ExamPeriod) {
     this.httpExamPeriodService.deleteExamPeriod(examPeriod).subscribe((response) => {
-      this.loadExamPeriods();
+      this.loadExamPeriods("","");
       this.toastService.show(
         'Exam period Deleted ',
         { header: 'Deleting exam period', classname: 'bg-success text-light' }
@@ -69,6 +69,9 @@ export class ExamPeriodListComponent implements OnInit {
       )
     });
   }
+  onSort(event: SortEvent) {
+    this.loadExamPeriods(event.column,event.direction)
+}
 
 
 }

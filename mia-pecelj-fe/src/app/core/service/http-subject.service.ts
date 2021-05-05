@@ -18,8 +18,8 @@ export class HttpSubjectService {
   getAll() {
     return this.httpClient.get<Subject[]>(`${environment.baseHttpURL}/${this.controlerPrefix}`)
   }
-  getByPage(page:number, size: number) {
-    return this.httpClient.get<Page<Subject[]>>(`${environment.baseHttpURL}/${this.controlerPrefix}/page?page=${page}&size=${size}`);
+  getByPage(page:number, size: number, column?:string, order?:string) {
+    return this.httpClient.get<Page<Subject[]>>(`${environment.baseHttpURL}/${this.controlerPrefix}/page?page=${page}&size=${size}&sort=${column},${order}`);
   }
   postSubject(subject:Subject):Observable<Subject>{
     return this.httpClient.post<Subject>(`${environment.baseHttpURL}/${this.controlerPrefix}/`,subject);

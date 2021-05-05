@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
@@ -6,7 +6,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Exam } from 'src/app/core/models/exam.model';
 import { HttpExamService } from 'src/app/core/service/http-exam.service';
 import { ToastService } from 'src/app/core/service/toast.service';
-import { ConfirmDialogComponent } from 'src/app/shared';
+import { ConfirmDialogComponent, SortableHeaderDirective, SortEvent } from 'src/app/shared';
 
 @Component({
   selector: 'app-exam-list',
@@ -21,16 +21,16 @@ export class ExamListComponent implements OnInit {
   pageSize = 8;
   destroy$: Subject<boolean> = new Subject();
   constructor(private httpExamService:HttpExamService,private router: Router,private modalService: NgbModal,private toastService: ToastService) { }
-
+  @ViewChildren(SortableHeaderDirective) headers: QueryList<SortableHeaderDirective>;
   ngOnInit(): void {
-    this.loadExams();
+    this.loadExams("","");
   }
   ngOnDestroy() {
     this.destroy$.next(true);
   }
-  loadExams(){
+  loadExams(column:string, order:string){
 
-    this.httpExamService.getByPage(this.currentPage-1,this.pageSize)
+    this.httpExamService.getByPage(this.currentPage-1,this.pageSize, column, order)
     .pipe(
       takeUntil(this.destroy$)
     ).subscribe(
@@ -44,7 +44,7 @@ export class ExamListComponent implements OnInit {
   }
   onPageChange(page: number) {
     this.currentPage = page;
-    this.loadExams();
+    this.loadExams("","");
   }
   onDeleteClick(exam: Exam) {
     const modalRef = this.modalService.open(ConfirmDialogComponent);
@@ -57,7 +57,7 @@ export class ExamListComponent implements OnInit {
 
   deleteSelectedExam(exam: Exam) {
     this.httpExamService.deleteExam(exam).subscribe((response) => {
-      this.loadExams();
+      this.loadExams("","");
       this.toastService.show(
         'Exam Deleted ',
         { header: 'Deleting exam', classname: 'bg-success text-light' }
@@ -71,6 +71,9 @@ export class ExamListComponent implements OnInit {
       )
     });
   }
+  onSort(event: SortEvent) {
+    this.loadExams(event.column,event.direction)
+}
 
 
 }

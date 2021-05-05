@@ -14,8 +14,8 @@ export class HttpProfessorService {
   getAll() {
     return this.httpClient.get<Professor[]>(`${environment.baseHttpURL}/${this.controlPrefix}`)
   }
-  getByPage(page:number, size: number) {
-    return this.httpClient.get<Page<Professor[]>>(`${environment.baseHttpURL}/${this.controlPrefix}/page?page=${page}&size=${size}`);
+  getByPage(page:number, size: number, column:string, order:string) {
+    return this.httpClient.get<Page<Professor[]>>(`${environment.baseHttpURL}/${this.controlPrefix}/page?page=${page}&size=${size}&sort=${column},${order}`);
   }
   deleteProfessor(professor:Professor):Observable<Professor>{
     return this.httpClient.delete<Professor>(`${environment.baseHttpURL}/${this.controlPrefix}/${professor.id}`);

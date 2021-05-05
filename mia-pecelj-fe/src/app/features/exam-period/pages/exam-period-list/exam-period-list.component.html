@@ -4,11 +4,11 @@
   <thead>
   <tr>
     <th scope="col">#</th>
-    <th scope="col">Name</th>
-    <th scope="col">Start date</th>
+    <th sortable="name" (sort)="onSort($event)" scope="col">Name</th>
+    <th sortable="startDate" (sort)="onSort($event)" scope="col">Start date</th>
     <th scope="col">End date</th>
     <th scope="col">Active</th>
-    <th scope="col">Action</th>
+    <th sortable="active" (sort)="onSort($event)" scope="col">Action</th>
   </tr>
   </thead>
   <tbody>
@@ -17,13 +17,14 @@
     <td>{{ examPeriod.name }}</td>
     <td>{{ examPeriod.startDate | date:'shortDate'}}</td>
     <td>{{ examPeriod.endDate | date:'shortDate'}}</td>
-    <td>{{ examPeriod.active }}</td>
+    <td> <span *ngIf="examPeriod.active">Yes</span>
+      <span *ngIf="!examPeriod.active">No</span></td>
     <td><button type="button" class="btn btn-primary" [routerLink]="['../examPeriod-details', examPeriod.id]" >Details</button>
       <button type="button" class="btn btn-primary" [routerLink]="['../examPeriod-form', examPeriod.id]" >Edit</button>
       <button (click)="onDeleteClick(examPeriod)"  type="button" class="btn btn-danger">Delete</button></td>
   </tr>
   </tbody>
 </table>
-<input type="number" name="pageSize" id="pageSize" [(ngModel)]="pageSize" (change)="onPageChange(1)">
+Items per page:<input type="number" class="itemsPerPage"name="pageSize" id="pageSize" [(ngModel)]="pageSize" (change)="onPageChange(1)">
 <ngb-pagination [collectionSize]="totalItems" (pageChange)="onPageChange($event)" [(page)]="currentPage" [pageSize]="pageSize" [boundaryLinks]="true"></ngb-pagination>
 <button type="button" class="btn btn-primary" [routerLink]="['../examPeriod-form']" >Add exam period</button>

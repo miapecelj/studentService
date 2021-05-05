@@ -4,11 +4,11 @@
   <thead>
   <tr>
     <th scope="col">#</th>
-    <th scope="col">Index</th>
-    <th scope="col">Firstname</th>
-    <th scope="col">Lastname</th>
+    <th sortable="indexNumber" (sort)="onSort($event)" scope="col">Index</th>
+    <th sortable="firstname" (sort)="onSort($event)" scope="col">Firstname</th>
+    <th sortable="lastname" (sort)="onSort($event)" scope="col">Lastname</th>
     <th scope="col">Email</th>
-    <th scope="col">Current Year Of Study</th>
+    <th sortable="currentYearOfStudy" (sort)="onSort($event)" scope="col">Current Year Of Study</th>
     <th scope="col">Action</th>
     <th scope="col">Exams</th>
   </tr>
@@ -30,6 +30,6 @@
   </tr>
   </tbody>
 </table>
-<input type="number" name="pageSize" id="pageSize" [(ngModel)]="pageSize" (change)="onPageChange(1)">
+Items per page:<input type="number" class="itemsPerPage" name="pageSize" id="pageSize" [(ngModel)]="pageSize" (change)="onPageChange(1)">
 <ngb-pagination [collectionSize]="totalItems" (pageChange)="onPageChange($event)" [(page)]="currentPage" [pageSize]="pageSize" [boundaryLinks]="true"></ngb-pagination>
 <button type="button" class="btn btn-primary" [routerLink]="['../student-form']" >Add student</button>
