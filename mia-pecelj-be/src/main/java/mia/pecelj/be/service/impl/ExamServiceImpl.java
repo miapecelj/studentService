@@ -100,15 +100,7 @@ public class ExamServiceImpl implements ExamService {
 			if (!examPeriodEntity.isPresent()) {
 				throw new MyEntityNotPresentedException("examPeriod does not exist");
 			} else {
-				if (examPeriodEntity.get().getExams().stream().map(exam -> exam.getSubject().getId())
-						.collect(Collectors.toList()).contains(dto.getSubject().getId())) {
-					throw new MyValidationException("Exam for this subject already defined in this examPeriod");
-				}
-				if (dto.getDateOfExam().isBefore(examPeriodEntity.get().getStartDate())
-						|| dto.getDateOfExam().isAfter(examPeriodEntity.get().getEndDate())) {
-					throw new MyValidationException("Date of exam must be between "
-							+ examPeriodEntity.get().getStartDate() + " and " + examPeriodEntity.get().getEndDate());
-				}
+				isValid(dto,examPeriodEntity.get());
 
 			}
 		}

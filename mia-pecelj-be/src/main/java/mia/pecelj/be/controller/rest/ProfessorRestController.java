@@ -80,7 +80,6 @@ public class ProfessorRestController {
 	@PostMapping("/addSubject")
 	public @ResponseBody ResponseEntity<Object> save(@RequestParam Long id, @Valid @RequestBody SubjectDto subject,
 			BindingResult bindingResult) {
-		System.out.println(id);
 		if (bindingResult.hasErrors()) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Greska kod dodavanja predmete " + subject);
 		} else {

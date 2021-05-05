@@ -21,6 +21,7 @@ import mia.pecelj.be.exception.MyEntityExistException;
 import mia.pecelj.be.exception.MyEntityNotPresentedException;
 import mia.pecelj.be.exception.MyValidationException;
 import mia.pecelj.be.mapper.ExamEntitySimpleDtoMapper;
+import mia.pecelj.be.mapper.MyStudentEntityDtoMapper;
 import mia.pecelj.be.mapper.StudentEntityDtoMapper;
 import mia.pecelj.be.repository.CityRepository;
 import mia.pecelj.be.repository.ExamRepository;

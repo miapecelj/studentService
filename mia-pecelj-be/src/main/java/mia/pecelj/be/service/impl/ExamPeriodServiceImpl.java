@@ -12,10 +12,16 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import mia.pecelj.be.dto.ExamPeriodDto;
+import mia.pecelj.be.dto.ProfessorSubjectDto;
+import mia.pecelj.be.dto.SimpleSubjectDto;
+import mia.pecelj.be.entity.ExamEntity;
 import mia.pecelj.be.entity.ExamPeriodEntity;
+import mia.pecelj.be.entity.ProfessorSubjectEntity;
 import mia.pecelj.be.exception.MyEntityExistException;
 import mia.pecelj.be.exception.MyEntityNotPresentedException;
 import mia.pecelj.be.exception.MyValidationException;
+import mia.pecelj.be.mapper.ExamEntityDtoMapper;
+import mia.pecelj.be.mapper.ExamEntitySimpleDtoMapper;
 import mia.pecelj.be.mapper.ExamPeriodEntityDtoMapper;
 import mia.pecelj.be.repository.ExamPeriodRepository;
 import mia.pecelj.be.service.ExamPeriodService;
@@ -25,12 +31,14 @@ import mia.pecelj.be.service.ExamPeriodService;
 public class ExamPeriodServiceImpl implements ExamPeriodService {
 	ExamPeriodRepository examPeriodRepository;
 	ExamPeriodEntityDtoMapper examPeriodMapper;
+	ExamEntityDtoMapper examMapper;
 
 	@Autowired
-	public ExamPeriodServiceImpl(ExamPeriodRepository examPeriodRepository,
+	public ExamPeriodServiceImpl(ExamEntityDtoMapper examMapper,ExamPeriodRepository examPeriodRepository,
 			ExamPeriodEntityDtoMapper examPeriodMapper) {
 		this.examPeriodRepository = examPeriodRepository;
 		this.examPeriodMapper = examPeriodMapper;
+		this.examMapper = examMapper;
 	}
 
 	@Override
@@ -75,6 +83,11 @@ public class ExamPeriodServiceImpl implements ExamPeriodService {
 		Optional<ExamPeriodEntity> examPeriodEntity = examPeriodRepository.findById(dto.getId());
 		if (!examPeriodEntity.isPresent()) {
 			return Optional.empty();
+		}
+		List<ExamEntity> exams = examPeriodEntity.get().getExams();
+		for (ExamEntity examEntity : exams) {
+			dto.getExams()
+					.add(examMapper.toDto(examEntity));
 		}
 		ExamPeriodEntity examPeriod = examPeriodRepository.save(examPeriodMapper.toEntity(dto));
 		return Optional.of(examPeriodMapper.toDto(examPeriod));
