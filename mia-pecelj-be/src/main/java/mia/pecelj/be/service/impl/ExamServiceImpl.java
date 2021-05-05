@@ -72,16 +72,8 @@ public class ExamServiceImpl implements ExamService {
 			if (!examPeriodEntity.isPresent()) {
 				throw new MyEntityNotPresentedException("examPeriod does not exist");
 			} else {
-				if (examPeriodEntity.get().getExams().stream().map(exam -> exam.getSubject().getId())
-						.collect(Collectors.toList()).contains(dto.getSubject().getId())) {
-					throw new MyValidationException("Exam for this subject already defined in this examPeriod");
-				}
-				if (dto.getDateOfExam().isBefore(examPeriodEntity.get().getStartDate())
-						|| dto.getDateOfExam().isAfter(examPeriodEntity.get().getEndDate())) {
-					throw new MyValidationException("Date of exam must be between "
-							+ examPeriodEntity.get().getStartDate() + " and " + examPeriodEntity.get().getEndDate());
-				}
-
+				
+				isValid(dto,examPeriodEntity.get());
 			}
 		}
 		Optional<SubjectEntity> subjectEntity = subjectRepository.findById(dto.getSubject().getId());
@@ -153,4 +145,16 @@ public class ExamServiceImpl implements ExamService {
 		return entites;
 	}
 
+	boolean isValid(ExamDto dto, ExamPeriodEntity examPeriodEntity) throws MyValidationException{
+		if (examPeriodEntity.getExams().stream().map(exam -> exam.getSubject().getId())
+				.collect(Collectors.toList()).contains(dto.getSubject().getId())) {
+			throw new MyValidationException("Exam for this subject already defined in this examPeriod");
+		}
+		if (dto.getDateOfExam().isBefore(examPeriodEntity.getStartDate())
+				|| dto.getDateOfExam().isAfter(examPeriodEntity.getEndDate())) {
+			throw new MyValidationException("Date of exam must be between "
+					+ examPeriodEntity.getStartDate() + " and " + examPeriodEntity.getEndDate());
+		}
+		return true;
+	}
 }

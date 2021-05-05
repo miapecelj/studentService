@@ -61,7 +61,6 @@ public class ExamPeriodServiceImpl implements ExamPeriodService {
 		if (entity.isPresent()) {
 			throw new MyEntityExistException("ExamPeriod already exists!", dto);
 		}
-
 		ExamPeriodEntity examPeriod = examPeriodRepository.save(examPeriodMapper.toEntity(dto));
 		return examPeriodMapper.toDto(examPeriod);
 	}
@@ -100,8 +99,8 @@ public class ExamPeriodServiceImpl implements ExamPeriodService {
 
 	public boolean isInterfering(ExamPeriodDto dto) throws MyValidationException {
 		List<ExamPeriodEntity> entities = examPeriodRepository.findAll();
-		if (dto.isActive()
-				&& entities.stream().anyMatch(entity -> entity.isActive() && entity.getId() != dto.getId())) {
+
+		if(examPeriodRepository.findAllByActive(true).size()!=0 && dto.isActive()) {
 			throw new MyValidationException("Active exam period already exist");
 		}
 		if (entities.stream()

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import mia.pecelj.be.entity.ExamEntity;
 
+
 @Repository
 public interface ExamRepository extends JpaRepository<ExamEntity, Long>{
 

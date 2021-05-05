@@ -101,7 +101,7 @@ public class ExamPeriodEntity implements MyEntity {
 	@Override
 	public String toString() {
 		return "ExamPeriodEntity [id=" + id + ", name=" + name + ", startDate=" + startDate + ", endDate=" + endDate
-				+ ", active=" + active + ", exams=" + exams + "]";
+				+ ", active=" + active + "]";
 	}
 
 	@Override

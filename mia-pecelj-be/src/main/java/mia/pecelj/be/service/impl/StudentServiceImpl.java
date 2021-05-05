@@ -21,7 +21,7 @@ import mia.pecelj.be.exception.MyEntityExistException;
 import mia.pecelj.be.exception.MyEntityNotPresentedException;
 import mia.pecelj.be.exception.MyValidationException;
 import mia.pecelj.be.mapper.ExamEntitySimpleDtoMapper;
-import mia.pecelj.be.mapper.MyStudentEntityDtoMapper;
+import mia.pecelj.be.mapper.StudentEntityDtoMapper;
 import mia.pecelj.be.repository.CityRepository;
 import mia.pecelj.be.repository.ExamRepository;
 import mia.pecelj.be.repository.StudentRepository;
@@ -31,12 +31,12 @@ import mia.pecelj.be.service.StudentService;
 @Transactional
 public class StudentServiceImpl implements StudentService {
 	private StudentRepository studentRepository;
-	private MyStudentEntityDtoMapper studentMapper;
+	private StudentEntityDtoMapper studentMapper;
 	private CityRepository cityRepository;
 	private ExamRepository examRepository;
 
 	@Autowired
-	public StudentServiceImpl(StudentRepository studentRepository, MyStudentEntityDtoMapper studentMapper,
+	public StudentServiceImpl(StudentRepository studentRepository, StudentEntityDtoMapper studentMapper,
 			CityRepository cityRepository, ExamEntitySimpleDtoMapper examMapper,ExamRepository examRepository) {
 		this.studentRepository = studentRepository;
 		this.studentMapper = studentMapper;
