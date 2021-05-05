@@ -66,13 +66,13 @@ export class ProfessorFormComponent implements OnInit {
     this.professorForm = this.fb.group(
       {
         phone:[professor? professor.phone:null,[Validators.minLength(9)]],
-        title:[professor? professor.title:null,[Validators.required]],
+        title:[professor && professor.title? this.titles.find(title=>title.id===professor.title.id):null,[Validators.required]],
         firstname:[professor? professor.firstname:null ,[Validators.required, Validators.minLength(3)]],
         lastname:[professor? professor.lastname:null, [Validators.minLength(3),Validators.required]],
         email:[professor? professor.email:null,[Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]],
         address:[professor? professor.address:null,[Validators.minLength(3)]],
         reelectionDate:[professor? professor.reelectionDate:null,[Validators.required]],
-        city:[professor? professor.city:null,[]],
+        city:[professor && professor.city? this.cities?.find(city=>city.postalCode===professor.city.postalCode):null,[]],
         id:[+this.route.snapshot.paramMap.get('id')],
         subjects:[professor? professor.subjects:this.selectedSubjectProfessors]
       }

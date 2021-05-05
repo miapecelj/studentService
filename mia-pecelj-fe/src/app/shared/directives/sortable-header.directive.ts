@@ -27,7 +27,6 @@ export class SortableHeaderDirective {
 
 
   constructor() {
-    console.log('Directive sortable');
    }
 
    rotate() {

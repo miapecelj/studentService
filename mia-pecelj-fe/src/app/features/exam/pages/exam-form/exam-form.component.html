@@ -9,7 +9,7 @@
 
     <div class="mb-3 d-flex flex-column">
       <label for="subject" class="form-label">Subject</label>
-      <select id="subject" class="form-select" [(ngModel)]="selectedSubject" formControlName="subject"  >
+      <select id="subject" class="form-select"  formControlName="subject" >
         <option >Please select subject</option>
         <option *ngFor="let subject of subjects" [ngValue]="subject" >
           {{ subject.name }}
@@ -20,7 +20,7 @@
       <label for="professor" class="form-label">Professor</label>
       <select id="professor" class="form-select" formControlName="professor">
         <option>Please select professor</option>
-        <option *ngFor="let professor of selectedSubject?.professors" [ngValue]="professor.professor">
+        <option *ngFor="let professor of examForm.value.subject?.professors" [ngValue]="professor.professor">
           {{ professor.professor.firstname }} {{ professor.professor.lastname}}
         </option>
       </select>

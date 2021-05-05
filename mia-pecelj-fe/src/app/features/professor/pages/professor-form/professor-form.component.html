@@ -76,7 +76,7 @@
       <label for="title" class="form-label">Title</label>
       <select id="title" class="form-select" formControlName="title">
         <option>Please select title</option>
-        <option *ngFor="let title of titles" [ngValue]="title">
+        <option  *ngFor="let title of titles" [ngValue]="title">
           {{ title.name }}
         </option>
       </select>
@@ -105,9 +105,11 @@
         Add
       </button>
     </div>
-    <div class="d-flex flex-column w-25">
+    <div class="d-flex flex-column w-50">
       <span class="subject-chip" *ngFor="let subjectProfessor of selectedSubjectProfessors;let i=index" >
-        {{ subjectProfessor.subject.name}}<span (click)="removeSubjectAtIndex(i)"class="x">x</span>
+        <div class="d-flex flex-row justify-content-between">
+        <span> {{ subjectProfessor.subject.name}}</span><span (click)="removeSubjectAtIndex(i)"class="x">x</span>
+        </div>
       </span>
     </div>
     <div  class="d-flex flex-row mt-2">
